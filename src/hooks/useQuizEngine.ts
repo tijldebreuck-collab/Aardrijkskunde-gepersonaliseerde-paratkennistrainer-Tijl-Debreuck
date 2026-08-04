@@ -160,9 +160,11 @@ export const useQuizEngine = (
           }
         }
       } else {
-        prefs.selectedRegions.forEach(reg => {
+        const targetRegions = r ? [r] : prefs.selectedRegions;
+        const targetCategories = c ? [c] : prefs.selectedCategories;
+        targetRegions.forEach(reg => {
           const source = reg === 'belgium' ? belgiumData : reg === 'europe' ? europeData : worldData;
-          prefs.selectedCategories.forEach(cat => {
+          targetCategories.forEach(cat => {
             items = items.concat(extractItems(source, cat, reg, m || mode));
           });
         });

@@ -604,7 +604,8 @@
       "coordinates": [
         178.5689,
         -17.315
-      ]
+      ],
+      "capital": "Suva"
     },
     {
       "id": "wd-l-834",
@@ -613,7 +614,8 @@
       "coordinates": [
         34.7417,
         -6.2507
-      ]
+      ],
+      "capital": "Dodoma"
     },
     {
       "id": "wd-l-732",
@@ -622,7 +624,8 @@
       "coordinates": [
         -12.1861,
         24.2782
-      ]
+      ],
+      "capital": "Laayoune"
     },
     {
       "id": "wd-l-124",
@@ -631,7 +634,8 @@
       "coordinates": [
         -96.396,
         60.4769
-      ]
+      ],
+      "capital": "Ottawa"
     },
     {
       "id": "wd-l-840",
@@ -640,7 +644,8 @@
       "coordinates": [
         -103.5725,
         44.7557
-      ]
+      ],
+      "capital": "Washington D.C."
     },
     {
       "id": "wd-l-398",
@@ -649,7 +654,8 @@
       "coordinates": [
         67.2357,
         48.4059
-      ]
+      ],
+      "capital": "Astana"
     },
     {
       "id": "wd-l-860",
@@ -658,7 +664,8 @@
       "coordinates": [
         63.365,
         41.7711
-      ]
+      ],
+      "capital": "Tashkent"
     },
     {
       "id": "wd-l-598",
@@ -667,7 +674,8 @@
       "coordinates": [
         145.3135,
         -6.4573
-      ]
+      ],
+      "capital": "Port Moresby"
     },
     {
       "id": "wd-l-360",
@@ -676,7 +684,8 @@
       "coordinates": [
         117.3646,
         -2.2719
-      ]
+      ],
+      "capital": "Jakarta"
     },
     {
       "id": "wd-l-32",
@@ -685,7 +694,8 @@
       "coordinates": [
         -64.7543,
         -34.7366
-      ]
+      ],
+      "capital": "Buenos Aires"
     },
     {
       "id": "wd-l-152",
@@ -694,7 +704,8 @@
       "coordinates": [
         -71.1779,
         -37.3109
-      ]
+      ],
+      "capital": "Santiago"
     },
     {
       "id": "wd-l-180",
@@ -703,7 +714,8 @@
       "coordinates": [
         23.5768,
         -2.8387
-      ]
+      ],
+      "capital": "Kinshasa"
     },
     {
       "id": "wd-l-706",
@@ -712,7 +724,8 @@
       "coordinates": [
         45.6995,
         4.7415
-      ]
+      ],
+      "capital": "Mogadishu"
     },
     {
       "id": "wd-l-404",
@@ -721,7 +734,8 @@
       "coordinates": [
         37.7914,
         0.5955
-      ]
+      ],
+      "capital": "Nairobi"
     },
     {
       "id": "wd-l-729",
@@ -730,7 +744,8 @@
       "coordinates": [
         29.8306,
         15.9716
-      ]
+      ],
+      "capital": "Khartoem"
     },
     {
       "id": "wd-l-148",
@@ -739,7 +754,8 @@
       "coordinates": [
         18.5738,
         15.2761
-      ]
+      ],
+      "capital": "N'Djamena"
     },
     {
       "id": "wd-l-332",
@@ -748,7 +764,8 @@
       "coordinates": [
         -72.6591,
         18.9003
-      ]
+      ],
+      "capital": "Port-au-Prince"
     },
     {
       "id": "wd-l-214",
@@ -757,7 +774,8 @@
       "coordinates": [
         -70.4619,
         18.8854
-      ]
+      ],
+      "capital": "Santo Domingo"
     },
     {
       "id": "wd-l-643",
@@ -766,7 +784,8 @@
       "coordinates": [
         95.7853,
         66.0678
-      ]
+      ],
+      "capital": "Moskou"
     },
     {
       "id": "wd-l-44",
@@ -775,7 +794,8 @@
       "coordinates": [
         -77.928,
         25.5066
-      ]
+      ],
+      "capital": "Nassau"
     },
     {
       "id": "wd-l-238",
@@ -784,7 +804,8 @@
       "coordinates": [
         -59.4159,
         -51.7163
-      ]
+      ],
+      "capital": "Stanley"
     },
     {
       "id": "wd-l-578",
@@ -793,7 +814,8 @@
       "coordinates": [
         12.8293,
         66.6482
-      ]
+      ],
+      "capital": "Oslo"
     },
     {
       "id": "wd-l-304",
@@ -802,7 +824,8 @@
       "coordinates": [
         -41.9649,
         73.1507
-      ]
+      ],
+      "capital": "Nuuk"
     },
     {
       "id": "wd-l-260",
@@ -811,7 +834,8 @@
       "coordinates": [
         69.5309,
         -49.307
-      ]
+      ],
+      "capital": "Saint-Pierre"
     },
     {
       "id": "wd-l-626",
@@ -820,7 +844,8 @@
       "coordinates": [
         125.9673,
         -8.7679
-      ]
+      ],
+      "capital": "Dili"
     },
     {
       "id": "wd-l-710",
@@ -829,7 +854,8 @@
       "coordinates": [
         25.1581,
         -28.9233
-      ]
+      ],
+      "capital": "Pretoria"
     },
     {
       "id": "wd-l-426",
@@ -838,7 +864,8 @@
       "coordinates": [
         28.1716,
         -29.6246
-      ]
+      ],
+      "capital": "Maseru"
     },
     {
       "id": "wd-l-484",
@@ -847,7 +874,8 @@
       "coordinates": [
         -102.2231,
         23.9134
-      ]
+      ],
+      "capital": "Mexico-Stad"
     },
     {
       "id": "wd-l-858",
@@ -856,7 +884,8 @@
       "coordinates": [
         -56.0099,
         -32.7738
-      ]
+      ],
+      "capital": "Montevideo"
     },
     {
       "id": "wd-l-76",
@@ -865,7 +894,8 @@
       "coordinates": [
         -53.1725,
         -10.6555
-      ]
+      ],
+      "capital": "Brasilia"
     },
     {
       "id": "wd-l-68",
@@ -874,7 +904,8 @@
       "coordinates": [
         -64.6547,
         -16.7039
-      ]
+      ],
+      "capital": "Sucre"
     },
     {
       "id": "wd-l-604",
@@ -883,7 +914,8 @@
       "coordinates": [
         -74.4306,
         -9.1471
-      ]
+      ],
+      "capital": "Lima"
     },
     {
       "id": "wd-l-170",
@@ -892,7 +924,8 @@
       "coordinates": [
         -73.0735,
         3.9163
-      ]
+      ],
+      "capital": "Bogota"
     },
     {
       "id": "wd-l-591",
@@ -901,7 +934,8 @@
       "coordinates": [
         -80.1093,
         8.5326
-      ]
+      ],
+      "capital": "Panama-Stad"
     },
     {
       "id": "wd-l-188",
@@ -910,7 +944,8 @@
       "coordinates": [
         -84.1735,
         9.9658
-      ]
+      ],
+      "capital": "San José"
     },
     {
       "id": "wd-l-558",
@@ -919,7 +954,8 @@
       "coordinates": [
         -85.0215,
         12.8466
-      ]
+      ],
+      "capital": "Managua"
     },
     {
       "id": "wd-l-340",
@@ -928,7 +964,8 @@
       "coordinates": [
         -86.5928,
         14.8251
-      ]
+      ],
+      "capital": "Tegucigalpa"
     },
     {
       "id": "wd-l-222",
@@ -937,7 +974,8 @@
       "coordinates": [
         -88.8719,
         13.7262
-      ]
+      ],
+      "capital": "San Salvador"
     },
     {
       "id": "wd-l-320",
@@ -946,7 +984,8 @@
       "coordinates": [
         -90.3717,
         15.6961
-      ]
+      ],
+      "capital": "Guatemala-Stad"
     },
     {
       "id": "wd-l-84",
@@ -955,7 +994,8 @@
       "coordinates": [
         -88.7038,
         17.1947
-      ]
+      ],
+      "capital": "Belmopan"
     },
     {
       "id": "wd-l-862",
@@ -964,7 +1004,8 @@
       "coordinates": [
         -66.1532,
         7.1608
-      ]
+      ],
+      "capital": "Caracas"
     },
     {
       "id": "wd-l-328",
@@ -973,7 +1014,8 @@
       "coordinates": [
         -58.9694,
         4.7861
-      ]
+      ],
+      "capital": "Georgetown"
     },
     {
       "id": "wd-l-740",
@@ -982,7 +1024,8 @@
       "coordinates": [
         -55.9115,
         4.1197
-      ]
+      ],
+      "capital": "Paramaribo"
     },
     {
       "id": "wd-l-250",
@@ -991,7 +1034,8 @@
       "coordinates": [
         -6.8016,
         43.1403
-      ]
+      ],
+      "capital": "Parijs"
     },
     {
       "id": "wd-l-218",
@@ -1000,7 +1044,8 @@
       "coordinates": [
         -78.3837,
         -1.4544
-      ]
+      ],
+      "capital": "Quito"
     },
     {
       "id": "wd-l-630",
@@ -1009,7 +1054,8 @@
       "coordinates": [
         -66.4791,
         18.238
-      ]
+      ],
+      "capital": "San Juan"
     },
     {
       "id": "wd-l-388",
@@ -1018,7 +1064,8 @@
       "coordinates": [
         -77.3243,
         18.1383
-      ]
+      ],
+      "capital": "Kingston"
     },
     {
       "id": "wd-l-192",
@@ -1027,7 +1074,8 @@
       "coordinates": [
         -78.9318,
         21.6473
-      ]
+      ],
+      "capital": "Havana"
     },
     {
       "id": "wd-l-716",
@@ -1036,7 +1084,8 @@
       "coordinates": [
         29.7886,
         -18.9003
-      ]
+      ],
+      "capital": "Harare"
     },
     {
       "id": "wd-l-72",
@@ -1045,7 +1094,8 @@
       "coordinates": [
         23.783,
         -22.0823
-      ]
+      ],
+      "capital": "Gaborone"
     },
     {
       "id": "wd-l-516",
@@ -1054,7 +1104,8 @@
       "coordinates": [
         17.1422,
         -22.0401
-      ]
+      ],
+      "capital": "Windhoek"
     },
     {
       "id": "wd-l-686",
@@ -1063,7 +1114,8 @@
       "coordinates": [
         -14.506,
         14.3536
-      ]
+      ],
+      "capital": "Dakar"
     },
     {
       "id": "wd-l-466",
@@ -1072,7 +1124,8 @@
       "coordinates": [
         -3.5929,
         17.2404
-      ]
+      ],
+      "capital": "Bamako"
     },
     {
       "id": "wd-l-478",
@@ -1081,7 +1134,8 @@
       "coordinates": [
         -10.3487,
         20.1803
-      ]
+      ],
+      "capital": "Nouakchott"
     },
     {
       "id": "wd-l-204",
@@ -1090,7 +1144,8 @@
       "coordinates": [
         2.3364,
         9.6423
-      ]
+      ],
+      "capital": "Porto-Novo"
     },
     {
       "id": "wd-l-562",
@@ -1099,7 +1154,8 @@
       "coordinates": [
         9.2747,
         17.3404
-      ]
+      ],
+      "capital": "Niamey"
     },
     {
       "id": "wd-l-566",
@@ -1108,7 +1164,8 @@
       "coordinates": [
         7.9858,
         9.5446
-      ]
+      ],
+      "capital": "Abuja"
     },
     {
       "id": "wd-l-120",
@@ -1117,7 +1174,8 @@
       "coordinates": [
         12.606,
         5.6543
-      ]
+      ],
+      "capital": "Yaoundé"
     },
     {
       "id": "wd-l-768",
@@ -1126,7 +1184,8 @@
       "coordinates": [
         0.9981,
         8.4346
-      ]
+      ],
+      "capital": "Lomé"
     },
     {
       "id": "wd-l-288",
@@ -1135,7 +1194,8 @@
       "coordinates": [
         -1.2371,
         7.9235
-      ]
+      ],
+      "capital": "Accra"
     },
     {
       "id": "wd-l-384",
@@ -1144,7 +1204,8 @@
       "coordinates": [
         -5.6119,
         7.5515
-      ]
+      ],
+      "capital": "Yamoussoukro"
     },
     {
       "id": "wd-l-324",
@@ -1153,7 +1214,8 @@
       "coordinates": [
         -11.0552,
         10.45
-      ]
+      ],
+      "capital": "Conakry"
     },
     {
       "id": "wd-l-624",
@@ -1162,7 +1224,8 @@
       "coordinates": [
         -15.1104,
         12.024
-      ]
+      ],
+      "capital": "Bissau"
     },
     {
       "id": "wd-l-430",
@@ -1171,7 +1234,8 @@
       "coordinates": [
         -9.4086,
         6.4303
-      ]
+      ],
+      "capital": "Monrovia"
     },
     {
       "id": "wd-l-694",
@@ -1180,7 +1244,8 @@
       "coordinates": [
         -11.7954,
         8.5299
-      ]
+      ],
+      "capital": "Freetown"
     },
     {
       "id": "wd-l-854",
@@ -1189,7 +1254,8 @@
       "coordinates": [
         -1.7828,
         12.313
-      ]
+      ],
+      "capital": "Ouagadougou"
     },
     {
       "id": "wd-l-140",
@@ -1198,7 +1264,8 @@
       "coordinates": [
         20.3677,
         6.5468
-      ]
+      ],
+      "capital": "Bangui"
     },
     {
       "id": "wd-l-178",
@@ -1207,7 +1274,8 @@
       "coordinates": [
         15.136,
         -0.8367
-      ]
+      ],
+      "capital": "Brazzaville"
     },
     {
       "id": "wd-l-266",
@@ -1216,7 +1284,8 @@
       "coordinates": [
         11.6874,
         -0.6469
-      ]
+      ],
+      "capital": "Libreville"
     },
     {
       "id": "wd-l-226",
@@ -1225,7 +1294,8 @@
       "coordinates": [
         10.3657,
         1.6464
-      ]
+      ],
+      "capital": "Malabo"
     },
     {
       "id": "wd-l-894",
@@ -1234,7 +1304,8 @@
       "coordinates": [
         27.7613,
         -13.393
-      ]
+      ],
+      "capital": "Lusaka"
     },
     {
       "id": "wd-l-454",
@@ -1243,7 +1314,8 @@
       "coordinates": [
         34.186,
         -13.1592
-      ]
+      ],
+      "capital": "Lilongwe"
     },
     {
       "id": "wd-l-508",
@@ -1252,7 +1324,8 @@
       "coordinates": [
         35.5422,
         -17.1541
-      ]
+      ],
+      "capital": "Maputo"
     },
     {
       "id": "wd-l-748",
@@ -1261,7 +1334,8 @@
       "coordinates": [
         31.3951,
         -26.4896
-      ]
+      ],
+      "capital": "Mbabane"
     },
     {
       "id": "wd-l-24",
@@ -1270,7 +1344,8 @@
       "coordinates": [
         17.465,
         -12.2256
-      ]
+      ],
+      "capital": "Luanda"
     },
     {
       "id": "wd-l-108",
@@ -1279,7 +1354,8 @@
       "coordinates": [
         29.914,
         -3.3777
-      ]
+      ],
+      "capital": "Gitega"
     },
     {
       "id": "wd-l-376",
@@ -1288,7 +1364,8 @@
       "coordinates": [
         35.001,
         31.4791
-      ]
+      ],
+      "capital": "Jeruzalem"
     },
     {
       "id": "wd-l-422",
@@ -1297,7 +1374,8 @@
       "coordinates": [
         35.8684,
         33.9102
-      ]
+      ],
+      "capital": "Beiroet"
     },
     {
       "id": "wd-l-450",
@@ -1306,7 +1384,8 @@
       "coordinates": [
         46.7294,
         -19.3012
-      ]
+      ],
+      "capital": "Antananarivo"
     },
     {
       "id": "wd-l-275",
@@ -1315,7 +1394,8 @@
       "coordinates": [
         35.2728,
         31.9398
-      ]
+      ],
+      "capital": "Ramallah"
     },
     {
       "id": "wd-l-270",
@@ -1324,7 +1404,8 @@
       "coordinates": [
         -15.4327,
         13.4767
-      ]
+      ],
+      "capital": "Banjul"
     },
     {
       "id": "wd-l-788",
@@ -1333,7 +1414,8 @@
       "coordinates": [
         9.5387,
         34.1438
-      ]
+      ],
+      "capital": "Tunis"
     },
     {
       "id": "wd-l-12",
@@ -1342,7 +1424,8 @@
       "coordinates": [
         2.612,
         28.0855
-      ]
+      ],
+      "capital": "Algiers"
     },
     {
       "id": "wd-l-400",
@@ -1351,7 +1434,8 @@
       "coordinates": [
         36.7663,
         31.2402
-      ]
+      ],
+      "capital": "Amman"
     },
     {
       "id": "wd-l-784",
@@ -1360,7 +1444,8 @@
       "coordinates": [
         54.2004,
         23.871
-      ]
+      ],
+      "capital": "Abu Dhabi"
     },
     {
       "id": "wd-l-634",
@@ -1369,7 +1454,8 @@
       "coordinates": [
         51.1838,
         25.321
-      ]
+      ],
+      "capital": "Doha"
     },
     {
       "id": "wd-l-414",
@@ -1378,7 +1464,8 @@
       "coordinates": [
         47.6008,
         29.3072
-      ]
+      ],
+      "capital": "Koeweit"
     },
     {
       "id": "wd-l-368",
@@ -1387,7 +1474,8 @@
       "coordinates": [
         43.7869,
         33.0097
-      ]
+      ],
+      "capital": "Bagdad"
     },
     {
       "id": "wd-l-512",
@@ -1396,7 +1484,8 @@
       "coordinates": [
         56.0677,
         20.5915
-      ]
+      ],
+      "capital": "Muscat"
     },
     {
       "id": "wd-l-548",
@@ -1405,7 +1494,8 @@
       "coordinates": [
         167.0729,
         -15.5423
-      ]
+      ],
+      "capital": "Port Vila"
     },
     {
       "id": "wd-l-116",
@@ -1414,7 +1504,8 @@
       "coordinates": [
         104.8741,
         12.6849
-      ]
+      ],
+      "capital": "Phnom Penh"
     },
     {
       "id": "wd-l-764",
@@ -1423,7 +1514,8 @@
       "coordinates": [
         101.0025,
         14.9807
-      ]
+      ],
+      "capital": "Bangkok"
     },
     {
       "id": "wd-l-418",
@@ -1432,7 +1524,8 @@
       "coordinates": [
         103.7872,
         18.4309
-      ]
+      ],
+      "capital": "Vientiane"
     },
     {
       "id": "wd-l-104",
@@ -1441,7 +1534,8 @@
       "coordinates": [
         96.5132,
         20.9448
-      ]
+      ],
+      "capital": "Naypyidaw"
     },
     {
       "id": "wd-l-704",
@@ -1450,7 +1544,8 @@
       "coordinates": [
         106.3329,
         16.5556
-      ]
+      ],
+      "capital": "Hanoi"
     },
     {
       "id": "wd-l-408",
@@ -1459,7 +1554,8 @@
       "coordinates": [
         127.1308,
         40.1297
-      ]
+      ],
+      "capital": "Pyongyang"
     },
     {
       "id": "wd-l-410",
@@ -1468,7 +1564,8 @@
       "coordinates": [
         127.8199,
         36.4187
-      ]
+      ],
+      "capital": "Seoel"
     },
     {
       "id": "wd-l-496",
@@ -1477,7 +1574,8 @@
       "coordinates": [
         103.0157,
         46.9542
-      ]
+      ],
+      "capital": "Ulaanbaatar"
     },
     {
       "id": "wd-l-356",
@@ -1486,7 +1584,8 @@
       "coordinates": [
         79.5399,
         22.8192
-      ]
+      ],
+      "capital": "New Delhi"
     },
     {
       "id": "wd-l-50",
@@ -1495,7 +1594,8 @@
       "coordinates": [
         90.2763,
         23.8339
-      ]
+      ],
+      "capital": "Dhaka"
     },
     {
       "id": "wd-l-64",
@@ -1504,7 +1604,8 @@
       "coordinates": [
         90.4733,
         27.4296
-      ]
+      ],
+      "capital": "Thimphu"
     },
     {
       "id": "wd-l-524",
@@ -1513,7 +1614,8 @@
       "coordinates": [
         84.0435,
         28.249
-      ]
+      ],
+      "capital": "Kathmandu"
     },
     {
       "id": "wd-l-586",
@@ -1522,7 +1624,8 @@
       "coordinates": [
         69.235,
         29.9082
-      ]
+      ],
+      "capital": "Islamabad"
     },
     {
       "id": "wd-l-4",
@@ -1531,7 +1634,8 @@
       "coordinates": [
         66.0038,
         33.8403
-      ]
+      ],
+      "capital": "Kabul"
     },
     {
       "id": "wd-l-762",
@@ -1540,7 +1644,8 @@
       "coordinates": [
         71.0477,
         38.5892
-      ]
+      ],
+      "capital": "Doesjanbe"
     },
     {
       "id": "wd-l-417",
@@ -1549,7 +1654,8 @@
       "coordinates": [
         74.5871,
         41.5187
-      ]
+      ],
+      "capital": "Biskek"
     },
     {
       "id": "wd-l-795",
@@ -1558,7 +1664,8 @@
       "coordinates": [
         59.3484,
         39.1022
-      ]
+      ],
+      "capital": "Asjchabad"
     },
     {
       "id": "wd-l-364",
@@ -1567,7 +1674,8 @@
       "coordinates": [
         54.453,
         32.4741
-      ]
+      ],
+      "capital": "Teheran"
     },
     {
       "id": "wd-l-760",
@@ -1576,7 +1684,8 @@
       "coordinates": [
         38.5234,
         35.0085
-      ]
+      ],
+      "capital": "Damascus"
     },
     {
       "id": "wd-l-51",
@@ -1585,7 +1694,8 @@
       "coordinates": [
         45.0096,
         40.2144
-      ]
+      ],
+      "capital": "Jerevan"
     },
     {
       "id": "wd-l-752",
@@ -1594,7 +1704,8 @@
       "coordinates": [
         16.1091,
         62.4185
-      ]
+      ],
+      "capital": "Stockholm"
     },
     {
       "id": "wd-l-112",
@@ -1603,7 +1714,8 @@
       "coordinates": [
         27.9649,
         53.4952
-      ]
+      ],
+      "capital": "Minsk"
     },
     {
       "id": "wd-l-804",
@@ -1612,7 +1724,8 @@
       "coordinates": [
         31.2924,
         49.1866
-      ]
+      ],
+      "capital": "Kyiv"
     },
     {
       "id": "wd-l-616",
@@ -1621,7 +1734,8 @@
       "coordinates": [
         19.3438,
         52.1341
-      ]
+      ],
+      "capital": "Warschau"
     },
     {
       "id": "wd-l-40",
@@ -1630,7 +1744,8 @@
       "coordinates": [
         14.0602,
         47.621
-      ]
+      ],
+      "capital": "Wenen"
     },
     {
       "id": "wd-l-348",
@@ -1639,7 +1754,8 @@
       "coordinates": [
         19.343,
         47.2035
-      ]
+      ],
+      "capital": "Boedapest"
     },
     {
       "id": "wd-l-498",
@@ -1648,7 +1764,8 @@
       "coordinates": [
         28.4197,
         47.1964
-      ]
+      ],
+      "capital": "Chisinau"
     },
     {
       "id": "wd-l-642",
@@ -1657,7 +1774,8 @@
       "coordinates": [
         24.9541,
         45.8534
-      ]
+      ],
+      "capital": "Boekarest"
     },
     {
       "id": "wd-l-440",
@@ -1666,7 +1784,8 @@
       "coordinates": [
         23.8881,
         55.2828
-      ]
+      ],
+      "capital": "Vilnius"
     },
     {
       "id": "wd-l-428",
@@ -1675,7 +1794,8 @@
       "coordinates": [
         24.8394,
         56.8173
-      ]
+      ],
+      "capital": "Riga"
     },
     {
       "id": "wd-l-233",
@@ -1684,7 +1804,8 @@
       "coordinates": [
         25.8306,
         58.6414
-      ]
+      ],
+      "capital": "Tallinn"
     },
     {
       "id": "wd-l-276",
@@ -1693,7 +1814,8 @@
       "coordinates": [
         10.2704,
         51.0774
-      ]
+      ],
+      "capital": "Berlijn"
     },
     {
       "id": "wd-l-100",
@@ -1702,7 +1824,8 @@
       "coordinates": [
         25.1875,
         42.7559
-      ]
+      ],
+      "capital": "Sofia"
     },
     {
       "id": "wd-l-300",
@@ -1711,7 +1834,8 @@
       "coordinates": [
         22.7201,
         39.0367
-      ]
+      ],
+      "capital": "Athene"
     },
     {
       "id": "wd-l-792",
@@ -1720,7 +1844,8 @@
       "coordinates": [
         35.1172,
         39.1451
-      ]
+      ],
+      "capital": "Ankara"
     },
     {
       "id": "wd-l-8",
@@ -1729,7 +1854,8 @@
       "coordinates": [
         20.0338,
         41.1344
-      ]
+      ],
+      "capital": "Tirana"
     },
     {
       "id": "wd-l-191",
@@ -1738,7 +1864,8 @@
       "coordinates": [
         16.5673,
         45.0098
-      ]
+      ],
+      "capital": "Zagreb"
     },
     {
       "id": "wd-l-756",
@@ -1747,7 +1874,8 @@
       "coordinates": [
         8.1158,
         46.7928
-      ]
+      ],
+      "capital": "Bern"
     },
     {
       "id": "wd-l-442",
@@ -1756,7 +1884,8 @@
       "coordinates": [
         5.9661,
         49.7649
-      ]
+      ],
+      "capital": "Luxemburg"
     },
     {
       "id": "wd-l-56",
@@ -1765,7 +1894,8 @@
       "coordinates": [
         4.5877,
         50.6526
-      ]
+      ],
+      "capital": "Brussel"
     },
     {
       "id": "wd-l-528",
@@ -1774,7 +1904,8 @@
       "coordinates": [
         5.4999,
         52.2929
-      ]
+      ],
+      "capital": "Amsterdam"
     },
     {
       "id": "wd-l-620",
@@ -1783,7 +1914,8 @@
       "coordinates": [
         -8.0611,
         39.6072
-      ]
+      ],
+      "capital": "Lissabon"
     },
     {
       "id": "wd-l-724",
@@ -1792,7 +1924,8 @@
       "coordinates": [
         -3.6242,
         40.3207
-      ]
+      ],
+      "capital": "Madrid"
     },
     {
       "id": "wd-l-372",
@@ -1801,7 +1934,8 @@
       "coordinates": [
         -8.017,
         53.1718
-      ]
+      ],
+      "capital": "Dublin"
     },
     {
       "id": "wd-l-540",
@@ -1810,7 +1944,8 @@
       "coordinates": [
         165.5284,
         -21.261
-      ]
+      ],
+      "capital": "Nouméa"
     },
     {
       "id": "wd-l-90",
@@ -1819,7 +1954,8 @@
       "coordinates": [
         159.9595,
         -8.8523
-      ]
+      ],
+      "capital": "Honiara"
     },
     {
       "id": "wd-l-554",
@@ -1828,7 +1964,8 @@
       "coordinates": [
         172.9514,
         -41.5511
-      ]
+      ],
+      "capital": "Wellington"
     },
     {
       "id": "wd-l-36",
@@ -1837,7 +1974,8 @@
       "coordinates": [
         134.3141,
         -25.7631
-      ]
+      ],
+      "capital": "Canberra"
     },
     {
       "id": "wd-l-144",
@@ -1846,7 +1984,8 @@
       "coordinates": [
         80.6679,
         7.6995
-      ]
+      ],
+      "capital": "Sri Jayawardenepura Kotte"
     },
     {
       "id": "wd-l-156",
@@ -1855,7 +1994,8 @@
       "coordinates": [
         103.4525,
         36.6834
-      ]
+      ],
+      "capital": "Beijing"
     },
     {
       "id": "wd-l-158",
@@ -1864,7 +2004,8 @@
       "coordinates": [
         120.9716,
         23.739
-      ]
+      ],
+      "capital": "Taipei"
     },
     {
       "id": "wd-l-380",
@@ -1873,7 +2014,8 @@
       "coordinates": [
         12.269,
         42.6708
-      ]
+      ],
+      "capital": "Rome"
     },
     {
       "id": "wd-l-208",
@@ -1882,7 +2024,8 @@
       "coordinates": [
         9.8855,
         56.0591
-      ]
+      ],
+      "capital": "Kopenhagen"
     },
     {
       "id": "wd-l-826",
@@ -1891,7 +2034,8 @@
       "coordinates": [
         -2.7597,
         53.8085
-      ]
+      ],
+      "capital": "Londen"
     },
     {
       "id": "wd-l-352",
@@ -1900,7 +2044,8 @@
       "coordinates": [
         -18.7651,
         65.0798
-      ]
+      ],
+      "capital": "Reykjavik"
     },
     {
       "id": "wd-l-31",
@@ -1909,7 +2054,8 @@
       "coordinates": [
         47.555,
         40.2195
-      ]
+      ],
+      "capital": "Baku"
     },
     {
       "id": "wd-l-268",
@@ -1918,7 +2064,8 @@
       "coordinates": [
         43.4991,
         42.1679
-      ]
+      ],
+      "capital": "Tbilisi"
     },
     {
       "id": "wd-l-608",
@@ -1927,7 +2074,8 @@
       "coordinates": [
         122.9376,
         11.7197
-      ]
+      ],
+      "capital": "Manilla"
     },
     {
       "id": "wd-l-458",
@@ -1936,7 +2084,8 @@
       "coordinates": [
         109.6996,
         3.7464
-      ]
+      ],
+      "capital": "Kuala Lumpur"
     },
     {
       "id": "wd-l-96",
@@ -1945,7 +2094,8 @@
       "coordinates": [
         114.9151,
         4.6901
-      ]
+      ],
+      "capital": "Bandar Seri Begawan"
     },
     {
       "id": "wd-l-705",
@@ -1954,7 +2104,8 @@
       "coordinates": [
         14.9342,
         46.1259
-      ]
+      ],
+      "capital": "Ljubljana"
     },
     {
       "id": "wd-l-246",
@@ -1963,7 +2114,8 @@
       "coordinates": [
         26.1416,
         64.261
-      ]
+      ],
+      "capital": "Helsinki"
     },
     {
       "id": "wd-l-703",
@@ -1972,7 +2124,8 @@
       "coordinates": [
         19.4975,
         48.7333
-      ]
+      ],
+      "capital": "Bratislava"
     },
     {
       "id": "wd-l-203",
@@ -1981,7 +2134,8 @@
       "coordinates": [
         15.3429,
         49.7798
-      ]
+      ],
+      "capital": "Praag"
     },
     {
       "id": "wd-l-232",
@@ -1990,7 +2144,8 @@
       "coordinates": [
         38.6885,
         15.4273
-      ]
+      ],
+      "capital": "Asmara"
     },
     {
       "id": "wd-l-392",
@@ -1999,7 +2154,8 @@
       "coordinates": [
         137.7123,
         37.5367
-      ]
+      ],
+      "capital": "Tokio"
     },
     {
       "id": "wd-l-600",
@@ -2008,7 +2164,8 @@
       "coordinates": [
         -58.4318,
         -23.2297
-      ]
+      ],
+      "capital": "Asuncion"
     },
     {
       "id": "wd-l-887",
@@ -2017,7 +2174,8 @@
       "coordinates": [
         47.5151,
         15.9221
-      ]
+      ],
+      "capital": "Sanaa"
     },
     {
       "id": "wd-l-682",
@@ -2026,7 +2184,8 @@
       "coordinates": [
         44.6413,
         24.0893
-      ]
+      ],
+      "capital": "Riyadh"
     },
     {
       "id": "wd-l-10",
@@ -2044,7 +2203,8 @@
       "coordinates": [
         33.0391,
         34.9075
-      ]
+      ],
+      "capital": "Nicosia"
     },
     {
       "id": "wd-l-504",
@@ -2053,7 +2213,8 @@
       "coordinates": [
         -8.6937,
         29.8154
-      ]
+      ],
+      "capital": "Rabat"
     },
     {
       "id": "wd-l-818",
@@ -2062,7 +2223,8 @@
       "coordinates": [
         29.861,
         26.4749
-      ]
+      ],
+      "capital": "Cairo"
     },
     {
       "id": "wd-l-434",
@@ -2071,7 +2233,8 @@
       "coordinates": [
         18.0304,
         26.9882
-      ]
+      ],
+      "capital": "Tripoli"
     },
     {
       "id": "wd-l-231",
@@ -2080,7 +2243,8 @@
       "coordinates": [
         39.5598,
         8.6459
-      ]
+      ],
+      "capital": "Addis Abeba"
     },
     {
       "id": "wd-l-262",
@@ -2089,7 +2253,8 @@
       "coordinates": [
         42.4972,
         11.7728
-      ]
+      ],
+      "capital": "Djibouti"
     },
     {
       "id": "wd-l-800",
@@ -2098,7 +2263,8 @@
       "coordinates": [
         32.3574,
         1.2951
-      ]
+      ],
+      "capital": "Kampala"
     },
     {
       "id": "wd-l-646",
@@ -2107,7 +2273,8 @@
       "coordinates": [
         29.9187,
         -2.0137
-      ]
+      ],
+      "capital": "Kigali"
     },
     {
       "id": "wd-l-70",
@@ -2116,7 +2283,8 @@
       "coordinates": [
         17.8229,
         44.1788
-      ]
+      ],
+      "capital": "Sarajevo"
     },
     {
       "id": "wd-l-807",
@@ -2125,7 +2293,8 @@
       "coordinates": [
         21.6961,
         41.6058
-      ]
+      ],
+      "capital": "Skopje"
     },
     {
       "id": "wd-l-688",
@@ -2134,7 +2303,8 @@
       "coordinates": [
         20.8369,
         44.2232
-      ]
+      ],
+      "capital": "Belgrado"
     },
     {
       "id": "wd-l-499",
@@ -2143,7 +2313,8 @@
       "coordinates": [
         19.2854,
         42.7878
-      ]
+      ],
+      "capital": "Podgorica"
     },
     {
       "id": "wd-l-780",
@@ -2152,7 +2323,8 @@
       "coordinates": [
         -61.3314,
         10.4285
-      ]
+      ],
+      "capital": "Port of Spain"
     },
     {
       "id": "wd-l-728",
@@ -2161,7 +2333,8 @@
       "coordinates": [
         30.202,
         7.2931
-      ]
+      ],
+      "capital": "Juba"
     }
   ],
   "steden": [

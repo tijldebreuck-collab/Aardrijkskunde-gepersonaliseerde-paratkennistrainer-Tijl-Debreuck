@@ -104,7 +104,7 @@ function AdminLoginForm({ theme, onSubmit, password, setPassword, error, loading
 
 export default function App() {
   // Global View Navigation Tabs
-  const [activeTab, setActiveTab] = useState<'home' | 'dashboard' | 'stats' | 'settings' | 'advice' | 'debug' | 'admin'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'home' | 'dashboard' | 'mylearning' | 'stats' | 'settings' | 'advice' | 'debug' | 'admin'>('dashboard');
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     return (localStorage.getItem('geo_theme') as 'dark' | 'light') || 'light';
   });
@@ -399,9 +399,7 @@ export default function App() {
         </div>
         <div className="nav-links">
           <a href="#" className={`nav-link ${activeTab === 'dashboard' && !isPlaying ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); quitQuizSession(); setActiveTab('dashboard'); }}>{t.navDashboard}</a>
-          <button onClick={() => setIsMyLearningOpen(true)} className="nav-link font-bold text-blue-600 dark:text-blue-400">
-            {t.navMyLearning}
-          </button>
+          <a href="#" className={`nav-link ${activeTab === 'mylearning' && !isPlaying ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); quitQuizSession(); setActiveTab('mylearning'); }}>{t.navMyLearning}</a>
           
           {user && (
              <a href="#" className={`nav-link ${activeTab === 'stats' && !isPlaying ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); quitQuizSession(); setActiveTab('stats'); }}>{t.navStats}</a>
@@ -431,16 +429,6 @@ export default function App() {
           </button>
         </div>
       </header>
-      
-      <MyLearningContent 
-        isOpen={isMyLearningOpen}
-        onClose={() => setIsMyLearningOpen(false)}
-        preferences={preferences}
-        updatePreferences={updatePreferences}
-        onStartQuiz={startMyLearningQuiz}
-        theme={theme}
-        language={language}
-      />
       
       <AnimatePresence>
         {pendingMigration && (
@@ -647,6 +635,17 @@ export default function App() {
                   language={language} 
                 />
               </div>
+            )}
+
+            {/* View Tab Mijn Leerstof */}
+            {activeTab === 'mylearning' && (
+              <MyLearningContent 
+                preferences={preferences}
+                updatePreferences={updatePreferences}
+                onStartQuiz={startMyLearningQuiz}
+                theme={theme}
+                language={language}
+              />
             )}
 
             {/* View Tab Stats */}

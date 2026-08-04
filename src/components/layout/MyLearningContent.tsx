@@ -12,8 +12,8 @@ import { getCategoryLabel } from '../../utils/questionDescriptions';
 import { translateName } from '../../utils/language';
 
 interface Props {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
   preferences: UserPreferences;
   updatePreferences: (newPrefs: Partial<UserPreferences>) => void;
   onStartQuiz: (folderId?: string, quizMode?: 'multiple-choice' | 'map' | 'flag') => void;
@@ -172,38 +172,21 @@ export default function MyLearningContent({ isOpen, onClose, preferences, update
   };
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
-          />
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className={`relative w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col rounded-3xl shadow-2xl ${
-              isDark ? 'bg-slate-900 text-white' : 'bg-white text-slate-900'
-            }`}
-          >
-            <div className="p-6 sm:p-8 shrink-0 flex items-center justify-between border-b border-slate-200 dark:border-slate-800">
-              <h2 className="text-2xl font-bold">{t.myLearningTitle}</h2>
-              <button
-                onClick={onClose}
-                className={`p-2 rounded-full transition-colors ${
-                  isDark ? 'hover:bg-slate-800 text-slate-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-900'
-                }`}
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-            
-            <div className="p-6 sm:p-8 overflow-y-auto flex-1">
-              {view === 'list' ? (
+    <div className={`space-y-6 animate-fade-in max-w-4xl mx-auto ${isDark ? 'text-white' : 'text-slate-900'}`}>
+      <div className={`p-6 sm:p-8 rounded-3xl border shadow-xl ${
+        isDark ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'
+      }`}>
+        <div className="flex items-center justify-between pb-6 mb-6 border-b border-slate-200 dark:border-slate-800">
+          <div>
+            <h2 className="text-2xl font-extrabold">{t.myLearningTitle}</h2>
+            <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+              Stel je eigen studiemappen samen of oefen aangepaste leersets.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          {view === 'list' ? (
                 <div className="space-y-6">
                   <div className="flex justify-between items-center">
                     <h3 className="text-lg font-bold">Mijn Mappen</h3>
@@ -439,10 +422,8 @@ export default function MyLearningContent({ isOpen, onClose, preferences, update
                   </div>
                 </div>
               )}
-            </div>
-          </motion.div>
         </div>
-      )}
-    </AnimatePresence>
+      </div>
+    </div>
   );
 }
