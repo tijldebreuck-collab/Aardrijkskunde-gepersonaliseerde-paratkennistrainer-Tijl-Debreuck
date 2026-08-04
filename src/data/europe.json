@@ -184,7 +184,7 @@
     },
     {
       "id": "eu-l-bel",
-      "name": "Belgi\u00eb",
+      "name": "België",
       "capital": "Brussel",
       "category": "country",
       "coordinates": [
@@ -329,7 +329,7 @@
       "alternatives": [
         "UK",
         "United Kingdom",
-        "Groot-Brittanni\u00eb",
+        "Groot-Brittannië",
         "Engeland",
         "Great Britain"
       ],
@@ -476,7 +476,7 @@
       ],
       "alternatives": [
         "Austria",
-        "\u00d6sterreich",
+        "Österreich",
         "Osterreich"
       ],
       "difficulty": "gemiddeld"
@@ -521,7 +521,7 @@
     },
     {
       "id": "eu-l-ita",
-      "name": "Itali\u00eb",
+      "name": "Italië",
       "capital": "Rome",
       "category": "country",
       "coordinates": [
@@ -625,7 +625,7 @@
       ],
       "alternatives": [
         "Spain",
-        "Espa\u00f1a",
+        "España",
         "Espana"
       ],
       "difficulty": "makkelijk"
@@ -669,7 +669,7 @@
     },
     {
       "id": "eu-l-tsj",
-      "name": "Tsjechi\u00eb",
+      "name": "Tsjechië",
       "capital": "Praag",
       "category": "country",
       "coordinates": [
@@ -781,7 +781,7 @@
     },
     {
       "id": "eu-l-kro",
-      "name": "Kroati\u00eb",
+      "name": "Kroatië",
       "capital": "Zagreb",
       "category": "country",
       "coordinates": [
@@ -818,7 +818,7 @@
     },
     {
       "id": "eu-l-slv",
-      "name": "Sloveni\u00eb",
+      "name": "Slovenië",
       "capital": "Ljubljana",
       "category": "country",
       "coordinates": [
@@ -854,7 +854,7 @@
     },
     {
       "id": "eu-l-ser",
-      "name": "Servi\u00eb",
+      "name": "Servië",
       "capital": "Belgrado",
       "category": "country",
       "coordinates": [
@@ -962,7 +962,7 @@
     },
     {
       "id": "eu-l-alb",
-      "name": "Albani\u00eb",
+      "name": "Albanië",
       "capital": "Tirana",
       "category": "country",
       "coordinates": [
@@ -998,7 +998,7 @@
     },
     {
       "id": "eu-l-bos",
-      "name": "Bosni\u00eb en Herzegovina",
+      "name": "Bosnië en Herzegovina",
       "capital": "Sarajevo",
       "category": "country",
       "coordinates": [
@@ -1037,7 +1037,7 @@
     },
     {
       "id": "eu-l-nma",
-      "name": "Noord-Macedoni\u00eb",
+      "name": "Noord-Macedonië",
       "capital": "Skopje",
       "category": "country",
       "coordinates": [
@@ -1068,7 +1068,7 @@
       ],
       "alternatives": [
         "North Macedonia",
-        "Macedoni\u00eb"
+        "Macedonië"
       ],
       "difficulty": "gemiddeld"
     },
@@ -1147,7 +1147,7 @@
     },
     {
       "id": "eu-l-roe",
-      "name": "Roemeni\u00eb",
+      "name": "Roemenië",
       "capital": "Boekarest",
       "category": "country",
       "coordinates": [
@@ -1184,7 +1184,7 @@
     },
     {
       "id": "eu-l-mol",
-      "name": "Moldavi\u00eb",
+      "name": "Moldavië",
       "capital": "Chisinau",
       "category": "country",
       "coordinates": [
@@ -1221,7 +1221,7 @@
     },
     {
       "id": "eu-l-oek",
-      "name": "Oekra\u00efne",
+      "name": "Oekraïne",
       "capital": "Kiev",
       "category": "country",
       "coordinates": [
@@ -1566,7 +1566,7 @@
     },
     {
       "id": "eu-s-egeische",
-      "name": "Ege\u00efsche Zee",
+      "name": "Egeïsche Zee",
       "category": "sea",
       "alternatives": [
         "Egeische Zee"
@@ -1695,7 +1695,7 @@
     },
     {
       "id": "eu-r-rhone",
-      "name": "Rh\u00f4ne",
+      "name": "Rhône",
       "category": "river",
       "alternatives": [
         "Rhone"
@@ -1739,7 +1739,7 @@
   "mountains": [
     {
       "id": "eu-m-pyreneen",
-      "name": "Pyrenee\u00ebn",
+      "name": "Pyreneeën",
       "category": "mountain",
       "alternatives": [
         "Pyreneen"
@@ -1786,7 +1786,7 @@
     },
     {
       "id": "eu-i-sardinie",
-      "name": "Sardini\u00eb",
+      "name": "Sardinië",
       "category": "mountain",
       "alternatives": [
         "Sardinie"
@@ -1795,7 +1795,7 @@
     },
     {
       "id": "eu-i-sicilie",
-      "name": "Sicili\u00eb",
+      "name": "Sicilië",
       "category": "mountain",
       "alternatives": [
         "Sicilie"
@@ -1828,7 +1828,7 @@
     },
     {
       "id": "eu-p-scandinavie",
-      "name": "Scandinavi\u00eb",
+      "name": "Scandinavië",
       "category": "mountain",
       "alternatives": [
         "Scandinavisch Schiereiland"

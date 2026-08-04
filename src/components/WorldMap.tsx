@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import * as d3 from 'd3';
 import { motion, AnimatePresence } from 'motion/react';
 import * as topojson from 'topojson-client';
-import { worldCapitals, worldRivers, worldMountains, GeoFeature } from '../data/geoData';
+import { worldCapitals, worldRivers, worldMountains, worldSeas, GeoFeature } from '../data/geoData';
 import worldJSON from '../data/world.json';
 import { Layers, Tag } from 'lucide-react';
 import { translateName, Language } from '../utils/language';
@@ -20,58 +20,188 @@ interface WorldMapProps {
   showCorrectAnswer?: boolean;
   wrongItems?: string[];
   language?: Language;
+  allowedItemIds?: string[];
 }
 
 // Map numeric IDs from world-atlas to our world.json's IDs
 const countryIdMap: Record<number, string> = {
-  124: "wd-l-can", // Canada
-  840: "wd-l-usa", // USA
-  484: "wd-l-mex", // Mexico
-  192: "wd-l-cub", // Cuba
-  76:  "wd-l-bra", // Brazil
-  862: "wd-l-ven", // Venezuela
-  170: "wd-l-col", // Colombia
-  604: "wd-l-per", // Peru
-  152: "wd-l-chi", // Chile
-  32:  "wd-l-arg", // Argentina
-  818: "wd-l-egy", // Egypt
-  12:  "wd-l-alg", // Algeria
-  434: "wd-l-lby", // Libya
-  504: "wd-l-mar", // Morocco
-  788: "wd-l-tun", // Tunisia
-  706: "wd-l-som", // Somalia
-  231: "wd-l-eth", // Ethiopia
-  736: "wd-l-sud", // Sudan
-  404: "wd-l-ken", // Kenya
-  646: "wd-l-rwa", // Rwanda
-  108: "wd-l-bur", // Burundi
-  466: "wd-l-mli", // Mali
-  566: "wd-l-nga", // Nigeria
-  384: "wd-l-civ", // Ivory Coast
-  686: "wd-l-sen", // Senegal
-  180: "wd-l-cod", // DR Congo
-  710: "wd-l-zaf", // South Africa
-  643: "wd-l-rus", // Russia
-  804: "wd-l-ukr", // Ukraine
-  586: "wd-l-pak", // Pakistan
-  4:   "wd-l-afg", // Afghanistan
-  760: "wd-l-syr", // Syria
-  376: "wd-l-isr", // Israel
-  360: "wd-l-idn", // Indonesia
-  608: "wd-l-phl", // Philippines
-  764: "wd-l-tha", // Thailand
-  422: "wd-l-lbn", // Lebanon
-  400: "wd-l-jor", // Jordan
-  682: "wd-l-sau", // Saudi Arabia
-  356: "wd-l-ind", // India
-  156: "wd-l-chn", // China
-  392: "wd-l-jpn", // Japan
-  702: "wd-l-sgp", // Singapore
-  36:  "wd-l-aus-country", // Australia
-  554: "wd-l-nzl"  // New Zealand
+  242: "wd-l-242", // Fiji
+  834: "wd-l-834", // Tanzania
+  732: "wd-l-732", // W. Sahara
+  124: "wd-l-124", // Canada
+  840: "wd-l-840", // United States of America
+  398: "wd-l-398", // Kazakhstan
+  860: "wd-l-860", // Uzbekistan
+  598: "wd-l-598", // Papua New Guinea
+  360: "wd-l-360", // Indonesia
+  32: "wd-l-32", // Argentina
+  152: "wd-l-152", // Chile
+  180: "wd-l-180", // Dem. Rep. Congo
+  706: "wd-l-706", // Somalia
+  404: "wd-l-404", // Kenya
+  729: "wd-l-729", // Sudan
+  148: "wd-l-148", // Chad
+  332: "wd-l-332", // Haiti
+  214: "wd-l-214", // Dominican Rep.
+  643: "wd-l-643", // Russia
+  44: "wd-l-44", // Bahamas
+  238: "wd-l-238", // Falkland Is.
+  578: "wd-l-578", // Norway
+  304: "wd-l-304", // Greenland
+  260: "wd-l-260", // Fr. S. Antarctic Lands
+  626: "wd-l-626", // Timor-Leste
+  710: "wd-l-710", // South Africa
+  426: "wd-l-426", // Lesotho
+  484: "wd-l-484", // Mexico
+  858: "wd-l-858", // Uruguay
+  76: "wd-l-76", // Brazil
+  68: "wd-l-68", // Bolivia
+  604: "wd-l-604", // Peru
+  170: "wd-l-170", // Colombia
+  591: "wd-l-591", // Panama
+  188: "wd-l-188", // Costa Rica
+  558: "wd-l-558", // Nicaragua
+  340: "wd-l-340", // Honduras
+  222: "wd-l-222", // El Salvador
+  320: "wd-l-320", // Guatemala
+  84: "wd-l-84", // Belize
+  862: "wd-l-862", // Venezuela
+  328: "wd-l-328", // Guyana
+  740: "wd-l-740", // Suriname
+  250: "wd-l-250", // France
+  218: "wd-l-218", // Ecuador
+  630: "wd-l-630", // Puerto Rico
+  388: "wd-l-388", // Jamaica
+  192: "wd-l-192", // Cuba
+  716: "wd-l-716", // Zimbabwe
+  72: "wd-l-72", // Botswana
+  516: "wd-l-516", // Namibia
+  686: "wd-l-686", // Senegal
+  466: "wd-l-466", // Mali
+  478: "wd-l-478", // Mauritania
+  204: "wd-l-204", // Benin
+  562: "wd-l-562", // Niger
+  566: "wd-l-566", // Nigeria
+  120: "wd-l-120", // Cameroon
+  768: "wd-l-768", // Togo
+  288: "wd-l-288", // Ghana
+  384: "wd-l-384", // Côte d'Ivoire
+  324: "wd-l-324", // Guinea
+  624: "wd-l-624", // Guinea-Bissau
+  430: "wd-l-430", // Liberia
+  694: "wd-l-694", // Sierra Leone
+  854: "wd-l-854", // Burkina Faso
+  140: "wd-l-140", // Central African Rep.
+  178: "wd-l-178", // Congo
+  266: "wd-l-266", // Gabon
+  226: "wd-l-226", // Eq. Guinea
+  894: "wd-l-894", // Zambia
+  454: "wd-l-454", // Malawi
+  508: "wd-l-508", // Mozambique
+  748: "wd-l-748", // eSwatini
+  24: "wd-l-24", // Angola
+  108: "wd-l-108", // Burundi
+  376: "wd-l-376", // Israel
+  422: "wd-l-422", // Lebanon
+  450: "wd-l-450", // Madagascar
+  275: "wd-l-275", // Palestine
+  270: "wd-l-270", // Gambia
+  788: "wd-l-788", // Tunisia
+  12: "wd-l-12", // Algeria
+  400: "wd-l-400", // Jordan
+  784: "wd-l-784", // United Arab Emirates
+  634: "wd-l-634", // Qatar
+  414: "wd-l-414", // Kuwait
+  368: "wd-l-368", // Iraq
+  512: "wd-l-512", // Oman
+  548: "wd-l-548", // Vanuatu
+  116: "wd-l-116", // Cambodia
+  764: "wd-l-764", // Thailand
+  418: "wd-l-418", // Laos
+  104: "wd-l-104", // Myanmar
+  704: "wd-l-704", // Vietnam
+  408: "wd-l-408", // North Korea
+  410: "wd-l-410", // South Korea
+  496: "wd-l-496", // Mongolia
+  356: "wd-l-356", // India
+  50: "wd-l-50", // Bangladesh
+  64: "wd-l-64", // Bhutan
+  524: "wd-l-524", // Nepal
+  586: "wd-l-586", // Pakistan
+  4: "wd-l-4", // Afghanistan
+  762: "wd-l-762", // Tajikistan
+  417: "wd-l-417", // Kyrgyzstan
+  795: "wd-l-795", // Turkmenistan
+  364: "wd-l-364", // Iran
+  760: "wd-l-760", // Syria
+  51: "wd-l-51", // Armenia
+  752: "wd-l-752", // Sweden
+  112: "wd-l-112", // Belarus
+  804: "wd-l-804", // Ukraine
+  616: "wd-l-616", // Poland
+  40: "wd-l-40", // Austria
+  348: "wd-l-348", // Hungary
+  498: "wd-l-498", // Moldova
+  642: "wd-l-642", // Romania
+  440: "wd-l-440", // Lithuania
+  428: "wd-l-428", // Latvia
+  233: "wd-l-233", // Estonia
+  276: "wd-l-276", // Germany
+  100: "wd-l-100", // Bulgaria
+  300: "wd-l-300", // Greece
+  792: "wd-l-792", // Turkey
+  8: "wd-l-8", // Albania
+  191: "wd-l-191", // Croatia
+  756: "wd-l-756", // Switzerland
+  442: "wd-l-442", // Luxembourg
+  56: "wd-l-56", // Belgium
+  528: "wd-l-528", // Netherlands
+  620: "wd-l-620", // Portugal
+  724: "wd-l-724", // Spain
+  372: "wd-l-372", // Ireland
+  540: "wd-l-540", // New Caledonia
+  90: "wd-l-90", // Solomon Is.
+  554: "wd-l-554", // New Zealand
+  36: "wd-l-36", // Australia
+  144: "wd-l-144", // Sri Lanka
+  156: "wd-l-156", // China
+  158: "wd-l-158", // Taiwan
+  380: "wd-l-380", // Italy
+  208: "wd-l-208", // Denmark
+  826: "wd-l-826", // United Kingdom
+  352: "wd-l-352", // Iceland
+  31: "wd-l-31", // Azerbaijan
+  268: "wd-l-268", // Georgia
+  608: "wd-l-608", // Philippines
+  458: "wd-l-458", // Malaysia
+  96: "wd-l-96", // Brunei
+  705: "wd-l-705", // Slovenia
+  246: "wd-l-246", // Finland
+  703: "wd-l-703", // Slovakia
+  203: "wd-l-203", // Czechia
+  232: "wd-l-232", // Eritrea
+  392: "wd-l-392", // Japan
+  600: "wd-l-600", // Paraguay
+  887: "wd-l-887", // Yemen
+  682: "wd-l-682", // Saudi Arabia
+  10: "wd-l-10", // Antarctica
+  196: "wd-l-196", // Cyprus
+  504: "wd-l-504", // Morocco
+  818: "wd-l-818", // Egypt
+  434: "wd-l-434", // Libya
+  231: "wd-l-231", // Ethiopia
+  262: "wd-l-262", // Djibouti
+  800: "wd-l-800", // Uganda
+  646: "wd-l-646", // Rwanda
+  70: "wd-l-70", // Bosnia and Herz.
+  807: "wd-l-807", // Macedonia
+  688: "wd-l-688", // Serbia
+  499: "wd-l-499", // Montenegro
+  780: "wd-l-780", // Trinidad and Tobago
+  728: "wd-l-728", // S. Sudan
 };
 
-const WorldMap = React.memo(function WorldMap({ activeQuestion, onResult, interactiveMode = true, showCorrectAnswer = false, wrongItems = [], language }: WorldMapProps) {
+const WorldMap = React.memo(function WorldMap({ activeQuestion, onResult, interactiveMode = true, showCorrectAnswer = false, wrongItems = [], language, allowedItemIds }: WorldMapProps) {
   const activeLang: Language = language || (localStorage.getItem('geo_language') as Language) || 'nl';
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [countriesGeo, setCountriesGeo] = useState<any[]>([]);
@@ -106,6 +236,7 @@ const WorldMap = React.memo(function WorldMap({ activeQuestion, onResult, intera
   const [showCapitals, setShowCapitals] = useState(true);
   const [showRivers, setShowRivers] = useState(true);
   const [showMountains, setShowMountains] = useState(true);
+  const [showSeas, setShowSeas] = useState(true);
   const [showLabels, setShowLabels] = useState(true);
 
   // Fetch geographic boundaries
@@ -243,6 +374,14 @@ const WorldMap = React.memo(function WorldMap({ activeQuestion, onResult, intera
           >
             ⛰️ Gebergten & Plateaus
           </button>
+          <button 
+            onClick={() => setShowSeas(p => !p)}
+            className={`px-3 py-1.5 sm:py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer ${
+              showSeas ? 'bg-cyan-600/30 border-cyan-400 text-cyan-200' : 'bg-transparent border-white/10 text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            ⚓ Zeeën & Oceanen
+          </button>
 
           {/* Label switch option */}
           <button
@@ -287,6 +426,8 @@ const WorldMap = React.memo(function WorldMap({ activeQuestion, onResult, intera
                 ? `Klik op de rivier: ${activeQuestion.correctAnswer}`
                 : activeQuestion.category === 'mountain'
                 ? `Klik op het gebergte: ${activeQuestion.correctAnswer}`
+                : activeQuestion.category === 'sea' || activeQuestion.category === 'ocean'
+                ? `Klik op de zee / oceaan: ${activeQuestion.correctAnswer}`
                 : `Klik op het object: ${activeQuestion.geoItem?.name || activeQuestion.correctAnswer}`
               }
             </span>
@@ -348,7 +489,7 @@ const WorldMap = React.memo(function WorldMap({ activeQuestion, onResult, intera
                 }
 
                 const centroid = pathGenerator.centroid(feature);
-                const shouldShowLabel = showCountries && ((!interactiveMode && showLabels) || isWrong || clickedItem === mappedId || isTheCorrectOne);
+                const shouldShowLabel = showCountries && ((!allowedItemIds || allowedItemIds.includes(mappedId))) && ((!interactiveMode && showLabels) || isWrong || clickedItem === mappedId || isTheCorrectOne);
 
                 return (
                   <g key={`wd-country-grp-${i}`}>
@@ -358,9 +499,9 @@ const WorldMap = React.memo(function WorldMap({ activeQuestion, onResult, intera
                       stroke={stroke}
                       strokeWidth="0.6"
                       className={`transition-colors duration-155 ${showCountries ? 'cursor-pointer' : 'pointer-events-none'}`}
-                      onMouseEnter={showCountries ? () => setHoveredItem(mappedId) : undefined}
-                      onMouseLeave={showCountries ? () => setHoveredItem(null) : undefined}
-                      onClick={showCountries ? (e) => handleEntityClick(mappedId, countryName, e) : undefined}
+                      onMouseEnter={(showCountries && (!allowedItemIds || allowedItemIds.includes(mappedId))) ? () => setHoveredItem(mappedId) : undefined}
+                      onMouseLeave={(showCountries && (!allowedItemIds || allowedItemIds.includes(mappedId))) ? () => setHoveredItem(null) : undefined}
+                      onClick={(showCountries && (!allowedItemIds || allowedItemIds.includes(mappedId))) ? (e) => handleEntityClick(mappedId, countryName, e) : undefined}
                     />
                     {shouldShowLabel && centroid && !isNaN(centroid[0]) && (
                       <g transform={`translate(${centroid[0]}, ${centroid[1]}) scale(${1 / zoomScale})`}>
@@ -618,6 +759,109 @@ const WorldMap = React.memo(function WorldMap({ activeQuestion, onResult, intera
                             >
                               {capName}
                             </text>
+                          )}
+                        </g>
+                      </g>
+                    );
+                  })}
+                </motion.g>
+              )}
+            </AnimatePresence>
+
+            {/* Render Seas & Oceans Layer */}
+            <AnimatePresence>
+              {showSeas && (
+                <motion.g 
+                  key="world-seas-layer"
+                  id="world-seas-layer"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                >
+                  {worldSeas.map((sea, i) => {
+                    const seaName = translateName(sea.name, activeLang);
+                    if (!sea.coordinates) return null;
+                    const [projX, projY] = projection(sea.coordinates) || [0, 0];
+
+                    const isHovered = hoveredItem === sea.id;
+                    const isWrong = wrongItems.includes(sea.id);
+                    const isClicked = clickedItem === sea.id;
+                    const isTheCorrectOne = (showCorrectAnswer || (isClicked && isCorrectState)) && activeQuestion?.targetId === sea.id;
+
+                    let color = '#0284c7';
+                    let radius = isHovered ? 9 : 6.5;
+
+                    if (isWrong) {
+                      color = '#f43f5e';
+                      radius = 8.5;
+                    }
+                    if (isClicked) {
+                      color = isCorrectState ? '#10b981' : '#f43f5e';
+                      radius = 9;
+                    }
+                    if (isTheCorrectOne) {
+                      color = '#10b981';
+                      radius = 10;
+                    }
+
+                    const shouldShowLabel = (!interactiveMode && showLabels) || isWrong || clickedItem === sea.id || isTheCorrectOne;
+
+                    return (
+                      <g 
+                        key={`wd-sea-${i}`}
+                        className="cursor-pointer"
+                        onMouseEnter={() => setHoveredItem(sea.id)}
+                        onMouseLeave={() => setHoveredItem(null)}
+                        onClick={(e) => handleEntityClick(sea.id, seaName, e)}
+                      >
+                        <g transform={`translate(${projX}, ${projY}) scale(${1 / zoomScale})`}>
+                          <circle
+                            cx={0}
+                            cy={0}
+                            r={radius + 4}
+                            fill={isHovered ? '#38bdf8' : color}
+                            fillOpacity={isHovered ? 0.35 : 0.2}
+                            className={isHovered ? 'animate-pulse' : ''}
+                          />
+                          <circle
+                            cx={0}
+                            cy={0}
+                            r={radius}
+                            fill={isHovered ? '#38bdf8' : color}
+                            stroke="#ffffff"
+                            strokeWidth="1.5"
+                          />
+                          <text
+                            x={0}
+                            y={3}
+                            textAnchor="middle"
+                            className="text-[9px] pointer-events-none select-none"
+                            fill="#ffffff"
+                          >
+                            ⚓
+                          </text>
+                          {shouldShowLabel && (
+                            <g transform="translate(0, 16)">
+                              <rect
+                                x={-(seaName.length * 3.8 + 6)}
+                                y="-10"
+                                width={seaName.length * 7.6 + 12}
+                                height="18"
+                                rx="4"
+                                fill="#0369a1"
+                                stroke="#ffffff"
+                                strokeWidth="1"
+                              />
+                              <text
+                                x={0}
+                                y={2}
+                                textAnchor="middle"
+                                className="text-[10px] font-sans font-black fill-white pointer-events-none"
+                              >
+                                {seaName}
+                              </text>
+                            </g>
                           )}
                         </g>
                       </g>

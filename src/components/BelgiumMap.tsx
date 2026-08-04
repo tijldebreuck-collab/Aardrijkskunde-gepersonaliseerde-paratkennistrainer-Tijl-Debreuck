@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import * as d3 from 'd3';
 import { motion, AnimatePresence } from 'motion/react';
 import provincesData from '../data/belgium.json';
-import { belgiumRivers, belgiumHighways, GeoFeature } from '../data/geoData';
+import belgiumProvincesGeo from '../data/belgium-provinces.json';
+import { belgiumRivers, belgiumHighways, belgiumMountains, belgiumSeas, GeoFeature } from '../data/geoData';
 import { Layers, Tag } from 'lucide-react';
 import { translateName, Language } from '../utils/language';
 
@@ -19,9 +20,10 @@ interface BelgiumMapProps {
   showCorrectAnswer?: boolean;
   wrongItems?: string[];
   language?: Language;
+  allowedItemIds?: string[];
 }
 
-const BelgiumMap = React.memo(function BelgiumMap({ activeQuestion, onResult, interactiveMode = true, showCorrectAnswer = false, wrongItems = [], language }: BelgiumMapProps) {
+const BelgiumMap = React.memo(function BelgiumMap({ activeQuestion, onResult, interactiveMode = true, showCorrectAnswer = false, wrongItems = [], language, allowedItemIds }: BelgiumMapProps) {
   const activeLang: Language = language || (localStorage.getItem('geo_language') as Language) || 'nl';
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
@@ -35,6 +37,8 @@ const BelgiumMap = React.memo(function BelgiumMap({ activeQuestion, onResult, in
   const [showCapitals, setShowCapitals] = useState(true);
   const [showRivers, setShowRivers] = useState(true);
   const [showHighways, setShowHighways] = useState(true);
+  const [showMountains, setShowMountains] = useState(true);
+  const [showSeas, setShowSeas] = useState(true);
   const [showLabels, setShowLabels] = useState(true);
 
   // Map settings and sizes
@@ -46,6 +50,7 @@ const BelgiumMap = React.memo(function BelgiumMap({ activeQuestion, onResult, in
     .center([4.4699, 50.5039])
     .scale(10000) // Heavily centered on Belgium
     .translate([width / 2, height / 2 + 10]);
+  const pathGenerator = d3.geoPath().projection(projection);
 
   // Clear states when target changes
   useEffect(() => {
@@ -165,6 +170,23 @@ const BelgiumMap = React.memo(function BelgiumMap({ activeQuestion, onResult, in
           >
             🛣️ Autosnelwegen
           </button>
+          <button
+            onClick={() => setShowMountains(!showMountains)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-all ${
+              showMountains ? 'bg-amber-600/30 border-amber-400 text-amber-200' : 'bg-transparent border-white/10 text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            ⛰️ Bergen
+          </button>
+          <button 
+            onClick={() => setShowSeas(p => !p)}
+            className={`px-3 py-1.5 sm:py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer ${
+              showSeas ? 'bg-cyan-600/30 border-cyan-400 text-cyan-200' : 'bg-transparent border-white/10 text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            ⚓ Zeeën
+          </button>
+
 
           {/* Toggle label names option (Study mode only) */}
           <button
@@ -200,6 +222,8 @@ const BelgiumMap = React.memo(function BelgiumMap({ activeQuestion, onResult, in
                 ? `Klik op de provincie: ${activeQuestion.correctAnswer}`
                 : activeQuestion.category === 'river'
                 ? `Klik op de rivier: ${activeQuestion.correctAnswer}`
+                : activeQuestion.category === 'sea' || activeQuestion.category === 'ocean'
+                ? `Klik op de zee / oceaan: ${activeQuestion.correctAnswer}`
                 : `Klik op het geografisch object: ${activeQuestion.geoItem?.name || activeQuestion.correctAnswer}`
               }
             </span>
@@ -218,34 +242,17 @@ const BelgiumMap = React.memo(function BelgiumMap({ activeQuestion, onResult, in
           style={{ cursor: interactiveMode ? 'crosshair' : 'grab' }}
         >
           <g id="map-zoom-group">
-            {/* Seterra Light Ocean Backdrop */}
-            <rect width={width} height={height} fill="#a9d4f9" />
-
-            {/* Render Neighboring Countries Layer */}
-            <g id="neighbors-layer">
-              {((provincesData as any).neighbors || []).map((neighbor: any, i: number) => {
-                const pathData = getPolygonPathData(neighbor.polygon);
-                return (
-                  <g key={`neighbor-${neighbor.id}-${i}`}>
-                    <path
-                      d={pathData}
-                      fill="#dde1e5"
-                      stroke="#94a3b8"
-                      strokeWidth="1"
-                    />
-                  </g>
-                );
-              })}
-            </g>
+            {/* Map Canvas Light Gray Backdrop */}
+            <rect width={width} height={height} fill="#dde1e5" />
 
             {/* Render Provinces Layer */}
             <g id="provinces-layer">
-              {provincesData.provinces.map((province: any, i) => {
-                const provId = province.id;
-                const rawProvName = province.name;
+              
+              {belgiumProvincesGeo.features.map((feature: any, i: number) => {
+                const provId = feature.id;
+                const rawProvName = feature.properties.name;
                 const provName = translateName(rawProvName, activeLang);
-                const pathData = getPolygonPathData(province.polygon);
-
+                
                 let fill = '#ffffea';
                 let stroke = '#475569';
                 
@@ -277,28 +284,28 @@ const BelgiumMap = React.memo(function BelgiumMap({ activeQuestion, onResult, in
                   fill = '#f1f5f9';
                 }
 
+                const centroid = pathGenerator.centroid(feature);
                 const shouldShowLabel = showProvinces && ((!interactiveMode && showLabels) || isWrong || clickedItem === provId || isTheCorrectOne);
-                const [centroidX, centroidY] = province.coordinates ? projection(province.coordinates) || [0, 0] : [0, 0];
 
                 return (
-                  <g key={`province-grp-${i}`}>
+                  <g key={`be-prov-grp-${i}`}>
                     <path
-                      d={pathData}
+                      d={pathGenerator(feature) || ''}
                       fill={fill}
                       stroke={stroke}
-                      strokeWidth="1.2"
+                      strokeWidth="1"
                       className={`transition-colors duration-155 ${showProvinces ? 'cursor-pointer' : 'pointer-events-none'}`}
                       onMouseEnter={showProvinces ? () => setHoveredItem(provId) : undefined}
-                      onMouseLeave={showProvinces ? () => setHoveredItem(null) : undefined}
+                      onMouseLeave={(showProvinces && (!allowedItemIds || allowedItemIds.includes(provId))) ? () => setHoveredItem(null) : undefined}
                       onClick={showProvinces ? (e) => handleEntityClick(provId, provName, e) : undefined}
                     />
-                    {shouldShowLabel && centroidX > 0 && (
-                      <g transform={`translate(${centroidX}, ${centroidY}) scale(${1 / zoomScale})`}>
+                    {shouldShowLabel && centroid && !isNaN(centroid[0]) && provId !== 'be-p-bru' && (
+                      <g transform={`translate(${centroid[0]}, ${centroid[1]}) scale(${1 / zoomScale})`}>
                         <text
                           x={0}
                           y={0}
                           textAnchor="middle"
-                          style={{ paintOrder: 'stroke', stroke: '#ffffff', strokeWidth: '3.5px', strokeLinejoin: 'round' }}
+                          style={{ paintOrder: 'stroke', stroke: '#ffffff', strokeWidth: '3px', strokeLinejoin: 'round' }}
                           className="text-[12px] font-sans font-extrabold fill-slate-900 pointer-events-none"
                         >
                           {provName}
@@ -308,66 +315,10 @@ const BelgiumMap = React.memo(function BelgiumMap({ activeQuestion, onResult, in
                   </g>
                 );
               })}
+
             </g>
 
-            {/* Render Brussels Enclave Layer */}
-            {(provincesData as any).brussels && (() => {
-              const bru = (provincesData as any).brussels;
-              const bruCapital = translateName(bru.capital, activeLang);
-              const pathData = getPolygonPathData(bru.polygon);
-              const isHovered = hoveredItem === bru.id;
-              const isWrong = wrongItems.includes(bru.id);
-              const isClicked = clickedItem === bru.id;
-              const isTheCorrectOne = (showCorrectAnswer || (isClicked && isCorrectState)) && bru.id === activeQuestion?.targetId;
-
-              let fill = '#fed7aa';
-              let stroke = '#c2410c';
-
-              if (isHovered) fill = '#fde68a';
-              if (isWrong) {
-                fill = '#f43f5e';
-                stroke = '#be123c';
-              }
-              if (isClicked) {
-                fill = isCorrectState ? '#10b981' : '#f43f5e';
-                stroke = isCorrectState ? '#047857' : '#be123c';
-              }
-              if (isTheCorrectOne) {
-                fill = '#10b981';
-                stroke = '#047857';
-              }
-
-              const [centroidX, centroidY] = projection(bru.coordinates) || [0, 0];
-              const shouldShowLabel = showProvinces && ((!interactiveMode && showLabels) || isWrong || clickedItem === bru.id || isTheCorrectOne);
-
-              return (
-                <g id="brussels-enclave-layer">
-                  <path
-                    d={pathData}
-                    fill={fill}
-                    stroke={stroke}
-                    strokeWidth="1.5"
-                    className="transition-colors duration-155 cursor-pointer"
-                    onMouseEnter={() => setHoveredItem(bru.id)}
-                    onMouseLeave={() => setHoveredItem(null)}
-                    onClick={(e) => handleEntityClick(bru.id, bruCapital, e)}
-                  />
-                  {shouldShowLabel && (
-                    <g transform={`translate(${centroidX}, ${centroidY}) scale(${1 / zoomScale})`}>
-                      <text
-                        x={0}
-                        y={0}
-                        textAnchor="middle"
-                        style={{ paintOrder: 'stroke', stroke: '#ffffff', strokeWidth: '3px', strokeLinejoin: 'round' }}
-                        className="text-[11px] font-sans font-black fill-amber-950 pointer-events-none"
-                      >
-                        {bruCapital}
-                      </text>
-                    </g>
-                  )}
-                </g>
-              );
-            })()}
+            
 
             {/* Render Highways Layer */}
             <AnimatePresence>
@@ -461,7 +412,7 @@ const BelgiumMap = React.memo(function BelgiumMap({ activeQuestion, onResult, in
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                 >
-                  {belgiumRivers.map((river, i) => {
+                  {belgiumRivers.filter(r => !allowedItemIds || allowedItemIds.includes(r.id)).map((river, i) => {
                     const riverName = translateName(river.name, activeLang);
                     const isHovered = hoveredItem === river.id;
                     const isWrong = wrongItems.includes(river.id);
@@ -509,6 +460,84 @@ const BelgiumMap = React.memo(function BelgiumMap({ activeQuestion, onResult, in
                             </g>
                           );
                         })()}
+                      </g>
+                    );
+                  })}
+                </motion.g>
+              )}
+            </AnimatePresence>
+
+            
+            {/* Render Mountains Layer */}
+            <AnimatePresence>
+              {showMountains && (
+                <motion.g 
+                  key="be-mountains-layer"
+                  id="be-mountains-layer"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                >
+                  {belgiumMountains.filter(m => !allowedItemIds || allowedItemIds.includes(m.id)).map((mount, i) => {
+                    const mountName = translateName(mount.name, activeLang);
+                    const isHovered = hoveredItem === mount.id;
+                    const isWrong = wrongItems.includes(mount.id);
+                    const isClicked = clickedItem === mount.id;
+                    const coords = mount.coordinates;
+
+                    if (!coords) return null;
+                    const [projX, projY] = projection(coords) || [0, 0];
+
+                    const isTheCorrectOne = (showCorrectAnswer || (isClicked && isCorrectState)) && mount.id === activeQuestion?.targetId;
+
+                    let fill = '#ffffff';
+                    let stroke = '#64748b';
+
+                    if (isHovered) {
+                      fill = '#bae6fd';
+                    }
+
+                    if (isWrong) {
+                      fill = '#f43f5e';
+                      stroke = '#be123c';
+                    }
+
+                    if (isClicked) {
+                      fill = isCorrectState ? '#10b981' : '#f43f5e';
+                      stroke = isCorrectState ? '#047857' : '#be123c';
+                    }
+
+                    if (isTheCorrectOne) {
+                      fill = '#10b981';
+                      stroke = '#047857';
+                    }
+
+                    const shouldShowLabel = (!interactiveMode && showLabels) || isWrong || clickedItem === mount.id || isTheCorrectOne;
+
+                    return (
+                      <g key={`be-mount-${i}`} transform={`translate(${projX}, ${projY}) scale(${1 / zoomScale})`}>
+                        <path
+                          d="M0,-8 L6,2 L-6,2 Z"
+                          fill={fill}
+                          stroke={stroke}
+                          strokeWidth="1.5"
+                          className={`transition-all duration-300 ${interactiveMode && !showCorrectAnswer ? 'cursor-pointer' : 'pointer-events-none'}`}
+                          onMouseEnter={() => setHoveredItem(mount.id)}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={(e) => handleEntityClick(mount.id, mountName, e)}
+                        />
+                        {shouldShowLabel && (
+                          <text
+                            x={0}
+                            y={12}
+                            textAnchor="middle"
+                            style={{ paintOrder: 'stroke', stroke: '#ffffff', strokeWidth: '3px', strokeLinejoin: 'round' }}
+                            className="text-[10px] font-sans font-extrabold fill-slate-900 pointer-events-none"
+                          >
+                            {mountName}
+                          </text>
+                        )}
                       </g>
                     );
                   })}
@@ -583,6 +612,109 @@ const BelgiumMap = React.memo(function BelgiumMap({ activeQuestion, onResult, in
                             >
                               {provCapital}
                             </text>
+                          )}
+                        </g>
+                      </g>
+                    );
+                  })}
+                </motion.g>
+              )}
+            </AnimatePresence>
+
+            {/* Render Seas Layer */}
+            <AnimatePresence>
+              {showSeas && (
+                <motion.g 
+                  key="belgium-seas-layer"
+                  id="belgium-seas-layer"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                >
+                  {belgiumSeas.map((sea, i) => {
+                    const seaName = translateName(sea.name, activeLang);
+                    if (!sea.coordinates) return null;
+                    const [projX, projY] = projection(sea.coordinates) || [0, 0];
+
+                    const isHovered = hoveredItem === sea.id;
+                    const isWrong = wrongItems.includes(sea.id);
+                    const isClicked = clickedItem === sea.id;
+                    const isTheCorrectOne = (showCorrectAnswer || (isClicked && isCorrectState)) && activeQuestion?.targetId === sea.id;
+
+                    let color = '#0284c7';
+                    let radius = isHovered ? 9 : 6.5;
+
+                    if (isWrong) {
+                      color = '#f43f5e';
+                      radius = 8.5;
+                    }
+                    if (isClicked) {
+                      color = isCorrectState ? '#10b981' : '#f43f5e';
+                      radius = 9;
+                    }
+                    if (isTheCorrectOne) {
+                      color = '#10b981';
+                      radius = 10;
+                    }
+
+                    const shouldShowLabel = (!interactiveMode && showLabels) || isWrong || clickedItem === sea.id || isTheCorrectOne;
+
+                    return (
+                      <g 
+                        key={`bel-sea-${i}`}
+                        className="cursor-pointer"
+                        onMouseEnter={() => setHoveredItem(sea.id)}
+                        onMouseLeave={() => setHoveredItem(null)}
+                        onClick={(e) => handleEntityClick(sea.id, seaName, e)}
+                      >
+                        <g transform={`translate(${projX}, ${projY}) scale(${1 / zoomScale})`}>
+                          <circle
+                            cx={0}
+                            cy={0}
+                            r={radius + 4}
+                            fill={isHovered ? '#38bdf8' : color}
+                            fillOpacity={isHovered ? 0.35 : 0.2}
+                            className={isHovered ? 'animate-pulse' : ''}
+                          />
+                          <circle
+                            cx={0}
+                            cy={0}
+                            r={radius}
+                            fill={isHovered ? '#38bdf8' : color}
+                            stroke="#ffffff"
+                            strokeWidth="1.5"
+                          />
+                          <text
+                            x={0}
+                            y={3}
+                            textAnchor="middle"
+                            className="text-[9px] pointer-events-none select-none"
+                            fill="#ffffff"
+                          >
+                            ⚓
+                          </text>
+                          {shouldShowLabel && (
+                            <g transform="translate(0, 16)">
+                              <rect
+                                x={-(seaName.length * 3.8 + 6)}
+                                y="-10"
+                                width={seaName.length * 7.6 + 12}
+                                height="18"
+                                rx="4"
+                                fill="#0369a1"
+                                stroke="#ffffff"
+                                strokeWidth="1"
+                              />
+                              <text
+                                x={0}
+                                y={2}
+                                textAnchor="middle"
+                                className="text-[10px] font-sans font-black fill-white pointer-events-none"
+                              >
+                                {seaName}
+                              </text>
+                            </g>
                           )}
                         </g>
                       </g>

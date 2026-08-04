@@ -328,6 +328,7 @@ export const uiTranslations = {
     interactiveMap: "Interactieve Landkaart",
     clickCapital: "Klik op de hoofdstad:",
     clickHighway: "Klik op de autosnelweg:",
+    clickSea: "Klik op de zee / oceaan:",
     clickObject: "Klik op het geografisch object:",
     skipQuestion: "Skip vraag",
     
@@ -343,6 +344,7 @@ export const uiTranslations = {
     catProvinces: "Provincies",
     catHighways: "Autosnelwegen",
     catMountains: "Gebergten",
+    catSeas: "Zeeën & Oceanen",
     catFlags: "Vlaggen",
 
     // My Learning Content
@@ -423,6 +425,7 @@ export const uiTranslations = {
     interactiveMap: "Interactive Map",
     clickCapital: "Click on the capital:",
     clickHighway: "Click on the highway:",
+    clickSea: "Click on the sea / ocean:",
     clickObject: "Click on the geographic object:",
     skipQuestion: "Skip question",
     
@@ -438,6 +441,7 @@ export const uiTranslations = {
     catProvinces: "Provinces",
     catHighways: "Highways",
     catMountains: "Mountains",
+    catSeas: "Seas & Oceans",
     catFlags: "Flags",
 
     // My Learning Content

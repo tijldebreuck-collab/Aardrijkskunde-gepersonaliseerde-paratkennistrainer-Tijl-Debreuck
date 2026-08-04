@@ -1,4 +1,5 @@
 {
+  "seas": [],
   "provinces": [
     {
       "id": "be-p-wvl",
@@ -630,7 +631,7 @@
         ]
       ],
       "alternatives": [
-        "Li\u00e8ge",
+        "Liège",
         "Liege"
       ],
       "difficulty": "gemiddeld"
@@ -1425,7 +1426,7 @@
         50.3
       ],
       "alternatives": [
-        "Walloni\u00eb",
+        "Wallonië",
         "Wallonie",
         "Wallonia",
         "Waals"
@@ -1443,7 +1444,7 @@
       "alternatives": [
         "Brussel",
         "Brussels",
-        "R\u00e9gion de Bruxelles-Capitale"
+        "Région de Bruxelles-Capitale"
       ],
       "difficulty": "gemiddeld"
     }

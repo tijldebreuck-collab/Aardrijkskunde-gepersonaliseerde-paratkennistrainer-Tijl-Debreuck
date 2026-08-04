@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Region, QuizMode, QuestionType, Question } from './types/geography';
 import { useQuizEngine, UserStats } from './hooks/useQuizEngine';
+import { MapQuizPlayer } from './components/exercises/MapQuizPlayer';
 import MultipleChoice from './components/exercises/MultipleChoice';
 import FillInBlank from './components/exercises/FillInBlank';
 import FlagQuiz from './components/exercises/FlagQuiz';
@@ -144,16 +145,24 @@ export default function App() {
   const { user, loading, preferences, stats, progress, updatePreferences, syncLocalStatsToCloud, pendingMigration, handleMigrationChoice } = useUserPreferences();
   const [isMyLearningOpen, setIsMyLearningOpen] = useState(false);
 
-  const startMyLearningQuiz = () => {
+
+  const activeCustomFolder = preferences.activeFolderId ? preferences.customFolders?.find(f => f.id === preferences.activeFolderId) : null;
+  const allowedItemIds = activeCustomFolder ? activeCustomFolder.items.map(i => i.id) : undefined;
+
+  const startMyLearningQuiz = (folderId?: string, quizMode: QuizMode = 'multiple-choice') => {
     setIsMyLearningOpen(false);
     if (quizTimerRef.current) clearInterval(quizTimerRef.current);
     resetSession();
-    // generateQuestion will now use the preferences passed to useQuizEngine via optionsConfig
-    generateQuestion();
-    setTotalTimeSpent(0);
-    setQuizCompleted(false);
-    setIsPlaying(true);
-    questionStartTimeRef.current = Date.now();
+    
+    // Delay generateQuestion to ensure preferences state has updated in useQuizEngine
+    setTimeout(() => {
+      setActiveCategoryMode(quizMode);
+      generateQuestion();
+      setTotalTimeSpent(0);
+      setQuizCompleted(false);
+      setIsPlaying(true);
+      questionStartTimeRef.current = Date.now();
+    }, 50);
   };
 
   const quizEngineOptions = useMemo(() => ({
@@ -191,28 +200,35 @@ export default function App() {
     setIsSoundMuted(nextMute);
   };
 
-  const handleAdminLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setAdminError(null);
-    setAdminLoading(true);
+  const handleVerifyPassword = async (pass: string): Promise<boolean> => {
     try {
       const res = await fetch('/api/admin/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: adminPasswordInput })
+        body: JSON.stringify({ password: pass })
       });
       const data = await res.json();
       if (data.success) {
         setIsAdmin(true);
         localStorage.setItem('geoAdminAuth', 'true');
-        setAdminPasswordInput('');
-      } else {
-        setAdminError(data.error || 'Onjuist wachtwoord!');
+        return true;
       }
+      return false;
     } catch (err) {
-      setAdminError('Er is een fout opgetreden bij het verbinden met de server.');
-    } finally {
-      setAdminLoading(false);
+      return false;
+    }
+  };
+
+  const handleAdminLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAdminError(null);
+    setAdminLoading(true);
+    const success = await handleVerifyPassword(adminPasswordInput);
+    setAdminLoading(false);
+    if (success) {
+      setAdminPasswordInput('');
+    } else {
+      setAdminError('Onjuist wachtwoord!');
     }
   };
 
@@ -286,6 +302,7 @@ export default function App() {
     setActiveRegion(region);
     setActiveCategory(targetCategory);
     setActiveCategoryMode('flag');
+    updatePreferences({ activeFolderId: undefined });
     if (quizTimerRef.current) clearInterval(quizTimerRef.current);
     resetSession();
     generateQuestion(region, targetCategory, 'flag');
@@ -299,6 +316,7 @@ export default function App() {
     setActiveRegion(region);
     setActiveCategory(category);
     setActiveCategoryMode('multiple-choice');
+    updatePreferences({ activeFolderId: undefined });
     if (quizTimerRef.current) clearInterval(quizTimerRef.current);
     resetSession();
     generateQuestion(region, category, 'multiple-choice');
@@ -380,33 +398,7 @@ export default function App() {
           GeoTrainer
         </div>
         <div className="nav-links">
-          <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-900 p-1 rounded-xl border border-slate-200 dark:border-slate-800">
-            <button
-              onClick={() => { quitQuizSession(); setActiveTab('dashboard'); setActiveRegion('belgium'); }}
-              className={`px-3 py-1.5 text-sm font-extrabold rounded-lg transition-all ${
-                activeTab === 'dashboard' && activeRegion === 'belgium' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              🇧🇪 {t.belgium}
-            </button>
-            <button
-              onClick={() => { quitQuizSession(); setActiveTab('dashboard'); setActiveRegion('europe'); }}
-              className={`px-3 py-1.5 text-sm font-extrabold rounded-lg transition-all ${
-                activeTab === 'dashboard' && activeRegion === 'europe' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              🇪🇺 {t.europe}
-            </button>
-            <button
-              onClick={() => { quitQuizSession(); setActiveTab('dashboard'); setActiveRegion('world'); }}
-              className={`px-3 py-1.5 text-sm font-extrabold rounded-lg transition-all ${
-                activeTab === 'dashboard' && activeRegion === 'world' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              🌐 {t.world}
-            </button>
-          </div>
-          
+          <a href="#" className={`nav-link ${activeTab === 'dashboard' && !isPlaying ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); quitQuizSession(); setActiveTab('dashboard'); }}>{t.navDashboard}</a>
           <button onClick={() => setIsMyLearningOpen(true)} className="nav-link font-bold text-blue-600 dark:text-blue-400">
             {t.navMyLearning}
           </button>
@@ -415,6 +407,7 @@ export default function App() {
              <a href="#" className={`nav-link ${activeTab === 'stats' && !isPlaying ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); quitQuizSession(); setActiveTab('stats'); }}>{t.navStats}</a>
           )}
           
+          <a href="#" className={`nav-link ${activeTab === 'settings' && !isPlaying ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); quitQuizSession(); setActiveTab('settings'); }}>{t.navSettings}</a>
           <a href="#" className={`nav-link ${activeTab === 'debug' && !isPlaying ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); quitQuizSession(); setActiveTab('debug'); }}>{t.navDebug}</a>
         </div>
         <div className="top-actions flex items-center gap-2">
@@ -584,6 +577,9 @@ export default function App() {
                   transition={{ duration: 0.18 }}
                   className="py-6"
                 >
+                                    {(activeMode === 'map' || (activeMode === 'review-errors' && currentQuestion.type === 'map')) && (
+                    <MapQuizPlayer question={currentQuestion} onResult={handleResultSubmit} language={language} allowedItemIds={allowedItemIds} />
+                  )}
                   {(activeMode === 'multiple-choice' || (activeMode === 'review-errors' && currentQuestion.type === 'multiple-choice')) && (
                     <MultipleChoice question={currentQuestion} onResult={handleResultSubmit} />
                   )}
@@ -617,11 +613,40 @@ export default function App() {
             
             {/* View Tab Kaart Quiz */}
             {activeTab === 'dashboard' && (
-              <GeoQuiz 
-                onStartFlagQuiz={handleStartFlagQuiz}
-                onStartMultipleChoiceQuiz={handleStartMultipleChoiceQuiz}
-                language={language} 
-              />
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 mb-2 p-1 bg-slate-100 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 w-fit">
+                  <button
+                    onClick={() => { quitQuizSession(); setActiveRegion('belgium'); }}
+                    className={`px-4 py-2 text-sm font-extrabold rounded-lg transition-all ${
+                      activeRegion === 'belgium' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    {t.belgium}
+                  </button>
+                  <button
+                    onClick={() => { quitQuizSession(); setActiveRegion('europe'); }}
+                    className={`px-4 py-2 text-sm font-extrabold rounded-lg transition-all ${
+                      activeRegion === 'europe' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    {t.europe}
+                  </button>
+                  <button
+                    onClick={() => { quitQuizSession(); setActiveRegion('world'); }}
+                    className={`px-4 py-2 text-sm font-extrabold rounded-lg transition-all ${
+                      activeRegion === 'world' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    {t.world}
+                  </button>
+                </div>
+                <GeoQuiz 
+                  region={activeRegion}
+                  onStartFlagQuiz={handleStartFlagQuiz}
+                  onStartMultipleChoiceQuiz={handleStartMultipleChoiceQuiz}
+                  language={language} 
+                />
+              </div>
             )}
 
             {/* View Tab Stats */}
@@ -639,6 +664,8 @@ export default function App() {
                 onClearStats={clearProgressAndStats}
                 language={language}
                 onLanguageChange={(l) => setLanguage(l)}
+                isAdmin={isAdmin}
+                onVerifyAdmin={handleVerifyPassword}
               />
             )}
 
@@ -679,9 +706,39 @@ export default function App() {
               )
             )}
 
-            {/* View Tab Database Audit CLI */}
+            {/* View Tab Database Audit CLI (Debugger) */}
             {activeTab === 'debug' && (
-              <DataValidator />
+              !isAdmin ? (
+                <AdminLoginForm
+                  theme={theme}
+                  onSubmit={handleAdminLogin}
+                  password={adminPasswordInput}
+                  setPassword={setAdminPasswordInput}
+                  error={adminError}
+                  loading={adminLoading}
+                />
+              ) : (
+                <div className="space-y-4 animate-fade-in">
+                  <div className={`flex justify-between items-center p-4 rounded-2xl border ${
+                    theme === 'dark' ? 'bg-slate-900/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'
+                  }`}>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                      <span className={`text-xs font-bold font-mono uppercase tracking-wider ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-600'}`}>
+                        Debugger Geautoriseerd
+                      </span>
+                    </div>
+                    <button
+                      onClick={handleAdminLogout}
+                      className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold transition-all cursor-pointer shadow-md flex items-center gap-1.5"
+                    >
+                      <Lock className="w-3.5 h-3.5" />
+                      <span>Log uit</span>
+                    </button>
+                  </div>
+                  <DataValidator />
+                </div>
+              )
             )}
           </div>
         )}

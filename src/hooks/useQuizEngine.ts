@@ -144,24 +144,37 @@ export const useQuizEngine = (
           default: extracted = [];
         }
       }
-      return extracted;
+      return extracted.map((it: any) => ({ ...it, region: it.region || targetRegion }));
     };
 
     if (prefs) {
-      prefs.selectedRegions.forEach(reg => {
-        const source = reg === 'belgium' ? belgiumData : reg === 'europe' ? europeData : worldData;
-        prefs.selectedCategories.forEach(cat => {
-          items = items.concat(extractItems(source, cat, reg, m || mode));
+      if (prefs.activeFolderId && prefs.customFolders) {
+        const folder = prefs.customFolders.find(f => f.id === prefs.activeFolderId);
+        if (folder) {
+          items = folder.items;
+          if ((m || mode) === 'flag') {
+            items = items.filter((it: any) => 
+              it.category === 'country' || it.mappedCategory === 'country' || 
+              (it.region && it.region !== 'belgium')
+            );
+          }
+        }
+      } else {
+        prefs.selectedRegions.forEach(reg => {
+          const source = reg === 'belgium' ? belgiumData : reg === 'europe' ? europeData : worldData;
+          prefs.selectedCategories.forEach(cat => {
+            items = items.concat(extractItems(source, cat, reg, m || mode));
+          });
         });
-      });
-      // Filter by difficulty
-      if (prefs.difficulty && prefs.difficulty !== 'all') {
-        items = items.filter((item: any) => item.difficulty === prefs.difficulty);
+        // Filter by difficulty
+        if (prefs.difficulty && prefs.difficulty !== 'all') {
+          items = items.filter((item: any) => item.difficulty === prefs.difficulty);
+        }
+        // Deduplicate items by id
+        const uniqueItems = new Map();
+        items.forEach(it => uniqueItems.set(it.id, it));
+        items = Array.from(uniqueItems.values());
       }
-      // Deduplicate items by id
-      const uniqueItems = new Map();
-      items.forEach(it => uniqueItems.set(it.id, it));
-      items = Array.from(uniqueItems.values());
     } else {
       const targetRegion = r || region;
       const targetCategory = c || category;
@@ -174,8 +187,14 @@ export const useQuizEngine = (
     const baseItems = items.map((it: any) => {
       const rawName = it.naam || it.name;
       const rawCapital = it.hoofdstad || it.capital || null;
+      const itemRegion = it.region || (
+        it.id?.startsWith('be-') ? 'belgium' :
+        it.id?.startsWith('eu-') ? 'europe' :
+        it.id?.startsWith('wd-') || it.id?.startsWith('world-') ? 'world' : (r || region)
+      );
       return {
         id: it.id || `item-${(rawName || '').toLowerCase().replace(/[^a-z0-9]/g, '-')}`,
+        region: itemRegion,
         rawName,
         rawCapital,
         name: translateName(rawName, language),
@@ -436,6 +455,20 @@ export const useQuizEngine = (
           .map(it => it.name);
         const distractors = otherItems.sort(() => 0.5 - Math.random()).slice(0, 2);
         options = [correctAnswer, ...distractors].sort(() => 0.5 - Math.random());
+      }
+    } else if (currentMode === 'map') {
+      if (currentCategory === 'capital' || (questionSubType as string) === 'capital' || (currentCategory === 'country' && questionSubType === 'capital') || (currentCategory === 'province' && questionSubType === 'capital')) {
+        const entityName = translateName(targetItem.name || (targetItem as any).naam || '', language);
+        text = language === 'en' 
+          ? `What is the capital of ${entityName}?` 
+          : `Wat is de hoofdstad van ${entityName}?`;
+        correctAnswer = translateName(targetItem.capital || '', language);
+      } else {
+        const translatedName = translateName(targetItem.name || (targetItem as any).naam || '', language);
+        text = language === 'en' 
+          ? `Find: ${translatedName}` 
+          : `Zoek: ${translatedName}`;
+        correctAnswer = translatedName;
       }
     } else if (currentMode === 'fill-in') {
       if (currentCategory === 'capital' || (questionSubType as string) === 'capital' || (currentCategory === 'country' && questionSubType === 'capital') || (currentCategory === 'province' && questionSubType === 'capital')) {

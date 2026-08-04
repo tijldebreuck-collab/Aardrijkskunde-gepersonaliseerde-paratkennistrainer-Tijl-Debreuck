@@ -2,7 +2,7 @@
   "continents": [
     {
       "id": "wd-co-eur",
-      "name": "Eurazi\u00eb",
+      "name": "Eurazië",
       "category": "continent",
       "polygon": [
         [
@@ -141,7 +141,7 @@
     },
     {
       "id": "wd-co-aus",
-      "name": "Australi\u00eb",
+      "name": "Australië",
       "category": "continent",
       "polygon": [
         [
@@ -163,7 +163,7 @@
       ],
       "alternatives": [
         "Australia",
-        "Oceani\u00eb"
+        "Oceanië"
       ],
       "difficulty": "gemiddeld"
     }
@@ -177,7 +177,7 @@
     },
     {
       "id": "wd-wd-azi",
-      "name": "Azi\u00eb",
+      "name": "Azië",
       "category": "continent",
       "difficulty": "gemiddeld"
     },
@@ -195,7 +195,7 @@
     },
     {
       "id": "wd-wd-oce",
-      "name": "Oceani\u00eb",
+      "name": "Oceanië",
       "category": "continent",
       "difficulty": "gemiddeld"
     },
@@ -246,6 +246,94 @@
         "Arctic Ocean",
         "Arctic",
         "Arctische Oceaan"
+      ],
+      "difficulty": "gemiddeld"
+    }
+  ],
+  "seas": [
+    {
+      "id": "wd-oc-gro",
+      "name": "Grote Oceaan",
+      "category": "sea",
+      "alternatives": [
+        "Stille Oceaan",
+        "Pacific",
+        "Pacific Ocean"
+      ],
+      "difficulty": "gemiddeld"
+    },
+    {
+      "id": "wd-oc-atl",
+      "name": "Atlantische Oceaan",
+      "category": "sea",
+      "alternatives": [
+        "Atlantic",
+        "Atlantic Ocean"
+      ],
+      "difficulty": "gemiddeld"
+    },
+    {
+      "id": "wd-oc-ind",
+      "name": "Indische Oceaan",
+      "category": "sea",
+      "alternatives": [
+        "Indian Ocean",
+        "Indian"
+      ],
+      "difficulty": "gemiddeld"
+    },
+    {
+      "id": "wd-oc-nij",
+      "name": "Noordelijke IJszee",
+      "category": "sea",
+      "alternatives": [
+        "Arctic Ocean",
+        "Arctic"
+      ],
+      "difficulty": "gemiddeld"
+    },
+    {
+      "id": "wd-s-middellandse",
+      "name": "Middellandse Zee",
+      "category": "sea",
+      "alternatives": [
+        "Mediterranean Sea"
+      ],
+      "difficulty": "gemiddeld"
+    },
+    {
+      "id": "wd-s-caribische",
+      "name": "Caribische Zee",
+      "category": "sea",
+      "alternatives": [
+        "Caribbean Sea"
+      ],
+      "difficulty": "gemiddeld"
+    },
+    {
+      "id": "wd-s-rode",
+      "name": "Rode Zee",
+      "category": "sea",
+      "alternatives": [
+        "Red Sea"
+      ],
+      "difficulty": "gemiddeld"
+    },
+    {
+      "id": "wd-s-kaspische",
+      "name": "Kaspische Zee",
+      "category": "sea",
+      "alternatives": [
+        "Caspian Sea"
+      ],
+      "difficulty": "gemiddeld"
+    },
+    {
+      "id": "wd-s-zwarte",
+      "name": "Zwarte Zee",
+      "category": "sea",
+      "alternatives": [
+        "Black Sea"
       ],
       "difficulty": "gemiddeld"
     }
@@ -333,7 +421,7 @@
     },
     {
       "id": "wd-r-parana",
-      "name": "Paran\u00e1",
+      "name": "Paraná",
       "category": "river",
       "alternatives": [
         "Parana"
@@ -510,689 +598,1570 @@
   ],
   "countries": [
     {
-      "id": "wd-l-can",
+      "id": "wd-l-242",
+      "name": "Fiji",
+      "category": "country",
+      "coordinates": [
+        178.5689,
+        -17.315
+      ]
+    },
+    {
+      "id": "wd-l-834",
+      "name": "Tanzania",
+      "category": "country",
+      "coordinates": [
+        34.7417,
+        -6.2507
+      ]
+    },
+    {
+      "id": "wd-l-732",
+      "name": "W. Sahara",
+      "category": "country",
+      "coordinates": [
+        -12.1861,
+        24.2782
+      ]
+    },
+    {
+      "id": "wd-l-124",
       "name": "Canada",
       "category": "country",
       "coordinates": [
-        -106,
-        56
-      ],
-      "polygon": [
-        [
-          -141,
-          75
-        ],
-        [
-          -52,
-          47
-        ],
-        [
-          -52,
-          83
-        ],
-        [
-          -141,
-          83
-        ]
-      ],
-      "capital": "Ottawa",
-      "difficulty": "gemiddeld"
+        -96.396,
+        60.4769
+      ]
     },
     {
-      "id": "wd-l-usa",
+      "id": "wd-l-840",
       "name": "Verenigde Staten",
       "category": "country",
       "coordinates": [
-        -95.7,
-        37
-      ],
-      "polygon": [
-        [
-          -125,
-          49
-        ],
-        [
-          -67,
-          49
-        ],
-        [
-          -67,
-          25
-        ],
-        [
-          -125,
-          25
-        ]
-      ],
-      "capital": "Washington DC",
-      "alternatives": [
-        "VSA",
-        "USA",
-        "V.S.",
-        "Verenigde Staten van Amerika",
-        "United States"
-      ],
-      "difficulty": "makkelijk"
+        -103.5725,
+        44.7557
+      ]
     },
     {
-      "id": "wd-l-mex",
-      "name": "Mexico",
+      "id": "wd-l-398",
+      "name": "Kazakhstan",
       "category": "country",
       "coordinates": [
-        -102,
-        23
-      ],
-      "polygon": [
-        [
-          -117,
-          32
-        ],
-        [
-          -86,
-          21
-        ],
-        [
-          -92,
-          15
-        ],
-        [
-          -117,
-          32
-        ]
-      ],
-      "capital": "Mexico Stad",
-      "difficulty": "gemiddeld"
+        67.2357,
+        48.4059
+      ]
     },
     {
-      "id": "wd-l-cub",
-      "name": "Cuba",
+      "id": "wd-l-860",
+      "name": "Uzbekistan",
       "category": "country",
       "coordinates": [
-        -77.7,
-        21.5
-      ],
-      "capital": "Havana",
-      "difficulty": "gemiddeld"
+        63.365,
+        41.7711
+      ]
     },
     {
-      "id": "wd-l-bra",
-      "name": "Brazili\u00eb",
+      "id": "wd-l-598",
+      "name": "Papua New Guinea",
       "category": "country",
       "coordinates": [
-        -51.9,
-        -14.2
-      ],
-      "capital": "Brasilia",
-      "alternatives": [
-        "Brazil",
-        "Braziel",
-        "Brazilie"
-      ],
-      "difficulty": "gemiddeld"
+        145.3135,
+        -6.4573
+      ]
     },
     {
-      "id": "wd-l-ven",
-      "name": "Venezuela",
+      "id": "wd-l-360",
+      "name": "Indonesië",
       "category": "country",
       "coordinates": [
-        -66.5,
-        6.4
-      ],
-      "capital": "Caracas",
-      "difficulty": "gemiddeld"
+        117.3646,
+        -2.2719
+      ]
     },
     {
-      "id": "wd-l-col",
-      "name": "Colombia",
+      "id": "wd-l-32",
+      "name": "Argentinië",
       "category": "country",
       "coordinates": [
-        -72.9,
-        4.5
-      ],
-      "capital": "Bogota",
-      "difficulty": "gemiddeld"
+        -64.7543,
+        -34.7366
+      ]
     },
     {
-      "id": "wd-l-per",
-      "name": "Peru",
-      "category": "country",
-      "coordinates": [
-        -75,
-        -9.1
-      ],
-      "capital": "Lima",
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-chi",
+      "id": "wd-l-152",
       "name": "Chili",
       "category": "country",
       "coordinates": [
-        -71.5,
-        -35.6
-      ],
-      "capital": "Santiago",
-      "alternatives": [
-        "Chile"
-      ],
-      "difficulty": "gemiddeld"
+        -71.1779,
+        -37.3109
+      ]
     },
     {
-      "id": "wd-l-arg",
-      "name": "Argentini\u00eb",
-      "category": "country",
-      "coordinates": [
-        -63.6,
-        -38.4
-      ],
-      "capital": "Buenos Aires",
-      "alternatives": [
-        "Argentina",
-        "Argentinie"
-      ],
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-egy",
-      "name": "Egypte",
-      "category": "country",
-      "coordinates": [
-        30.8,
-        26.8
-      ],
-      "capital": "Cairo",
-      "alternatives": [
-        "Egypt",
-        "Ca\u00efro"
-      ],
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-alg",
-      "name": "Algerije",
-      "category": "country",
-      "coordinates": [
-        1.6,
-        28
-      ],
-      "capital": "Algiers",
-      "alternatives": [
-        "Algeria"
-      ],
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-lby",
-      "name": "Libi\u00eb",
-      "category": "country",
-      "coordinates": [
-        17.2,
-        26.3
-      ],
-      "capital": "Tripoli",
-      "alternatives": [
-        "Libya",
-        "Libie"
-      ],
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-mar",
-      "name": "Marokko",
-      "category": "country",
-      "coordinates": [
-        -7,
-        31.7
-      ],
-      "capital": "Rabat",
-      "alternatives": [
-        "Morocco"
-      ],
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-tun",
-      "name": "Tunesi\u00eb",
-      "category": "country",
-      "coordinates": [
-        9.5,
-        33.8
-      ],
-      "capital": "Tunis",
-      "alternatives": [
-        "Tunisia",
-        "Tunesie"
-      ],
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-som",
-      "name": "Somali\u00eb",
-      "category": "country",
-      "coordinates": [
-        46.1,
-        5.1
-      ],
-      "capital": "Mogadishu",
-      "alternatives": [
-        "Somalia",
-        "Somalie"
-      ],
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-eth",
-      "name": "Ethiopi\u00eb",
-      "category": "country",
-      "coordinates": [
-        40.4,
-        9.1
-      ],
-      "capital": "Addis Abeba",
-      "alternatives": [
-        "Ethiopia",
-        "Ethiopie"
-      ],
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-sud",
-      "name": "Soedan en Zuid-Soedan",
-      "category": "country",
-      "coordinates": [
-        30,
-        15
-      ],
-      "capital": "Khartoem",
-      "alternatives": [
-        "Sudan",
-        "Soedan",
-        "Zuid-Soedan",
-        "Zuid Soedan"
-      ],
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-ken",
-      "name": "Kenia",
-      "category": "country",
-      "coordinates": [
-        37.9,
-        -0.02
-      ],
-      "capital": "Nairobi",
-      "alternatives": [
-        "Kenya"
-      ],
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-rwa",
-      "name": "Rwanda",
-      "category": "country",
-      "coordinates": [
-        29.8,
-        -1.9
-      ],
-      "capital": "Kigali",
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-bur",
-      "name": "Burundi",
-      "category": "country",
-      "coordinates": [
-        29.9,
-        -3.3
-      ],
-      "capital": "Gitega",
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-mli",
-      "name": "Mali",
-      "category": "country",
-      "coordinates": [
-        -3.9,
-        17.5
-      ],
-      "capital": "Bamako",
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-nga",
-      "name": "Nigeria",
-      "category": "country",
-      "coordinates": [
-        8.6,
-        9
-      ],
-      "capital": "Abuja",
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-civ",
-      "name": "Ivoorkust",
-      "category": "country",
-      "coordinates": [
-        -5.5,
-        7.5
-      ],
-      "capital": "Yamoussoukro",
-      "alternatives": [
-        "Ivory Coast",
-        "Cote d'Ivoire"
-      ],
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-sen",
-      "name": "Senegal",
-      "category": "country",
-      "coordinates": [
-        -14.4,
-        14.4
-      ],
-      "capital": "Dakar",
-      "difficulty": "gemiddeld"
-    },
-    {
-      "id": "wd-l-cod",
+      "id": "wd-l-180",
       "name": "D.R. Congo",
       "category": "country",
       "coordinates": [
-        21.7,
-        -4
-      ],
-      "capital": "Kinshasa",
-      "alternatives": [
-        "Congo",
-        "Congo-Kinshasa",
-        "Democratische Republiek Congo",
-        "DR Congo"
-      ],
-      "difficulty": "gemiddeld"
+        23.5768,
+        -2.8387
+      ]
     },
     {
-      "id": "wd-l-zaf",
-      "name": "Zuid-Afrika",
+      "id": "wd-l-706",
+      "name": "Somalië",
       "category": "country",
       "coordinates": [
-        22.9,
-        -30.5
-      ],
-      "capital": "Pretoria",
-      "alternatives": [
-        "South Africa",
-        "Zuid Afrika"
-      ],
-      "difficulty": "gemiddeld"
+        45.6995,
+        4.7415
+      ]
     },
     {
-      "id": "wd-l-rus",
+      "id": "wd-l-404",
+      "name": "Kenia",
+      "category": "country",
+      "coordinates": [
+        37.7914,
+        0.5955
+      ]
+    },
+    {
+      "id": "wd-l-729",
+      "name": "Soedan en Zuid-Soedan",
+      "category": "country",
+      "coordinates": [
+        29.8306,
+        15.9716
+      ]
+    },
+    {
+      "id": "wd-l-148",
+      "name": "Chad",
+      "category": "country",
+      "coordinates": [
+        18.5738,
+        15.2761
+      ]
+    },
+    {
+      "id": "wd-l-332",
+      "name": "Haiti",
+      "category": "country",
+      "coordinates": [
+        -72.6591,
+        18.9003
+      ]
+    },
+    {
+      "id": "wd-l-214",
+      "name": "Dominican Rep.",
+      "category": "country",
+      "coordinates": [
+        -70.4619,
+        18.8854
+      ]
+    },
+    {
+      "id": "wd-l-643",
       "name": "Rusland",
       "category": "country",
       "coordinates": [
-        105,
-        60
-      ],
-      "capital": "Moskou",
-      "alternatives": [
-        "Russia",
-        "Russian Federation"
-      ],
-      "difficulty": "gemiddeld"
+        95.7853,
+        66.0678
+      ]
     },
     {
-      "id": "wd-l-ukr",
-      "name": "Oekra\u00efne",
+      "id": "wd-l-44",
+      "name": "Bahamas",
       "category": "country",
       "coordinates": [
-        31.1,
-        48.3
-      ],
-      "capital": "Kiev",
-      "alternatives": [
-        "Ukraine",
-        "Oekraine"
-      ],
-      "difficulty": "gemiddeld"
+        -77.928,
+        25.5066
+      ]
     },
     {
-      "id": "wd-l-pak",
-      "name": "Pakistan",
+      "id": "wd-l-238",
+      "name": "Falkland Is.",
       "category": "country",
       "coordinates": [
-        69.3,
-        30.3
-      ],
-      "capital": "Islamabad",
-      "difficulty": "gemiddeld"
+        -59.4159,
+        -51.7163
+      ]
     },
     {
-      "id": "wd-l-afg",
-      "name": "Afghanistan",
+      "id": "wd-l-578",
+      "name": "Noorwegen",
       "category": "country",
       "coordinates": [
-        67.7,
-        33.9
-      ],
-      "capital": "Kabul",
-      "difficulty": "gemiddeld"
+        12.8293,
+        66.6482
+      ]
     },
     {
-      "id": "wd-l-syr",
-      "name": "Syri\u00eb",
+      "id": "wd-l-304",
+      "name": "Greenland",
       "category": "country",
       "coordinates": [
-        38.9,
-        34.8
-      ],
-      "capital": "Damascus",
-      "alternatives": [
-        "Syria",
-        "Syrie"
-      ],
-      "difficulty": "gemiddeld"
+        -41.9649,
+        73.1507
+      ]
     },
     {
-      "id": "wd-l-isr",
-      "name": "Isra\u00ebl",
+      "id": "wd-l-260",
+      "name": "Fr. S. Antarctic Lands",
       "category": "country",
       "coordinates": [
-        34.8,
-        31
-      ],
-      "capital": "Jeruzalem",
-      "alternatives": [
-        "Israel",
-        "Jerusalem"
-      ],
-      "difficulty": "gemiddeld"
+        69.5309,
+        -49.307
+      ]
     },
     {
-      "id": "wd-l-idn",
-      "name": "Indonesi\u00eb",
+      "id": "wd-l-626",
+      "name": "Timor-Leste",
       "category": "country",
       "coordinates": [
-        113.9,
-        -0.78
-      ],
-      "capital": "Jakarta",
-      "alternatives": [
-        "Indonesia",
-        "Indonesie"
-      ],
-      "difficulty": "gemiddeld"
+        125.9673,
+        -8.7679
+      ]
     },
     {
-      "id": "wd-l-phl",
-      "name": "Filipijnen",
+      "id": "wd-l-710",
+      "name": "Zuid-Afrika",
       "category": "country",
       "coordinates": [
-        121.7,
-        12.8
-      ],
-      "capital": "Manilla",
-      "alternatives": [
-        "Philippines",
-        "Filipijnen"
-      ],
-      "difficulty": "gemiddeld"
+        25.1581,
+        -28.9233
+      ]
     },
     {
-      "id": "wd-l-tha",
-      "name": "Thailand",
+      "id": "wd-l-426",
+      "name": "Lesotho",
       "category": "country",
       "coordinates": [
-        100.9,
-        15.8
-      ],
-      "capital": "Bangkok",
-      "difficulty": "gemiddeld"
+        28.1716,
+        -29.6246
+      ]
     },
     {
-      "id": "wd-l-lbn",
+      "id": "wd-l-484",
+      "name": "Mexico",
+      "category": "country",
+      "coordinates": [
+        -102.2231,
+        23.9134
+      ]
+    },
+    {
+      "id": "wd-l-858",
+      "name": "Uruguay",
+      "category": "country",
+      "coordinates": [
+        -56.0099,
+        -32.7738
+      ]
+    },
+    {
+      "id": "wd-l-76",
+      "name": "Brazilië",
+      "category": "country",
+      "coordinates": [
+        -53.1725,
+        -10.6555
+      ]
+    },
+    {
+      "id": "wd-l-68",
+      "name": "Bolivia",
+      "category": "country",
+      "coordinates": [
+        -64.6547,
+        -16.7039
+      ]
+    },
+    {
+      "id": "wd-l-604",
+      "name": "Peru",
+      "category": "country",
+      "coordinates": [
+        -74.4306,
+        -9.1471
+      ]
+    },
+    {
+      "id": "wd-l-170",
+      "name": "Colombia",
+      "category": "country",
+      "coordinates": [
+        -73.0735,
+        3.9163
+      ]
+    },
+    {
+      "id": "wd-l-591",
+      "name": "Panama",
+      "category": "country",
+      "coordinates": [
+        -80.1093,
+        8.5326
+      ]
+    },
+    {
+      "id": "wd-l-188",
+      "name": "Costa Rica",
+      "category": "country",
+      "coordinates": [
+        -84.1735,
+        9.9658
+      ]
+    },
+    {
+      "id": "wd-l-558",
+      "name": "Nicaragua",
+      "category": "country",
+      "coordinates": [
+        -85.0215,
+        12.8466
+      ]
+    },
+    {
+      "id": "wd-l-340",
+      "name": "Honduras",
+      "category": "country",
+      "coordinates": [
+        -86.5928,
+        14.8251
+      ]
+    },
+    {
+      "id": "wd-l-222",
+      "name": "El Salvador",
+      "category": "country",
+      "coordinates": [
+        -88.8719,
+        13.7262
+      ]
+    },
+    {
+      "id": "wd-l-320",
+      "name": "Guatemala",
+      "category": "country",
+      "coordinates": [
+        -90.3717,
+        15.6961
+      ]
+    },
+    {
+      "id": "wd-l-84",
+      "name": "Belize",
+      "category": "country",
+      "coordinates": [
+        -88.7038,
+        17.1947
+      ]
+    },
+    {
+      "id": "wd-l-862",
+      "name": "Venezuela",
+      "category": "country",
+      "coordinates": [
+        -66.1532,
+        7.1608
+      ]
+    },
+    {
+      "id": "wd-l-328",
+      "name": "Guyana",
+      "category": "country",
+      "coordinates": [
+        -58.9694,
+        4.7861
+      ]
+    },
+    {
+      "id": "wd-l-740",
+      "name": "Suriname",
+      "category": "country",
+      "coordinates": [
+        -55.9115,
+        4.1197
+      ]
+    },
+    {
+      "id": "wd-l-250",
+      "name": "Frankrijk",
+      "category": "country",
+      "coordinates": [
+        -6.8016,
+        43.1403
+      ]
+    },
+    {
+      "id": "wd-l-218",
+      "name": "Ecuador",
+      "category": "country",
+      "coordinates": [
+        -78.3837,
+        -1.4544
+      ]
+    },
+    {
+      "id": "wd-l-630",
+      "name": "Puerto Rico",
+      "category": "country",
+      "coordinates": [
+        -66.4791,
+        18.238
+      ]
+    },
+    {
+      "id": "wd-l-388",
+      "name": "Jamaica",
+      "category": "country",
+      "coordinates": [
+        -77.3243,
+        18.1383
+      ]
+    },
+    {
+      "id": "wd-l-192",
+      "name": "Cuba",
+      "category": "country",
+      "coordinates": [
+        -78.9318,
+        21.6473
+      ]
+    },
+    {
+      "id": "wd-l-716",
+      "name": "Zimbabwe",
+      "category": "country",
+      "coordinates": [
+        29.7886,
+        -18.9003
+      ]
+    },
+    {
+      "id": "wd-l-72",
+      "name": "Botswana",
+      "category": "country",
+      "coordinates": [
+        23.783,
+        -22.0823
+      ]
+    },
+    {
+      "id": "wd-l-516",
+      "name": "Namibia",
+      "category": "country",
+      "coordinates": [
+        17.1422,
+        -22.0401
+      ]
+    },
+    {
+      "id": "wd-l-686",
+      "name": "Senegal",
+      "category": "country",
+      "coordinates": [
+        -14.506,
+        14.3536
+      ]
+    },
+    {
+      "id": "wd-l-466",
+      "name": "Mali",
+      "category": "country",
+      "coordinates": [
+        -3.5929,
+        17.2404
+      ]
+    },
+    {
+      "id": "wd-l-478",
+      "name": "Mauritania",
+      "category": "country",
+      "coordinates": [
+        -10.3487,
+        20.1803
+      ]
+    },
+    {
+      "id": "wd-l-204",
+      "name": "Benin",
+      "category": "country",
+      "coordinates": [
+        2.3364,
+        9.6423
+      ]
+    },
+    {
+      "id": "wd-l-562",
+      "name": "Niger",
+      "category": "country",
+      "coordinates": [
+        9.2747,
+        17.3404
+      ]
+    },
+    {
+      "id": "wd-l-566",
+      "name": "Nigeria",
+      "category": "country",
+      "coordinates": [
+        7.9858,
+        9.5446
+      ]
+    },
+    {
+      "id": "wd-l-120",
+      "name": "Cameroon",
+      "category": "country",
+      "coordinates": [
+        12.606,
+        5.6543
+      ]
+    },
+    {
+      "id": "wd-l-768",
+      "name": "Togo",
+      "category": "country",
+      "coordinates": [
+        0.9981,
+        8.4346
+      ]
+    },
+    {
+      "id": "wd-l-288",
+      "name": "Ghana",
+      "category": "country",
+      "coordinates": [
+        -1.2371,
+        7.9235
+      ]
+    },
+    {
+      "id": "wd-l-384",
+      "name": "Ivoorkust",
+      "category": "country",
+      "coordinates": [
+        -5.6119,
+        7.5515
+      ]
+    },
+    {
+      "id": "wd-l-324",
+      "name": "Guinea",
+      "category": "country",
+      "coordinates": [
+        -11.0552,
+        10.45
+      ]
+    },
+    {
+      "id": "wd-l-624",
+      "name": "Guinea-Bissau",
+      "category": "country",
+      "coordinates": [
+        -15.1104,
+        12.024
+      ]
+    },
+    {
+      "id": "wd-l-430",
+      "name": "Liberia",
+      "category": "country",
+      "coordinates": [
+        -9.4086,
+        6.4303
+      ]
+    },
+    {
+      "id": "wd-l-694",
+      "name": "Sierra Leone",
+      "category": "country",
+      "coordinates": [
+        -11.7954,
+        8.5299
+      ]
+    },
+    {
+      "id": "wd-l-854",
+      "name": "Burkina Faso",
+      "category": "country",
+      "coordinates": [
+        -1.7828,
+        12.313
+      ]
+    },
+    {
+      "id": "wd-l-140",
+      "name": "Central African Rep.",
+      "category": "country",
+      "coordinates": [
+        20.3677,
+        6.5468
+      ]
+    },
+    {
+      "id": "wd-l-178",
+      "name": "Kongo",
+      "category": "country",
+      "coordinates": [
+        15.136,
+        -0.8367
+      ]
+    },
+    {
+      "id": "wd-l-266",
+      "name": "Gabon",
+      "category": "country",
+      "coordinates": [
+        11.6874,
+        -0.6469
+      ]
+    },
+    {
+      "id": "wd-l-226",
+      "name": "Eq. Guinea",
+      "category": "country",
+      "coordinates": [
+        10.3657,
+        1.6464
+      ]
+    },
+    {
+      "id": "wd-l-894",
+      "name": "Zambia",
+      "category": "country",
+      "coordinates": [
+        27.7613,
+        -13.393
+      ]
+    },
+    {
+      "id": "wd-l-454",
+      "name": "Malawi",
+      "category": "country",
+      "coordinates": [
+        34.186,
+        -13.1592
+      ]
+    },
+    {
+      "id": "wd-l-508",
+      "name": "Mozambique",
+      "category": "country",
+      "coordinates": [
+        35.5422,
+        -17.1541
+      ]
+    },
+    {
+      "id": "wd-l-748",
+      "name": "eSwatini",
+      "category": "country",
+      "coordinates": [
+        31.3951,
+        -26.4896
+      ]
+    },
+    {
+      "id": "wd-l-24",
+      "name": "Angola",
+      "category": "country",
+      "coordinates": [
+        17.465,
+        -12.2256
+      ]
+    },
+    {
+      "id": "wd-l-108",
+      "name": "Burundi",
+      "category": "country",
+      "coordinates": [
+        29.914,
+        -3.3777
+      ]
+    },
+    {
+      "id": "wd-l-376",
+      "name": "Israël",
+      "category": "country",
+      "coordinates": [
+        35.001,
+        31.4791
+      ]
+    },
+    {
+      "id": "wd-l-422",
       "name": "Libanon",
       "category": "country",
       "coordinates": [
-        35.8,
-        33.8
-      ],
-      "capital": "Beiroet",
-      "alternatives": [
-        "Lebanon"
-      ],
-      "difficulty": "gemiddeld"
+        35.8684,
+        33.9102
+      ]
     },
     {
-      "id": "wd-l-jor",
-      "name": "Jordani\u00eb",
+      "id": "wd-l-450",
+      "name": "Madagascar",
       "category": "country",
       "coordinates": [
-        36.2,
-        30.5
-      ],
-      "capital": "Amman",
-      "alternatives": [
-        "Jordan",
-        "Jordanie"
-      ],
-      "difficulty": "gemiddeld"
+        46.7294,
+        -19.3012
+      ]
     },
     {
-      "id": "wd-l-sau",
-      "name": "Saudi-Arabi\u00eb",
+      "id": "wd-l-275",
+      "name": "Palestine",
       "category": "country",
       "coordinates": [
-        45,
-        23.8
-      ],
-      "capital": "Riyad",
-      "alternatives": [
-        "Saudi Arabia",
-        "Saoedi-Arabie",
-        "Saoedi Arabi\u00eb"
-      ],
-      "difficulty": "gemiddeld"
+        35.2728,
+        31.9398
+      ]
     },
     {
-      "id": "wd-l-tur",
-      "name": "Turkije",
+      "id": "wd-l-270",
+      "name": "Gambia",
       "category": "country",
       "coordinates": [
-        35.2,
-        38.9
-      ],
-      "capital": "Ankara",
-      "alternatives": [
-        "Turkey",
-        "Turkiye"
-      ],
-      "difficulty": "gemiddeld"
+        -15.4327,
+        13.4767
+      ]
     },
     {
-      "id": "wd-l-chn",
-      "name": "China",
+      "id": "wd-l-788",
+      "name": "Tunesië",
       "category": "country",
       "coordinates": [
-        104.1,
-        35.8
-      ],
-      "capital": "Beijing",
-      "alternatives": [
-        "Sina",
-        "Volksrepubliek China"
-      ],
-      "difficulty": "makkelijk"
+        9.5387,
+        34.1438
+      ]
     },
     {
-      "id": "wd-l-jpn",
-      "name": "Japan",
+      "id": "wd-l-12",
+      "name": "Algerije",
       "category": "country",
       "coordinates": [
-        138,
-        36.2
-      ],
-      "capital": "Tokio",
-      "alternatives": [
-        "Tokyo"
-      ],
-      "difficulty": "makkelijk"
+        2.612,
+        28.0855
+      ]
     },
     {
-      "id": "wd-l-ind",
-      "name": "India",
+      "id": "wd-l-400",
+      "name": "Jordanië",
       "category": "country",
       "coordinates": [
-        78.9,
-        20.5
-      ],
-      "capital": "New Delhi",
-      "difficulty": "gemiddeld"
+        36.7663,
+        31.2402
+      ]
     },
     {
-      "id": "wd-l-irn",
-      "name": "Iran",
+      "id": "wd-l-784",
+      "name": "United Arab Emirates",
       "category": "country",
       "coordinates": [
-        53.6,
-        32.4
-      ],
-      "capital": "Teheran",
-      "alternatives": [
-        "Persia"
-      ],
-      "difficulty": "gemiddeld"
+        54.2004,
+        23.871
+      ]
     },
     {
-      "id": "wd-l-irq",
+      "id": "wd-l-634",
+      "name": "Qatar",
+      "category": "country",
+      "coordinates": [
+        51.1838,
+        25.321
+      ]
+    },
+    {
+      "id": "wd-l-414",
+      "name": "Kuwait",
+      "category": "country",
+      "coordinates": [
+        47.6008,
+        29.3072
+      ]
+    },
+    {
+      "id": "wd-l-368",
       "name": "Irak",
       "category": "country",
       "coordinates": [
-        43.6,
-        33.2
-      ],
-      "capital": "Bagdad",
-      "alternatives": [
-        "Iraq"
-      ],
-      "difficulty": "gemiddeld"
+        43.7869,
+        33.0097
+      ]
     },
     {
-      "id": "wd-l-aus-country",
-      "name": "Australi\u00eb",
+      "id": "wd-l-512",
+      "name": "Oman",
       "category": "country",
       "coordinates": [
-        133.7,
-        -25.2
-      ],
-      "capital": "Canberra",
-      "alternatives": [
-        "Australia",
-        "Australie"
-      ],
-      "difficulty": "gemiddeld"
+        56.0677,
+        20.5915
+      ]
+    },
+    {
+      "id": "wd-l-548",
+      "name": "Vanuatu",
+      "category": "country",
+      "coordinates": [
+        167.0729,
+        -15.5423
+      ]
+    },
+    {
+      "id": "wd-l-116",
+      "name": "Cambodia",
+      "category": "country",
+      "coordinates": [
+        104.8741,
+        12.6849
+      ]
+    },
+    {
+      "id": "wd-l-764",
+      "name": "Thailand",
+      "category": "country",
+      "coordinates": [
+        101.0025,
+        14.9807
+      ]
+    },
+    {
+      "id": "wd-l-418",
+      "name": "Laos",
+      "category": "country",
+      "coordinates": [
+        103.7872,
+        18.4309
+      ]
+    },
+    {
+      "id": "wd-l-104",
+      "name": "Myanmar",
+      "category": "country",
+      "coordinates": [
+        96.5132,
+        20.9448
+      ]
+    },
+    {
+      "id": "wd-l-704",
+      "name": "Vietnam",
+      "category": "country",
+      "coordinates": [
+        106.3329,
+        16.5556
+      ]
+    },
+    {
+      "id": "wd-l-408",
+      "name": "North Korea",
+      "category": "country",
+      "coordinates": [
+        127.1308,
+        40.1297
+      ]
+    },
+    {
+      "id": "wd-l-410",
+      "name": "South Korea",
+      "category": "country",
+      "coordinates": [
+        127.8199,
+        36.4187
+      ]
+    },
+    {
+      "id": "wd-l-496",
+      "name": "Mongolia",
+      "category": "country",
+      "coordinates": [
+        103.0157,
+        46.9542
+      ]
+    },
+    {
+      "id": "wd-l-356",
+      "name": "India",
+      "category": "country",
+      "coordinates": [
+        79.5399,
+        22.8192
+      ]
+    },
+    {
+      "id": "wd-l-50",
+      "name": "Bangladesh",
+      "category": "country",
+      "coordinates": [
+        90.2763,
+        23.8339
+      ]
+    },
+    {
+      "id": "wd-l-64",
+      "name": "Bhutan",
+      "category": "country",
+      "coordinates": [
+        90.4733,
+        27.4296
+      ]
+    },
+    {
+      "id": "wd-l-524",
+      "name": "Nepal",
+      "category": "country",
+      "coordinates": [
+        84.0435,
+        28.249
+      ]
+    },
+    {
+      "id": "wd-l-586",
+      "name": "Pakistan",
+      "category": "country",
+      "coordinates": [
+        69.235,
+        29.9082
+      ]
+    },
+    {
+      "id": "wd-l-4",
+      "name": "Afghanistan",
+      "category": "country",
+      "coordinates": [
+        66.0038,
+        33.8403
+      ]
+    },
+    {
+      "id": "wd-l-762",
+      "name": "Tajikistan",
+      "category": "country",
+      "coordinates": [
+        71.0477,
+        38.5892
+      ]
+    },
+    {
+      "id": "wd-l-417",
+      "name": "Kyrgyzstan",
+      "category": "country",
+      "coordinates": [
+        74.5871,
+        41.5187
+      ]
+    },
+    {
+      "id": "wd-l-795",
+      "name": "Turkmenistan",
+      "category": "country",
+      "coordinates": [
+        59.3484,
+        39.1022
+      ]
+    },
+    {
+      "id": "wd-l-364",
+      "name": "Iran",
+      "category": "country",
+      "coordinates": [
+        54.453,
+        32.4741
+      ]
+    },
+    {
+      "id": "wd-l-760",
+      "name": "Syrië",
+      "category": "country",
+      "coordinates": [
+        38.5234,
+        35.0085
+      ]
+    },
+    {
+      "id": "wd-l-51",
+      "name": "Armenia",
+      "category": "country",
+      "coordinates": [
+        45.0096,
+        40.2144
+      ]
+    },
+    {
+      "id": "wd-l-752",
+      "name": "Zweden",
+      "category": "country",
+      "coordinates": [
+        16.1091,
+        62.4185
+      ]
+    },
+    {
+      "id": "wd-l-112",
+      "name": "Wit-Rusland",
+      "category": "country",
+      "coordinates": [
+        27.9649,
+        53.4952
+      ]
+    },
+    {
+      "id": "wd-l-804",
+      "name": "Oekraïne",
+      "category": "country",
+      "coordinates": [
+        31.2924,
+        49.1866
+      ]
+    },
+    {
+      "id": "wd-l-616",
+      "name": "Polen",
+      "category": "country",
+      "coordinates": [
+        19.3438,
+        52.1341
+      ]
+    },
+    {
+      "id": "wd-l-40",
+      "name": "Oostenrijk",
+      "category": "country",
+      "coordinates": [
+        14.0602,
+        47.621
+      ]
+    },
+    {
+      "id": "wd-l-348",
+      "name": "Hongarije",
+      "category": "country",
+      "coordinates": [
+        19.343,
+        47.2035
+      ]
+    },
+    {
+      "id": "wd-l-498",
+      "name": "Moldavië",
+      "category": "country",
+      "coordinates": [
+        28.4197,
+        47.1964
+      ]
+    },
+    {
+      "id": "wd-l-642",
+      "name": "Roemenië",
+      "category": "country",
+      "coordinates": [
+        24.9541,
+        45.8534
+      ]
+    },
+    {
+      "id": "wd-l-440",
+      "name": "Litouwen",
+      "category": "country",
+      "coordinates": [
+        23.8881,
+        55.2828
+      ]
+    },
+    {
+      "id": "wd-l-428",
+      "name": "Letland",
+      "category": "country",
+      "coordinates": [
+        24.8394,
+        56.8173
+      ]
+    },
+    {
+      "id": "wd-l-233",
+      "name": "Estland",
+      "category": "country",
+      "coordinates": [
+        25.8306,
+        58.6414
+      ]
+    },
+    {
+      "id": "wd-l-276",
+      "name": "Duitsland",
+      "category": "country",
+      "coordinates": [
+        10.2704,
+        51.0774
+      ]
+    },
+    {
+      "id": "wd-l-100",
+      "name": "Bulgarije",
+      "category": "country",
+      "coordinates": [
+        25.1875,
+        42.7559
+      ]
+    },
+    {
+      "id": "wd-l-300",
+      "name": "Griekenland",
+      "category": "country",
+      "coordinates": [
+        22.7201,
+        39.0367
+      ]
+    },
+    {
+      "id": "wd-l-792",
+      "name": "Turkije",
+      "category": "country",
+      "coordinates": [
+        35.1172,
+        39.1451
+      ]
+    },
+    {
+      "id": "wd-l-8",
+      "name": "Albanië",
+      "category": "country",
+      "coordinates": [
+        20.0338,
+        41.1344
+      ]
+    },
+    {
+      "id": "wd-l-191",
+      "name": "Kroatië",
+      "category": "country",
+      "coordinates": [
+        16.5673,
+        45.0098
+      ]
+    },
+    {
+      "id": "wd-l-756",
+      "name": "Zwitserland",
+      "category": "country",
+      "coordinates": [
+        8.1158,
+        46.7928
+      ]
+    },
+    {
+      "id": "wd-l-442",
+      "name": "Luxemburg",
+      "category": "country",
+      "coordinates": [
+        5.9661,
+        49.7649
+      ]
+    },
+    {
+      "id": "wd-l-56",
+      "name": "België",
+      "category": "country",
+      "coordinates": [
+        4.5877,
+        50.6526
+      ]
+    },
+    {
+      "id": "wd-l-528",
+      "name": "Nederland",
+      "category": "country",
+      "coordinates": [
+        5.4999,
+        52.2929
+      ]
+    },
+    {
+      "id": "wd-l-620",
+      "name": "Portugal",
+      "category": "country",
+      "coordinates": [
+        -8.0611,
+        39.6072
+      ]
+    },
+    {
+      "id": "wd-l-724",
+      "name": "Spanje",
+      "category": "country",
+      "coordinates": [
+        -3.6242,
+        40.3207
+      ]
+    },
+    {
+      "id": "wd-l-372",
+      "name": "Ierland",
+      "category": "country",
+      "coordinates": [
+        -8.017,
+        53.1718
+      ]
+    },
+    {
+      "id": "wd-l-540",
+      "name": "New Caledonia",
+      "category": "country",
+      "coordinates": [
+        165.5284,
+        -21.261
+      ]
+    },
+    {
+      "id": "wd-l-90",
+      "name": "Solomon Is.",
+      "category": "country",
+      "coordinates": [
+        159.9595,
+        -8.8523
+      ]
+    },
+    {
+      "id": "wd-l-554",
+      "name": "New Zealand",
+      "category": "country",
+      "coordinates": [
+        172.9514,
+        -41.5511
+      ]
+    },
+    {
+      "id": "wd-l-36",
+      "name": "Australië",
+      "category": "country",
+      "coordinates": [
+        134.3141,
+        -25.7631
+      ]
+    },
+    {
+      "id": "wd-l-144",
+      "name": "Sri Lanka",
+      "category": "country",
+      "coordinates": [
+        80.6679,
+        7.6995
+      ]
+    },
+    {
+      "id": "wd-l-156",
+      "name": "China",
+      "category": "country",
+      "coordinates": [
+        103.4525,
+        36.6834
+      ]
+    },
+    {
+      "id": "wd-l-158",
+      "name": "Taiwan",
+      "category": "country",
+      "coordinates": [
+        120.9716,
+        23.739
+      ]
+    },
+    {
+      "id": "wd-l-380",
+      "name": "Italië",
+      "category": "country",
+      "coordinates": [
+        12.269,
+        42.6708
+      ]
+    },
+    {
+      "id": "wd-l-208",
+      "name": "Denemarken",
+      "category": "country",
+      "coordinates": [
+        9.8855,
+        56.0591
+      ]
+    },
+    {
+      "id": "wd-l-826",
+      "name": "Verenigd Koninkrijk",
+      "category": "country",
+      "coordinates": [
+        -2.7597,
+        53.8085
+      ]
+    },
+    {
+      "id": "wd-l-352",
+      "name": "IJsland",
+      "category": "country",
+      "coordinates": [
+        -18.7651,
+        65.0798
+      ]
+    },
+    {
+      "id": "wd-l-31",
+      "name": "Azerbaijan",
+      "category": "country",
+      "coordinates": [
+        47.555,
+        40.2195
+      ]
+    },
+    {
+      "id": "wd-l-268",
+      "name": "Georgia",
+      "category": "country",
+      "coordinates": [
+        43.4991,
+        42.1679
+      ]
+    },
+    {
+      "id": "wd-l-608",
+      "name": "Filipijnen",
+      "category": "country",
+      "coordinates": [
+        122.9376,
+        11.7197
+      ]
+    },
+    {
+      "id": "wd-l-458",
+      "name": "Malaysia",
+      "category": "country",
+      "coordinates": [
+        109.6996,
+        3.7464
+      ]
+    },
+    {
+      "id": "wd-l-96",
+      "name": "Brunei",
+      "category": "country",
+      "coordinates": [
+        114.9151,
+        4.6901
+      ]
+    },
+    {
+      "id": "wd-l-705",
+      "name": "Slovenië",
+      "category": "country",
+      "coordinates": [
+        14.9342,
+        46.1259
+      ]
+    },
+    {
+      "id": "wd-l-246",
+      "name": "Finland",
+      "category": "country",
+      "coordinates": [
+        26.1416,
+        64.261
+      ]
+    },
+    {
+      "id": "wd-l-703",
+      "name": "Slowakije",
+      "category": "country",
+      "coordinates": [
+        19.4975,
+        48.7333
+      ]
+    },
+    {
+      "id": "wd-l-203",
+      "name": "Tsjechië",
+      "category": "country",
+      "coordinates": [
+        15.3429,
+        49.7798
+      ]
+    },
+    {
+      "id": "wd-l-232",
+      "name": "Eritrea",
+      "category": "country",
+      "coordinates": [
+        38.6885,
+        15.4273
+      ]
+    },
+    {
+      "id": "wd-l-392",
+      "name": "Japan",
+      "category": "country",
+      "coordinates": [
+        137.7123,
+        37.5367
+      ]
+    },
+    {
+      "id": "wd-l-600",
+      "name": "Paraguay",
+      "category": "country",
+      "coordinates": [
+        -58.4318,
+        -23.2297
+      ]
+    },
+    {
+      "id": "wd-l-887",
+      "name": "Yemen",
+      "category": "country",
+      "coordinates": [
+        47.5151,
+        15.9221
+      ]
+    },
+    {
+      "id": "wd-l-682",
+      "name": "Saudi-Arabië",
+      "category": "country",
+      "coordinates": [
+        44.6413,
+        24.0893
+      ]
+    },
+    {
+      "id": "wd-l-10",
+      "name": "Antarctica",
+      "category": "country",
+      "coordinates": [
+        82.507,
+        -84.9686
+      ]
+    },
+    {
+      "id": "wd-l-196",
+      "name": "Cyprus",
+      "category": "country",
+      "coordinates": [
+        33.0391,
+        34.9075
+      ]
+    },
+    {
+      "id": "wd-l-504",
+      "name": "Marokko",
+      "category": "country",
+      "coordinates": [
+        -8.6937,
+        29.8154
+      ]
+    },
+    {
+      "id": "wd-l-818",
+      "name": "Egypte",
+      "category": "country",
+      "coordinates": [
+        29.861,
+        26.4749
+      ]
+    },
+    {
+      "id": "wd-l-434",
+      "name": "Libië",
+      "category": "country",
+      "coordinates": [
+        18.0304,
+        26.9882
+      ]
+    },
+    {
+      "id": "wd-l-231",
+      "name": "Ethiopië",
+      "category": "country",
+      "coordinates": [
+        39.5598,
+        8.6459
+      ]
+    },
+    {
+      "id": "wd-l-262",
+      "name": "Djibouti",
+      "category": "country",
+      "coordinates": [
+        42.4972,
+        11.7728
+      ]
+    },
+    {
+      "id": "wd-l-800",
+      "name": "Uganda",
+      "category": "country",
+      "coordinates": [
+        32.3574,
+        1.2951
+      ]
+    },
+    {
+      "id": "wd-l-646",
+      "name": "Rwanda",
+      "category": "country",
+      "coordinates": [
+        29.9187,
+        -2.0137
+      ]
+    },
+    {
+      "id": "wd-l-70",
+      "name": "Bosnia and Herz.",
+      "category": "country",
+      "coordinates": [
+        17.8229,
+        44.1788
+      ]
+    },
+    {
+      "id": "wd-l-807",
+      "name": "Macedonia",
+      "category": "country",
+      "coordinates": [
+        21.6961,
+        41.6058
+      ]
+    },
+    {
+      "id": "wd-l-688",
+      "name": "Servië",
+      "category": "country",
+      "coordinates": [
+        20.8369,
+        44.2232
+      ]
+    },
+    {
+      "id": "wd-l-499",
+      "name": "Montenegro",
+      "category": "country",
+      "coordinates": [
+        19.2854,
+        42.7878
+      ]
+    },
+    {
+      "id": "wd-l-780",
+      "name": "Trinidad and Tobago",
+      "category": "country",
+      "coordinates": [
+        -61.3314,
+        10.4285
+      ]
+    },
+    {
+      "id": "wd-l-728",
+      "name": "Zuid-Soedan",
+      "category": "country",
+      "coordinates": [
+        30.202,
+        7.2931
+      ]
     }
   ],
   "steden": [
@@ -1305,7 +2274,7 @@
     },
     {
       "id": "wd-s-sao",
-      "name": "S\u00e3o Paulo",
+      "name": "São Paulo",
       "category": "city",
       "coordinates": [
         -46.6333,
@@ -1345,7 +2314,7 @@
         4.711
       ],
       "alternatives": [
-        "Bogot\u00e1"
+        "Bogotá"
       ],
       "difficulty": "gemiddeld"
     },
@@ -1358,7 +2327,7 @@
         30.0444
       ],
       "alternatives": [
-        "Ca\u00efro"
+        "Caïro"
       ],
       "difficulty": "gemiddeld"
     },

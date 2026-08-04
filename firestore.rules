@@ -10,36 +10,33 @@ service cloud.firestore {
 
     // Hardened users document access
     match /users/{userId} {
-      // Validation helper function
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return isSignedIn() && request.auth.uid == userId;
+      }
+
       function isValidUser(data) {
-        return data.keys().hasAll(['email', 'createdAt', 'preferences', 'geoStats', 'geoProgress'])
-          && data.email is string
+        return data.keys().hasAll(['createdAt', 'preferences', 'geoStats', 'geoProgress'])
           && data.createdAt is string
           && data.preferences is map
           && data.geoStats is map
           && data.geoProgress is map;
       }
 
-      function isValidUpdate(incomingData, existingData) {
-         return incomingData.diff(existingData).affectedKeys().hasAny(['preferences', 'geoStats', 'geoProgress']);
-      }
-
       // Read is only allowed for the owner
-      allow read: if request.auth != null && request.auth.uid == userId;
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
 
-      // Creation allows to set the initial schema
-      allow create: if request.auth != null 
-                    && request.auth.uid == userId 
-                    && isValidUser(request.resource.data);
+      // Creation allows owner to set the initial schema
+      allow create: if isOwner(userId) && isValidUser(request.resource.data);
       
-      // Updates only allowed for owner, strictly for preferences/stats/progress
-      allow update: if request.auth != null 
-                    && request.auth.uid == userId
-                    && isValidUpdate(request.resource.data, resource.data)
-                    && request.resource.data.email == resource.data.email
-                    && request.resource.data.createdAt == resource.data.createdAt;
+      // Updates allowed for owner
+      allow update: if isOwner(userId);
                     
-      allow delete: if request.auth != null && request.auth.uid == userId;
+      allow delete: if isOwner(userId);
     }
   }
 }

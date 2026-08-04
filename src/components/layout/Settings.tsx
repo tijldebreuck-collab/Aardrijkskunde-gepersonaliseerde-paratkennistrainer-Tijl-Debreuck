@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Settings as SettingsIcon, Volume2, VolumeX, Moon, Sun, 
-  RotateCcw, Download, Upload, Sliders, Sparkles, Check, Languages
+  RotateCcw, Download, Upload, Sliders, Sparkles, Check, Languages, Lock
 } from 'lucide-react';
 import { Language, uiTranslations } from '../../utils/language';
 
@@ -13,6 +13,8 @@ interface SettingsProps {
   onClearStats: () => void;
   language?: Language;
   onLanguageChange?: (lang: Language) => void;
+  isAdmin?: boolean;
+  onVerifyAdmin?: (password: string) => Promise<boolean>;
 }
 
 export const Settings: React.FC<SettingsProps> = ({
@@ -22,9 +24,30 @@ export const Settings: React.FC<SettingsProps> = ({
   toggleSound,
   onClearStats,
   language = 'nl',
-  onLanguageChange
+  onLanguageChange,
+  isAdmin = false,
+  onVerifyAdmin
 }) => {
   const t = uiTranslations[language];
+
+  const [adminPasswordInput, setAdminPasswordInput] = useState('');
+  const [adminPasswordError, setAdminPasswordError] = useState<string | null>(null);
+  const [adminLoading, setAdminLoading] = useState(false);
+
+  const handleUnlockData = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!onVerifyAdmin) return;
+    setAdminPasswordError(null);
+    setAdminLoading(true);
+    const success = await onVerifyAdmin(adminPasswordInput);
+    setAdminLoading(false);
+    if (success) {
+      setAdminPasswordInput('');
+      showToast('Gegevensbeheer ontgrendeld!');
+    } else {
+      setAdminPasswordError('Onjuist wachtwoord!');
+    }
+  };
 
   // Local state for persisted settings
   const [questionsPerSession, setQuestionsPerSession] = useState<number>(() => {
@@ -373,29 +396,75 @@ export const Settings: React.FC<SettingsProps> = ({
 
         {/* Data & Backup */}
         <div className={cardClass}>
-          <div className={`flex items-center gap-2 pb-3 border-b text-emerald-500 ${borderDivideClass}`}>
-            <Download className="w-5 h-5" />
-            <h3 className={`text-base font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>Data & Voortgang Beheer</h3>
-          </div>
-
-          <div className="space-y-3 py-1">
-            <div className="flex gap-3">
-              <button
-                onClick={handleExportData}
-                className="flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition-all shadow-md flex items-center justify-center gap-2 text-xs cursor-pointer"
-              >
-                <Download className="w-4 h-4" /> Export Backup
-              </button>
-
-              <label className="flex-1 py-3 px-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all shadow-md flex items-center justify-center gap-2 text-xs cursor-pointer">
-                <Upload className="w-4 h-4" /> Import Backup
-                <input type="file" accept=".json" onChange={handleImportData} className="hidden" />
-              </label>
+          <div className={`flex items-center justify-between pb-3 border-b text-emerald-500 ${borderDivideClass}`}>
+            <div className="flex items-center gap-2">
+              <Download className="w-5 h-5" />
+              <h3 className={`text-base font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>Data & Voortgang Beheer</h3>
             </div>
-            <p className={`text-[11px] leading-relaxed ${subtitleClass}`}>
-              Exporteer een JSON-bestand van je voortgang en statistieken om later te herstellen of mee te nemen naar een ander apparaat.
-            </p>
+            {isAdmin && (
+              <span className="text-[10px] font-bold font-mono px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                Beheerder Geautoriseerd
+              </span>
+            )}
           </div>
+
+          {!isAdmin ? (
+            <div className={`p-4 rounded-2xl border ${isDark ? 'bg-slate-800/60 border-slate-700/80' : 'bg-slate-50 border-slate-200'} space-y-3 my-2`}>
+              <div className="flex items-center gap-2.5">
+                <div className={`p-2 rounded-xl ${isDark ? 'bg-amber-500/10 text-amber-400' : 'bg-amber-100 text-amber-700'}`}>
+                  <Lock className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="text-sm font-bold block">Import & Export Beveiligd</span>
+                  <span className={`text-xs ${subtitleClass}`}>
+                    Voer het beheerderswachtwoord in om data te kunnen importeren of exporteren.
+                  </span>
+                </div>
+              </div>
+              <form onSubmit={handleUnlockData} className="flex flex-col sm:flex-row gap-2 pt-1">
+                <input
+                  type="password"
+                  value={adminPasswordInput}
+                  onChange={(e) => setAdminPasswordInput(e.target.value)}
+                  placeholder="Beheerderswachtwoord"
+                  disabled={adminLoading}
+                  className={`px-3 py-2 text-xs rounded-xl border font-mono flex-1 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    isDark ? 'bg-slate-900 border-slate-700 text-white placeholder-slate-500' : 'bg-white border-slate-300 text-slate-800 placeholder-slate-400'
+                  }`}
+                />
+                <button
+                  type="submit"
+                  disabled={adminLoading || !adminPasswordInput.trim()}
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white rounded-xl text-xs font-bold transition-all cursor-pointer shadow-md flex items-center justify-center gap-1.5 shrink-0"
+                >
+                  <Lock className="w-3.5 h-3.5" />
+                  <span>{adminLoading ? 'Verifiëren...' : 'Ontgrendelen'}</span>
+                </button>
+              </form>
+              {adminPasswordError && (
+                <p className="text-xs text-rose-500 font-semibold">{adminPasswordError}</p>
+              )}
+            </div>
+          ) : (
+            <div className="space-y-3 py-1">
+              <div className="flex gap-3">
+                <button
+                  onClick={handleExportData}
+                  className="flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition-all shadow-md flex items-center justify-center gap-2 text-xs cursor-pointer"
+                >
+                  <Download className="w-4 h-4" /> Export Backup
+                </button>
+
+                <label className="flex-1 py-3 px-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all shadow-md flex items-center justify-center gap-2 text-xs cursor-pointer">
+                  <Upload className="w-4 h-4" /> Import Backup
+                  <input type="file" accept=".json" onChange={handleImportData} className="hidden" />
+                </label>
+              </div>
+              <p className={`text-[11px] leading-relaxed ${subtitleClass}`}>
+                Exporteer een JSON-bestand van je voortgang en statistieken om later te herstellen of mee te nemen naar een ander apparaat.
+              </p>
+            </div>
+          )}
 
           <div className={`pt-3 border-t ${borderDivideClass}`}>
             <div className="flex items-center justify-between">

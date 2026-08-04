@@ -1,5 +1,5 @@
 export type Region = 'belgium' | 'europe' | 'world';
-export type QuizMode = 'multiple-choice' | 'fill-in' | 'flag' | 'review-errors';
+export type QuizMode = 'multiple-choice' | 'fill-in' | 'flag' | 'review-errors' | 'map';
 export type QuestionType = 'capital' | 'country' | 'province' | 'river' | 'mountain' | 'sea' | 'highway' | 'port' | 'continent' | 'ocean' | 'line' | 'city' | 'flag';
 
 export interface GeoItem {

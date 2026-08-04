@@ -1,37 +1,15 @@
 import re
-
 with open('src/App.tsx', 'r') as f:
     content = f.read()
 
-# Fix handleStartFlagQuiz
-old_handler = """  const handleStartFlagQuiz = (region: Region, mode: QuizMode) => {
-    setActiveRegion(region);
-    setActiveCategory('flag');
-    setActiveCategoryMode(mode);
-    if (quizTimerRef.current) clearInterval(quizTimerRef.current);
-    resetSession();
-    generateQuestion();
-    setTotalTimeSpent(0);
-    setQuizCompleted(false);
-    setIsPlaying(true);
-    questionStartTimeRef.current = Date.now();
-  };"""
+content = content.replace(
+    "const startMyLearningQuiz = (folderId?: string) => {",
+    "const startMyLearningQuiz = (folderId?: string, quizMode: 'multiple-choice' | 'map' = 'multiple-choice') => {"
+)
 
-new_handler = """  const handleStartFlagQuiz = (region: Region, mode: QuizMode) => {
-    setActiveRegion(region);
-    setActiveCategory(region === 'belgium' ? 'province' : 'country');
-    setActiveCategoryMode('flag'); // Ignore the passed mode, always use 'flag'
-    if (quizTimerRef.current) clearInterval(quizTimerRef.current);
-    resetSession();
-    generateQuestion();
-    setTotalTimeSpent(0);
-    setQuizCompleted(false);
-    setIsPlaying(true);
-    questionStartTimeRef.current = Date.now();
-  };"""
-
-content = content.replace(old_handler, new_handler)
+# Replace setActiveCategoryMode('multiple-choice'); with setActiveCategoryMode(quizMode);
+content = content.replace("setActiveCategoryMode('multiple-choice');", "setActiveCategoryMode(quizMode);")
 
 with open('src/App.tsx', 'w') as f:
     f.write(content)
-print("Fixed App.tsx")
+

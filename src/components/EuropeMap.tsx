@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import * as d3 from 'd3';
 import { motion, AnimatePresence } from 'motion/react';
 import * as topojson from 'topojson-client';
-import { europeCapitals, europeRivers, europeMountains, GeoFeature } from '../data/geoData';
+import { europeCapitals, europeRivers, europeMountains, europeSeas, GeoFeature } from '../data/geoData';
 import { Layers, Tag } from 'lucide-react';
 import { translateName, Language } from '../utils/language';
 
@@ -19,6 +19,7 @@ interface EuropeMapProps {
   showCorrectAnswer?: boolean;
   wrongItems?: string[];
   language?: Language;
+  allowedItemIds?: string[];
 }
 
 // Map numeric IDs from world-atlas to Europe IDs in europe.json
@@ -65,7 +66,7 @@ const europeIdMap: Record<number, string> = {
   352: "eu-l-isl"  // Iceland
 };
 
-const EuropeMap = React.memo(function EuropeMap({ activeQuestion, onResult, interactiveMode = true, showCorrectAnswer = false, wrongItems = [], language }: EuropeMapProps) {
+const EuropeMap = React.memo(function EuropeMap({ activeQuestion, onResult, interactiveMode = true, showCorrectAnswer = false, wrongItems = [], language, allowedItemIds }: EuropeMapProps) {
   const activeLang: Language = language || (localStorage.getItem('geo_language') as Language) || 'nl';
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [countriesGeo, setCountriesGeo] = useState<any[]>([]);
@@ -81,6 +82,7 @@ const EuropeMap = React.memo(function EuropeMap({ activeQuestion, onResult, inte
   const [showCapitals, setShowCapitals] = useState(true);
   const [showRivers, setShowRivers] = useState(true);
   const [showMountains, setShowMountains] = useState(true);
+  const [showSeas, setShowSeas] = useState(true);
   const [showLabels, setShowLabels] = useState(true);
 
   // Fetch geographic boundaries
@@ -225,6 +227,14 @@ const EuropeMap = React.memo(function EuropeMap({ activeQuestion, onResult, inte
           >
             ⛰️ Gebergten
           </button>
+          <button 
+            onClick={() => setShowSeas(p => !p)}
+            className={`px-3 py-1.5 sm:py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer ${
+              showSeas ? 'bg-cyan-600/30 border-cyan-400 text-cyan-200' : 'bg-transparent border-white/10 text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            ⚓ Zeeën & Oceanen
+          </button>
 
           {/* Label switch option */}
           <button
@@ -267,6 +277,8 @@ const EuropeMap = React.memo(function EuropeMap({ activeQuestion, onResult, inte
                 ? `Klik op de rivier: ${activeQuestion.correctAnswer}`
                 : activeQuestion.category === 'mountain'
                 ? `Klik op het gebergte: ${activeQuestion.correctAnswer}`
+                : activeQuestion.category === 'sea' || activeQuestion.category === 'ocean'
+                ? `Klik op de zee / oceaan: ${activeQuestion.correctAnswer}`
                 : `Klik op het object: ${activeQuestion.geoItem?.name || activeQuestion.correctAnswer}`
               }
             </span>
@@ -332,7 +344,7 @@ const EuropeMap = React.memo(function EuropeMap({ activeQuestion, onResult, inte
                 }
 
                 const centroid = pathGenerator.centroid(feature);
-                const shouldShowLabel = showCountries && ((!interactiveMode && showLabels) || isWrong || clickedItem === mappedId || isTheCorrectOne);
+                const shouldShowLabel = showCountries && ((!allowedItemIds || allowedItemIds.includes(mappedId))) && ((!interactiveMode && showLabels) || isWrong || clickedItem === mappedId || isTheCorrectOne);
 
                 return (
                   <g key={`euro-country-grp-${i}`}>
@@ -342,9 +354,9 @@ const EuropeMap = React.memo(function EuropeMap({ activeQuestion, onResult, inte
                       stroke={stroke}
                       strokeWidth="0.8"
                       className={`transition-colors duration-155 ${showCountries ? 'cursor-pointer' : 'pointer-events-none'}`}
-                      onMouseEnter={showCountries ? () => setHoveredItem(mappedId) : undefined}
-                      onMouseLeave={showCountries ? () => setHoveredItem(null) : undefined}
-                      onClick={showCountries ? (e) => handleEntityClick(mappedId, countryName, e) : undefined}
+                      onMouseEnter={(showCountries && (!allowedItemIds || allowedItemIds.includes(mappedId))) ? () => setHoveredItem(mappedId) : undefined}
+                      onMouseLeave={(showCountries && (!allowedItemIds || allowedItemIds.includes(mappedId))) ? () => setHoveredItem(null) : undefined}
+                      onClick={(showCountries && (!allowedItemIds || allowedItemIds.includes(mappedId))) ? (e) => handleEntityClick(mappedId, countryName, e) : undefined}
                     />
                     {shouldShowLabel && centroid && !isNaN(centroid[0]) && (
                       <g transform={`translate(${centroid[0]}, ${centroid[1]}) scale(${1 / zoomScale})`}>
@@ -601,6 +613,109 @@ const EuropeMap = React.memo(function EuropeMap({ activeQuestion, onResult, inte
                             >
                               {capName}
                             </text>
+                          )}
+                        </g>
+                      </g>
+                    );
+                  })}
+                </motion.g>
+              )}
+            </AnimatePresence>
+
+            {/* Render Seas & Oceans Layer */}
+            <AnimatePresence>
+              {showSeas && (
+                <motion.g 
+                  key="europe-seas-layer"
+                  id="europe-seas-layer"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                >
+                  {europeSeas.map((sea, i) => {
+                    const seaName = translateName(sea.name, activeLang);
+                    if (!sea.coordinates) return null;
+                    const [projX, projY] = projection(sea.coordinates) || [0, 0];
+
+                    const isHovered = hoveredItem === sea.id;
+                    const isWrong = wrongItems.includes(sea.id);
+                    const isClicked = clickedItem === sea.id;
+                    const isTheCorrectOne = (showCorrectAnswer || (isClicked && isCorrectState)) && activeQuestion?.targetId === sea.id;
+
+                    let color = '#0284c7';
+                    let radius = isHovered ? 9 : 6.5;
+
+                    if (isWrong) {
+                      color = '#f43f5e';
+                      radius = 8.5;
+                    }
+                    if (isClicked) {
+                      color = isCorrectState ? '#10b981' : '#f43f5e';
+                      radius = 9;
+                    }
+                    if (isTheCorrectOne) {
+                      color = '#10b981';
+                      radius = 10;
+                    }
+
+                    const shouldShowLabel = (!interactiveMode && showLabels) || isWrong || clickedItem === sea.id || isTheCorrectOne;
+
+                    return (
+                      <g 
+                        key={`euro-sea-${i}`}
+                        className="cursor-pointer"
+                        onMouseEnter={() => setHoveredItem(sea.id)}
+                        onMouseLeave={() => setHoveredItem(null)}
+                        onClick={(e) => handleEntityClick(sea.id, seaName, e)}
+                      >
+                        <g transform={`translate(${projX}, ${projY}) scale(${1 / zoomScale})`}>
+                          <circle
+                            cx={0}
+                            cy={0}
+                            r={radius + 4}
+                            fill={isHovered ? '#38bdf8' : color}
+                            fillOpacity={isHovered ? 0.35 : 0.2}
+                            className={isHovered ? 'animate-pulse' : ''}
+                          />
+                          <circle
+                            cx={0}
+                            cy={0}
+                            r={radius}
+                            fill={isHovered ? '#38bdf8' : color}
+                            stroke="#ffffff"
+                            strokeWidth="1.5"
+                          />
+                          <text
+                            x={0}
+                            y={3}
+                            textAnchor="middle"
+                            className="text-[9px] pointer-events-none select-none"
+                            fill="#ffffff"
+                          >
+                            ⚓
+                          </text>
+                          {shouldShowLabel && (
+                            <g transform="translate(0, 16)">
+                              <rect
+                                x={-(seaName.length * 3.8 + 6)}
+                                y="-10"
+                                width={seaName.length * 7.6 + 12}
+                                height="18"
+                                rx="4"
+                                fill="#0369a1"
+                                stroke="#ffffff"
+                                strokeWidth="1"
+                              />
+                              <text
+                                x={0}
+                                y={2}
+                                textAnchor="middle"
+                                className="text-[10px] font-sans font-black fill-white pointer-events-none"
+                              >
+                                {seaName}
+                              </text>
+                            </g>
                           )}
                         </g>
                       </g>

@@ -2,16 +2,71 @@ import { useState, useEffect } from 'react';
 import { auth, db, doc, getDoc, setDoc, updateDoc } from '../lib/firebase';
 import { onAuthStateChanged, User } from 'firebase/auth';
 
+enum OperationType {
+  CREATE = 'create',
+  UPDATE = 'update',
+  DELETE = 'delete',
+  LIST = 'list',
+  GET = 'get',
+  WRITE = 'write',
+}
+
+interface FirestoreErrorInfo {
+  error: string;
+  operationType: OperationType;
+  path: string | null;
+  authInfo: {
+    userId?: string | null;
+    email?: string | null;
+    emailVerified?: boolean | null;
+    isAnonymous?: boolean | null;
+    tenantId?: string | null;
+    providerInfo?: {
+      providerId?: string | null;
+      email?: string | null;
+    }[];
+  };
+}
+
+function handleFirestoreError(error: unknown, operationType: OperationType, path: string | null) {
+  const errInfo: FirestoreErrorInfo = {
+    error: error instanceof Error ? error.message : String(error),
+    authInfo: {
+      userId: auth.currentUser?.uid,
+      email: auth.currentUser?.email,
+      emailVerified: auth.currentUser?.emailVerified,
+      isAnonymous: auth.currentUser?.isAnonymous,
+      tenantId: auth.currentUser?.tenantId,
+      providerInfo: auth.currentUser?.providerData?.map(provider => ({
+        providerId: provider.providerId,
+        email: provider.email,
+      })) || []
+    },
+    operationType,
+    path
+  };
+  console.error('Firestore Error: ', JSON.stringify(errInfo));
+}
+
+export interface CustomFolder {
+  id: string;
+  name: string;
+  items: any[];
+}
+
 export interface UserPreferences {
   selectedRegions: string[];
   selectedCategories: string[];
   difficulty: 'all' | 'makkelijk' | 'gemiddeld' | 'moeilijk';
+  customFolders?: CustomFolder[];
+  activeFolderId?: string;
 }
 
 const DEFAULT_PREFERENCES: UserPreferences = {
   selectedRegions: ['belgium'],
   selectedCategories: ['province'],
   difficulty: 'all',
+  customFolders: [],
 };
 
 const GUEST_STORAGE_KEY = 'geoTrainerGuestData';
@@ -32,6 +87,7 @@ export function useUserPreferences() {
       setUser(currentUser);
       
       if (currentUser) {
+        const path = `users/${currentUser.uid}`;
         // User logged in, fetch from Firestore
         try {
           const userDocRef = doc(db, 'users', currentUser.uid);
@@ -54,9 +110,8 @@ export function useUserPreferences() {
             // New user! Check if there is local guest data
             const localData = localStorage.getItem(GUEST_STORAGE_KEY);
             const localStatsStr = localStorage.getItem('geo_trainer_stats');
-            const localProgressStr = localStorage.getItem('geo_trainer_progress');
             
-            // Has the user done anything locally? Let's check stats.
+            // Has the user done anything locally? Let me check stats.
             const hasLocalStats = localStatsStr && JSON.parse(localStatsStr).totalAnswered > 0;
             const hasLocalPrefs = localData !== null;
             
@@ -66,18 +121,22 @@ export function useUserPreferences() {
                setPendingMigration(true);
             } else {
                // No local data, just initialize quietly
-               await setDoc(userDocRef, {
-                 email: currentUser.email,
-                 displayName: currentUser.displayName,
-                 createdAt: new Date().toISOString(),
-                 preferences: DEFAULT_PREFERENCES,
-                 geoStats: {},
-                 geoProgress: {},
-               });
+               try {
+                 await setDoc(userDocRef, {
+                   email: currentUser.email || '',
+                   displayName: currentUser.displayName || '',
+                   createdAt: new Date().toISOString(),
+                   preferences: DEFAULT_PREFERENCES,
+                   geoStats: {},
+                   geoProgress: {},
+                 });
+               } catch (writeErr) {
+                 handleFirestoreError(writeErr, OperationType.WRITE, path);
+               }
             }
           }
         } catch (error) {
-          console.error("Error fetching user data:", error);
+          handleFirestoreError(error, OperationType.GET, path);
         }
       } else {
         // Guest mode
@@ -99,6 +158,7 @@ export function useUserPreferences() {
 
   const handleMigrationChoice = async (shouldMigrate: boolean) => {
       if (!currentUserData) return;
+      const path = `users/${currentUserData.uid}`;
       const userDocRef = doc(db, 'users', currentUserData.uid);
       
       let initialPrefs = DEFAULT_PREFERENCES;
@@ -120,14 +180,18 @@ export function useUserPreferences() {
          localStorage.removeItem('geo_trainer_progress');
       }
 
-      await setDoc(userDocRef, {
-        email: currentUserData.email,
-        displayName: currentUserData.displayName,
-        createdAt: new Date().toISOString(),
-        preferences: initialPrefs,
-        geoStats: localStats,
-        geoProgress: localProgress,
-      });
+      try {
+        await setDoc(userDocRef, {
+          email: currentUserData.email || '',
+          displayName: currentUserData.displayName || '',
+          createdAt: new Date().toISOString(),
+          preferences: initialPrefs,
+          geoStats: localStats,
+          geoProgress: localProgress,
+        });
+      } catch (err) {
+        handleFirestoreError(err, OperationType.WRITE, path);
+      }
       
       setPreferences(initialPrefs);
       setStats(localStats);
@@ -140,14 +204,14 @@ export function useUserPreferences() {
     setPreferences(updated);
     
     if (user) {
+      const path = `users/${user.uid}`;
       try {
         const userDocRef = doc(db, 'users', user.uid);
         await updateDoc(userDocRef, {
-          preferences: updated,
-          'preferences.lastUpdated': new Date().toISOString()
+          preferences: updated
         });
       } catch (error) {
-        console.error("Error saving preferences to Firestore:", error);
+        handleFirestoreError(error, OperationType.UPDATE, path);
       }
     } else {
       const currentData = JSON.parse(localStorage.getItem(GUEST_STORAGE_KEY) || '{}');
@@ -161,6 +225,7 @@ export function useUserPreferences() {
   // Call this after a quiz session to sync local stats to cloud
   const syncLocalStatsToCloud = async () => {
     if (user) {
+      const path = `users/${user.uid}`;
       try {
         const localStats = JSON.parse(localStorage.getItem('geo_trainer_stats') || '{}');
         const localProgress = JSON.parse(localStorage.getItem('geo_trainer_progress') || '{}');
@@ -172,7 +237,7 @@ export function useUserPreferences() {
         setStats(localStats);
         setProgress(localProgress);
       } catch (error) {
-        console.error("Error syncing stats to Firestore:", error);
+        handleFirestoreError(error, OperationType.UPDATE, path);
       }
     }
   };

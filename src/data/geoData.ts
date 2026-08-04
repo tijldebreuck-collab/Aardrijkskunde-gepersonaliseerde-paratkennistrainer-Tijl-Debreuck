@@ -1,7 +1,7 @@
 export interface GeoFeature {
   id: string;
   name: string;
-  category: 'river' | 'mountain' | 'capital' | 'country' | 'province' | 'highway' | 'city';
+  category: 'river' | 'mountain' | 'capital' | 'country' | 'province' | 'highway' | 'city' | 'sea' | 'ocean';
   coordinates?: [number, number]; // [lon, lat] for capital points / interaction anchors
   coordinatesList?: [number, number][]; // [lon, lat][] line path for rivers
   polygon?: [number, number][]; // Polygon coordinates for mountains/custom regions
@@ -56,6 +56,8 @@ export const worldCapitals: GeoFeature[] = [
   { id: "wd-l-chn", "name": "Beijing", category: "capital", coordinates: [116.4074, 39.9042] },
   { id: "wd-l-jpn", "name": "Tokyo", category: "capital", coordinates: [139.6917, 35.6762] },
   { id: "wd-l-sgp", "name": "Singapore", category: "capital", coordinates: [103.8198, 1.3521] },
+  { id: "wd-s-ank", "name": "Ankara", category: "capital", coordinates: [32.8597, 39.9334] },
+  { id: "wd-s-bag", "name": "Bagdad", category: "capital", coordinates: [44.3615, 33.3152] },
   { id: "wd-l-aus-country", "name": "Canberra", category: "capital", coordinates: [149.1300, -35.2809] },
   { id: "wd-l-nzl", "name": "Wellington", category: "capital", coordinates: [174.7762, -41.2865] }
 ];
@@ -546,3 +548,39 @@ export const belgiumHighways: GeoFeature[] = [
   }
 ];
 
+
+export const belgiumMountains: GeoFeature[] = [
+  { id: "be-m-bot", name: "Signal de Botrange", category: "mountain", coordinates: [6.0924, 50.5015] }
+];
+
+export const belgiumSeas: GeoFeature[] = [];
+
+export const europeSeas: GeoFeature[] = [
+  { id: "eu-s-noordzee", name: "Noordzee", category: "sea", coordinates: [3.0, 56.0] },
+  { id: "eu-s-oostzee", name: "Oostzee", category: "sea", coordinates: [19.0, 57.5] },
+  { id: "eu-s-middellandse", name: "Middellandse Zee", category: "sea", coordinates: [18.0, 35.5] },
+  { id: "eu-s-zwarte", name: "Zwarte Zee", category: "sea", coordinates: [34.0, 43.5] },
+  { id: "eu-s-kaspische", name: "Kaspische Zee", category: "sea", coordinates: [51.0, 41.5] },
+  { id: "eu-s-ijszee", name: "Noordelijke IJszee", category: "sea", coordinates: [20.0, 72.0] },
+  { id: "eu-s-adriatische", name: "Adriatische Zee", category: "sea", coordinates: [15.5, 42.8] },
+  { id: "eu-s-ionische", name: "Ionische Zee", category: "sea", coordinates: [19.5, 38.0] },
+  { id: "eu-s-egeische", name: "Egeïsche Zee", category: "sea", coordinates: [25.0, 38.0] },
+  { id: "eu-s-tyrreense", name: "Tyrreense Zee", category: "sea", coordinates: [12.5, 39.5] },
+  { id: "eu-s-ierse", name: "Ierse Zee", category: "sea", coordinates: [-5.2, 53.5] },
+  { id: "eu-s-atlantische", name: "Atlantische Oceaan", category: "sea", coordinates: [-18.0, 50.0] },
+  { id: "eu-s-bosporus", name: "Bosporus", category: "sea", coordinates: [29.1, 41.1] },
+  { id: "eu-s-gibraltar", name: "Straat van Gibraltar", category: "sea", coordinates: [-5.6, 35.9] },
+  { id: "eu-s-kanaal", name: "Het Kanaal", category: "sea", coordinates: [-1.2, 50.2] }
+];
+
+export const worldSeas: GeoFeature[] = [
+  { id: "wd-oc-gro", name: "Grote Oceaan", category: "sea", coordinates: [-140.0, 0.0] },
+  { id: "wd-oc-atl", name: "Atlantische Oceaan", category: "sea", coordinates: [-30.0, 15.0] },
+  { id: "wd-oc-ind", name: "Indische Oceaan", category: "sea", coordinates: [75.0, -20.0] },
+  { id: "wd-oc-nij", name: "Noordelijke IJszee", category: "sea", coordinates: [0.0, 80.0] },
+  { id: "wd-s-middellandse", name: "Middellandse Zee", category: "sea", coordinates: [18.0, 35.5] },
+  { id: "wd-s-caribische", name: "Caribische Zee", category: "sea", coordinates: [-75.0, 15.0] },
+  { id: "wd-s-rode", name: "Rode Zee", category: "sea", coordinates: [38.0, 20.0] },
+  { id: "wd-s-kaspische", name: "Kaspische Zee", category: "sea", coordinates: [51.0, 41.5] },
+  { id: "wd-s-zwarte", name: "Zwarte Zee", category: "sea", coordinates: [34.0, 43.5] }
+];

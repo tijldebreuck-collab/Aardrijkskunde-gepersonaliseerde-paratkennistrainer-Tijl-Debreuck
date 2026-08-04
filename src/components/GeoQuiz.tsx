@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import WorldMap from './WorldMap';
 import EuropeMap from './EuropeMap';
 import BelgiumMap from './BelgiumMap';
-import { worldCapitals, worldRivers, worldMountains, europeCapitals, europeRivers, europeMountains, belgiumRivers, belgiumHighways, GeoFeature } from '../data/geoData';
+import { worldCapitals, worldRivers, worldMountains, worldSeas, europeCapitals, europeRivers, europeMountains, europeSeas, belgiumRivers, belgiumHighways, belgiumMountains, belgiumSeas, GeoFeature } from '../data/geoData';
 import belgiumJSON from '../data/belgium.json';
 import europeJSON from '../data/europe.json';
 import worldJSON from '../data/world.json';
@@ -81,6 +81,7 @@ const GeoQuiz = React.memo(function GeoQuiz({ region, onStartFlagQuiz, onStartMu
       }
       if (c === 'river') return worldRivers;
       if (c === 'mountain') return worldMountains;
+      if (c === 'sea') return worldJSON.seas || worldSeas;
       if (c === 'city') return worldJSON.steden || [];
       return worldJSON.countries || [];
     }
@@ -91,6 +92,7 @@ const GeoQuiz = React.memo(function GeoQuiz({ region, onStartFlagQuiz, onStartMu
       }
       if (c === 'river') return europeRivers;
       if (c === 'mountain') return europeMountains;
+      if (c === 'sea') return europeJSON.seas || europeSeas;
       return europeJSON.countries || [];
     }
     if (r === 'belgium') {
@@ -100,6 +102,8 @@ const GeoQuiz = React.memo(function GeoQuiz({ region, onStartFlagQuiz, onStartMu
       }
       if (c === 'river') return belgiumRivers;
       if (c === 'highway') return belgiumHighways;
+      if (c === 'mountain') return belgiumMountains;
+      if (c === 'sea') return belgiumJSON.seas || belgiumSeas;
       return belgiumJSON.provinces || [];
     }
     return [];
@@ -334,6 +338,15 @@ const GeoQuiz = React.memo(function GeoQuiz({ region, onStartFlagQuiz, onStartMu
               🌊 {t.catRivers}
             </button>
 
+            <button
+              onClick={() => setCategory('sea')}
+              className={`px-2.5 py-1.5 text-xs font-extrabold rounded-lg transition-all cursor-pointer ${
+                category === 'sea' ? 'bg-purple-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              ⚓ {t.catSeas}
+            </button>
+
             {region === 'belgium' && (
               <button
                 onClick={() => setCategory('highway')}
@@ -531,46 +544,55 @@ const GeoQuiz = React.memo(function GeoQuiz({ region, onStartFlagQuiz, onStartMu
           )}
 
           {/* The Interactive Seterra White Map Component */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={region}
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: 'easeInOut' }}
-            >
-              {region === 'world' && (
-                <WorldMap 
-                  activeQuestion={currentQuestion} 
-                  onResult={handleMapResult}
-                  interactiveMode={isMapQuizActive}
-                  showCorrectAnswer={showCorrectAnswer}
-                  wrongItems={wrongClicks}
-                  language={language}
-                />
-              )}
-              {region === 'europe' && (
-                <EuropeMap 
-                  activeQuestion={currentQuestion} 
-                  onResult={handleMapResult}
-                  interactiveMode={isMapQuizActive}
-                  showCorrectAnswer={showCorrectAnswer}
-                  wrongItems={wrongClicks}
-                  language={language}
-                />
-              )}
-              {region === 'belgium' && (
-                <BelgiumMap 
-                  activeQuestion={currentQuestion} 
-                  onResult={handleMapResult}
-                  interactiveMode={isMapQuizActive}
-                  showCorrectAnswer={showCorrectAnswer}
-                  wrongItems={wrongClicks}
-                  language={language}
-                />
-              )}
-            </motion.div>
-          </AnimatePresence>
+          {(() => {
+            const activeQuestionRegion = (!currentQuestion) ? region : (
+              (currentQuestion.geoItem?.region === 'belgium' || currentQuestion.targetId?.startsWith('be-')) ? 'belgium' :
+              (currentQuestion.geoItem?.region === 'europe' || currentQuestion.targetId?.startsWith('eu-')) ? 'europe' :
+              (currentQuestion.geoItem?.region === 'world' || currentQuestion.targetId?.startsWith('wd-') || currentQuestion.targetId?.startsWith('world-')) ? 'world' : region
+            );
+            return (
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeQuestionRegion}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.35, ease: 'easeInOut' }}
+                >
+                  {activeQuestionRegion === 'world' && (
+                    <WorldMap 
+                      activeQuestion={currentQuestion} 
+                      onResult={handleMapResult}
+                      interactiveMode={isMapQuizActive}
+                      showCorrectAnswer={showCorrectAnswer}
+                      wrongItems={wrongClicks}
+                      language={language}
+                    />
+                  )}
+                  {activeQuestionRegion === 'europe' && (
+                    <EuropeMap 
+                      activeQuestion={currentQuestion} 
+                      onResult={handleMapResult}
+                      interactiveMode={isMapQuizActive}
+                      showCorrectAnswer={showCorrectAnswer}
+                      wrongItems={wrongClicks}
+                      language={language}
+                    />
+                  )}
+                  {activeQuestionRegion === 'belgium' && (
+                    <BelgiumMap 
+                      activeQuestion={currentQuestion} 
+                      onResult={handleMapResult}
+                      interactiveMode={isMapQuizActive}
+                      showCorrectAnswer={showCorrectAnswer}
+                      wrongItems={wrongClicks}
+                      language={language}
+                    />
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            );
+          })()}
         </div>
       )}
     </div>
