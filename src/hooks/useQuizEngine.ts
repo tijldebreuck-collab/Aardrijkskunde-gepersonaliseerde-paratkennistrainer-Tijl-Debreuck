@@ -151,17 +151,21 @@ export const useQuizEngine = (
       if (prefs.activeFolderId && prefs.customFolders) {
         const folder = prefs.customFolders.find(f => f.id === prefs.activeFolderId);
         if (folder) {
-          items = folder.items;
+          items = folder.items.map((folderItem: any) => {
+            const source = folderItem.region === 'belgium' ? belgiumData : folderItem.region === 'europe' ? europeData : worldData;
+            const categoryData = (source as any)[folderItem.mappedCategory || folderItem.category] || [];
+            const realItem = categoryData.find((i: any) => i.id === folderItem.id);
+            return realItem ? { ...realItem, ...folderItem } : folderItem;
+          });
           if ((m || mode) === 'flag') {
             items = items.filter((it: any) => 
-              it.category === 'country' || it.mappedCategory === 'country' || 
-              (it.region && it.region !== 'belgium')
+              it.category === 'country' || it.mappedCategory === 'country' || it.type === 'country'
             );
           }
         }
       } else {
         const targetRegions = r ? [r] : prefs.selectedRegions;
-        const targetCategories = c ? [c] : prefs.selectedCategories;
+        const targetCategories = (m || mode) === 'flag' ? ['country' as QuestionType] : (c ? [c] : prefs.selectedCategories);
         targetRegions.forEach(reg => {
           const source = reg === 'belgium' ? belgiumData : reg === 'europe' ? europeData : worldData;
           targetCategories.forEach(cat => {
@@ -201,8 +205,8 @@ export const useQuizEngine = (
         rawCapital,
         name: translateName(rawName, language),
         capital: rawCapital ? translateName(rawCapital, language) : null,
-        type: it.type || it.category || (c || category),
-        category: it.category || (c || category),
+        type: it.type || it.mappedCategory || it.category || (c || category),
+        category: it.mappedCategory || it.category || (c || category),
         coordinates: it.coordinates || null,
         coordinatesList: it.coordinatesList || null,
         polygon: it.polygon || null,
@@ -244,10 +248,18 @@ export const useQuizEngine = (
             difficulty: 'gemiddeld',
             alternatives: [it.name]
           }));
-        return [...matchingCustom, ...baseItems];
+        const allCombined = [...matchingCustom, ...baseItems];
+        if ((m || mode) === 'flag') {
+          return allCombined.filter(it => it.category === 'country' || it.type === 'country' || (it as any).mappedCategory === 'country');
+        }
+        return allCombined;
       } catch (e) {
         console.error(e);
       }
+    }
+
+    if ((m || mode) === 'flag') {
+      return baseItems.filter(it => it.category === 'country' || it.type === 'country' || (it as any).mappedCategory === 'country');
     }
 
     return baseItems;
@@ -299,11 +311,11 @@ export const useQuizEngine = (
       const newCapital = rawCapital ? translateName(rawCapital, language) : null;
       const newGeoItem = { ...targetItem, name: newName, capital: newCapital };
 
-      const questionSubType = subType || 'name';
+      const questionSubType: string = subType || 'name';
       let text = prevQ.text;
       let correctAnswer = prevQ.correctAnswer;
 
-      if (category === 'country' && questionSubType === 'capital') {
+      if (category === 'capital' || targetItem.category === 'capital' || questionSubType === 'capital' || (category === 'country' && questionSubType === 'capital')) {
         text = language === 'en'
           ? `What is the capital of ${newName}?`
           : `Wat is de hoofdstad van ${newName}?`;
@@ -313,11 +325,14 @@ export const useQuizEngine = (
           ? `What is the capital of the province ${newName}?`
           : `Wat is de provinciehoofdstad van ${newName}?`;
         correctAnswer = newCapital || (language === 'en' ? 'None' : 'Geen');
+      } else if ((category === 'country' || targetItem.category === 'country') && questionSubType === 'name') {
+        text = getClueForGeoItem(targetItem.id, newName, targetItem.category || category, language);
+        correctAnswer = newName;
       } else if (mode === 'flag') {
         text = language === 'en' ? 'Which country does this flag belong to?' : 'Van welk land is deze vlag?';
         correctAnswer = newName;
       } else {
-        text = getClueForGeoItem(targetItem.id, newName, category, language);
+        text = getClueForGeoItem(targetItem.id, newName, targetItem.category || category, language);
         correctAnswer = questionSubType === 'capital' ? (newCapital || newName) : newName;
       }
 
@@ -422,7 +437,7 @@ export const useQuizEngine = (
     const isCountryOrFlag = currentCategory === 'country' || currentMode === 'flag' || (currentCategory as string) === 'flag';
 
     if (currentMode === 'multiple-choice') {
-      if (currentCategory === 'capital' || (questionSubType as string) === 'capital' || (currentCategory === 'country' && (questionSubType as string) === 'capital') || (currentCategory === 'province' && (questionSubType as string) === 'capital')) {
+      if (currentCategory === 'capital' || targetItem.category === 'capital' || (questionSubType as string) === 'capital' || (currentCategory === 'country' && (questionSubType as string) === 'capital') || (currentCategory === 'province' && (questionSubType as string) === 'capital')) {
         const entityName = translateName(targetItem.name || (targetItem as any).naam || '', language);
         text = language === 'en' 
           ? `What is the capital of ${entityName}?` 
@@ -431,18 +446,18 @@ export const useQuizEngine = (
         correctAnswer = translateName(rawCap, language);
         // Distractors exclusively from other capitals in the same dataset
         const otherCapitals = items
-          .filter(it => it.id !== targetItem.id && (it.capital || (it as any).hoofdstad))
+          .filter(it => it.id !== targetItem.id && (it.capital || (it as any).hoofdstad) && it.category === targetItem.category)
           .map(it => translateName(it.capital || (it as any).hoofdstad, language))
           .filter(cap => cap && cap !== correctAnswer);
         const distractors = Array.from(new Set<string>(otherCapitals))
           .sort(() => 0.5 - Math.random())
           .slice(0, 2);
         options = Array.from(new Set<string>([correctAnswer, ...distractors])).sort(() => 0.5 - Math.random());
-      } else if (currentCategory === 'country' && questionSubType === 'name') {
-        text = getClueForGeoItem(targetItem.id, targetItem.name, currentCategory, language);
+      } else if ((currentCategory === 'country' || targetItem.category === 'country') && questionSubType === 'name') {
+        text = getClueForGeoItem(targetItem.id, targetItem.name, targetItem.category || currentCategory, language);
         correctAnswer = targetItem.name;
         const otherNames = items
-          .filter(it => it.id !== targetItem.id)
+          .filter(it => it.id !== targetItem.id && it.category === targetItem.category)
           .map(it => it.name);
         const distractors = otherNames
           .sort(() => 0.5 - Math.random())
@@ -450,16 +465,16 @@ export const useQuizEngine = (
         options = [correctAnswer, ...distractors].sort(() => 0.5 - Math.random());
       } else {
         // General text MCS Quiz
-        text = getClueForGeoItem(targetItem.id, targetItem.name, currentCategory, language);
+        text = getClueForGeoItem(targetItem.id, targetItem.name, targetItem.category || currentCategory, language);
         correctAnswer = targetItem.name;
         const otherItems = items
-          .filter(it => it.id !== targetItem.id)
+          .filter(it => it.id !== targetItem.id && it.category === targetItem.category)
           .map(it => it.name);
         const distractors = otherItems.sort(() => 0.5 - Math.random()).slice(0, 2);
         options = [correctAnswer, ...distractors].sort(() => 0.5 - Math.random());
       }
     } else if (currentMode === 'map') {
-      if (currentCategory === 'capital' || (questionSubType as string) === 'capital' || (currentCategory === 'country' && questionSubType === 'capital') || (currentCategory === 'province' && questionSubType === 'capital')) {
+      if (currentCategory === 'capital' || targetItem.category === 'capital' || (questionSubType as string) === 'capital' || (currentCategory === 'country' && questionSubType === 'capital') || (currentCategory === 'province' && questionSubType === 'capital')) {
         const entityName = translateName(targetItem.name || (targetItem as any).naam || '', language);
         text = language === 'en' 
           ? `What is the capital of ${entityName}?` 
@@ -473,16 +488,16 @@ export const useQuizEngine = (
         correctAnswer = translatedName;
       }
     } else if (currentMode === 'fill-in') {
-      if (currentCategory === 'capital' || (questionSubType as string) === 'capital' || (currentCategory === 'country' && questionSubType === 'capital') || (currentCategory === 'province' && questionSubType === 'capital')) {
+      if (currentCategory === 'capital' || targetItem.category === 'capital' || (questionSubType as string) === 'capital' || (currentCategory === 'country' && questionSubType === 'capital') || (currentCategory === 'province' && questionSubType === 'capital')) {
         text = language === 'en' 
           ? `What is the capital of ${targetItem.name}?` 
           : `Wat is de hoofdstad van ${targetItem.name}?`;
         correctAnswer = targetItem.capital || '';
-      } else if (currentCategory === 'country' && questionSubType === 'name') {
-        text = getClueForGeoItem(targetItem.id, targetItem.name, currentCategory, language);
+      } else if ((currentCategory === 'country' || targetItem.category === 'country') && questionSubType === 'name') {
+        text = getClueForGeoItem(targetItem.id, targetItem.name, targetItem.category || currentCategory, language);
         correctAnswer = targetItem.name;
       } else {
-        text = getClueForGeoItem(targetItem.id, targetItem.name, currentCategory, language);
+        text = getClueForGeoItem(targetItem.id, targetItem.name, targetItem.category || currentCategory, language);
         correctAnswer = targetItem.name;
       }
     } else if (currentMode === 'flag') {
@@ -503,7 +518,7 @@ export const useQuizEngine = (
     const targetOptionCount = 3;
     if ((currentMode === 'multiple-choice' || currentMode === 'flag') && options.length < targetOptionCount) {
       let filler: string[] = [];
-      if (currentCategory === 'capital' || questionSubType === 'capital') {
+      if (currentCategory === 'capital' || targetItem.category === 'capital' || questionSubType === 'capital') {
         filler = language === 'en'
           ? ["Paris", "Berlin", "Madrid", "Rome", "Brussels", "Amsterdam", "Vienna", "London", "Prague", "Warsaw", "Lisbon", "Athens"]
           : ["Parijs", "Berlijn", "Madrid", "Rome", "Brussel", "Amsterdam", "Wenen", "Londen", "Praag", "Warschau", "Lissabon", "Athene"];
@@ -531,7 +546,7 @@ export const useQuizEngine = (
     setCurrentQuestion({
       id: Math.random().toString(),
       type: mode,
-      category,
+      category: targetItem.category || category,
       text,
       correctAnswer,
       options,

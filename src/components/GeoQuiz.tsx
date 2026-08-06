@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import WorldMap from './WorldMap';
 import EuropeMap from './EuropeMap';
 import BelgiumMap from './BelgiumMap';
-import { worldCapitals, worldRivers, worldMountains, worldSeas, europeCapitals, europeRivers, europeMountains, europeSeas, belgiumRivers, belgiumHighways, belgiumMountains, belgiumSeas, GeoFeature } from '../data/geoData';
+import {worldRivers, worldMountains, worldSeas,europeRivers, europeMountains, europeSeas, belgiumRivers, belgiumHighways, belgiumMountains, belgiumSeas,} from '../data/geoData';
 import belgiumJSON from '../data/belgium.json';
 import europeJSON from '../data/europe.json';
 import worldJSON from '../data/world.json';
@@ -326,7 +326,7 @@ const GeoQuiz = React.memo(function GeoQuiz({ region, onStartFlagQuiz, onStartMu
                 category === 'capital' ? 'bg-purple-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              🏛️ {t.catCapitals}
+              🏛️ {region === 'belgium' ? t.catProvincialCapitals : t.catCapitals}
             </button>
 
             <button

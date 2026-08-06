@@ -1,7 +1,6 @@
 import React from 'react';
-import { LIST_OF_ACHIEVEMENTS } from '../../utils/achievements';
 import { UserStats } from '../../hooks/useQuizEngine';
-import { Award, Target, Clock, CheckCircle, TrendingUp, AlertTriangle, BookOpen } from 'lucide-react';
+import { Target, Clock, CheckCircle, TrendingUp, AlertTriangle } from 'lucide-react';
 
 interface StatsProps {
   stats: UserStats;
@@ -14,11 +13,6 @@ export const Stats: React.FC<StatsProps> = ({ stats, onClearStats }) => {
   const accuracy = stats.accuracy || 0;
   const avgTime = stats.avgTime || 0;
   const weaknesses = stats.weaknesses || [];
-  const unlockedAchievementsKeys = stats.achievements || [];
-
-  // Categorize standard achievements
-  const unlockedSet = new Set(unlockedAchievementsKeys);
-  const unlockedPercentage = Math.round((unlockedSet.size / LIST_OF_ACHIEVEMENTS.length) * 100) || 0;
 
   return (
     <div className="space-y-8 animate-fade-in text-slate-900 dark:text-white">
@@ -128,42 +122,6 @@ export const Stats: React.FC<StatsProps> = ({ stats, onClearStats }) => {
               </div>
             )}
           </div>
-        </div>
-      </div>
-
-      {/* Lockable Achievements Shelf */}
-      <div className="bg-white border-slate-200 dark:bg-slate-900 dark:border-slate-800 border rounded-3xl p-6 shadow-xl">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-lg font-bold font-sans flex items-center gap-2">
-            <Award className="w-5 h-5 text-blue-500 dark:text-blue-400" />
-            <span>Prestaties & Badges ({unlockedSet.size} / {LIST_OF_ACHIEVEMENTS.length})</span>
-          </h3>
-          <span className="text-xs text-slate-600 dark:text-slate-300 font-mono font-bold bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-full">{unlockedPercentage}% voldaan</span>
-        </div>
-
-        {/* Dynamic scroll list of locked/unlocked achievements */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[440px] overflow-y-auto pr-1 scrollbar-thin">
-          {LIST_OF_ACHIEVEMENTS.map((ach) => {
-            const isUnlocked = unlockedSet.has(ach.key);
-            return (
-              <div
-                key={ach.key}
-                className={`p-4 rounded-2xl border flex items-start gap-4 transition-all duration-300 ${
-                  isUnlocked
-                    ? 'bg-blue-50/50 border-blue-200 dark:bg-slate-800 dark:border-slate-700 shadow-sm'
-                    : 'bg-slate-50 border-slate-200 dark:bg-slate-900/40 dark:border-slate-800 opacity-40'
-                }`}
-              >
-                <span className="text-3xl filter drop-shadow hover:scale-110 duration-200 shrink-0">{ach.icon}</span>
-                <div>
-                  <h4 className={`text-sm font-bold tracking-tight ${isUnlocked ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}`}>
-                    {ach.title}
-                  </h4>
-                  <p className="text-[11px] text-slate-600 dark:text-slate-300 font-medium leading-relaxed mt-0.5">{ach.desc}</p>
-                </div>
-              </div>
-            );
-          })}
         </div>
       </div>
 

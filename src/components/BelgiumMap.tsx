@@ -80,15 +80,6 @@ const BelgiumMap = React.memo(function BelgiumMap({ activeQuestion, onResult, in
     }
   };
 
-  // Build polygon path drawing utilizing projected coordinates list
-  const getPolygonPathData = (polygonPoints: [number, number][]) => {
-    if (!polygonPoints) return '';
-    const projected = polygonPoints.map(point => {
-      const projectedPoint = projection(point);
-      return projectedPoint ? `${projectedPoint[0]},${projectedPoint[1]}` : '';
-    }).filter(Boolean);
-    return `M ${projected.join(' L ')} Z`;
-  };
 
   const zoomRef = useRef<any>(null);
   useEffect(() => {

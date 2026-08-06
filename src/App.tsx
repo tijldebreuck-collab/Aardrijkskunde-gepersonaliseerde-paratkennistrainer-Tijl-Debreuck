@@ -1,29 +1,26 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, Suspense, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Region, QuizMode, QuestionType, Question } from './types/geography';
-import { useQuizEngine, UserStats } from './hooks/useQuizEngine';
-import { MapQuizPlayer } from './components/exercises/MapQuizPlayer';
-import MultipleChoice from './components/exercises/MultipleChoice';
-import FillInBlank from './components/exercises/FillInBlank';
-import FlagQuiz from './components/exercises/FlagQuiz';
-import Stats from './components/layout/Stats';
-import SettingsView from './components/layout/Settings';
-import DataValidator from './components/admin/DataValidator';
-import DatasetAdmin from './components/admin/DatasetAdmin';
-import GeoQuiz from './components/GeoQuiz';
+import { Region, QuizMode, QuestionType } from './types/geography';
+import { useQuizEngine } from './hooks/useQuizEngine';
 import LoginMenu from './components/layout/LoginMenu';
-import MyLearningContent from './components/layout/MyLearningContent';
 import { useUserPreferences } from './hooks/useUserPreferences';
 import sound from './utils/audio';
 import confetti from 'canvas-confetti';
-import { getDutchCategoryLabel } from './utils/questionDescriptions';
-import { 
-  Compass, Award, Database, BarChart3, Settings, Play, RefreshCw, 
-  ArrowLeft, Hourglass, ShieldAlert, Moon, Sun, Volume2, VolumeX, 
-  HelpCircle, CheckCircle2, ChevronRight, XCircle, Map, Lock, KeyRound,
+import {
+  RefreshCw, ArrowLeft, Hourglass, Moon, Sun, Volume2, VolumeX, Lock
 } from 'lucide-react';
-
 import { Language, uiTranslations } from './utils/language';
+
+const MapQuizPlayer = React.lazy(() => import('./components/exercises/MapQuizPlayer').then(m => ({ default: m.MapQuizPlayer })));
+const MultipleChoice = React.lazy(() => import('./components/exercises/MultipleChoice'));
+const FillInBlank = React.lazy(() => import('./components/exercises/FillInBlank'));
+const FlagQuiz = React.lazy(() => import('./components/exercises/FlagQuiz'));
+const Stats = React.lazy(() => import('./components/layout/Stats'));
+const SettingsView = React.lazy(() => import('./components/layout/Settings'));
+const DataValidator = React.lazy(() => import('./components/admin/DataValidator'));
+const DatasetAdmin = React.lazy(() => import('./components/admin/DatasetAdmin'));
+const GeoQuiz = React.lazy(() => import('./components/GeoQuiz'));
+const MyLearningContent = React.lazy(() => import('./components/layout/MyLearningContent'));
 
 const formatStopwatch = (seconds: number) => {
   const mins = Math.floor(seconds / 60);
@@ -137,20 +134,16 @@ export default function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [quizTimer, setQuizTimer] = useState<number>(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
-  const [totalTimeSpent, setTotalTimeSpent] = useState<number>(0);
-  const [elapsedTimePerQuestion, setElapsedTimePerQuestion] = useState<number>(0);
   const quizTimerRef = useRef<NodeJS.Timeout | null>(null);
   const questionStartTimeRef = useRef<number>(0);
 
-  const { user, loading, preferences, stats, progress, updatePreferences, syncLocalStatsToCloud, pendingMigration, handleMigrationChoice } = useUserPreferences();
-  const [isMyLearningOpen, setIsMyLearningOpen] = useState(false);
+  const { user,preferences,updatePreferences, syncLocalStatsToCloud, pendingMigration, handleMigrationChoice } = useUserPreferences();
 
 
   const activeCustomFolder = preferences.activeFolderId ? preferences.customFolders?.find(f => f.id === preferences.activeFolderId) : null;
   const allowedItemIds = activeCustomFolder ? activeCustomFolder.items.map(i => i.id) : undefined;
 
-  const startMyLearningQuiz = (folderId?: string, quizMode: QuizMode = 'multiple-choice') => {
-    setIsMyLearningOpen(false);
+  const startMyLearningQuiz = (_folderId?: string, quizMode: QuizMode = 'multiple-choice') => {
     if (quizTimerRef.current) clearInterval(quizTimerRef.current);
     resetSession();
     
@@ -179,7 +172,7 @@ export default function App() {
     totalPoolSize,
     userStats,
     resetSession,
-    setSessionScore,
+    
     sessionErrors,
     remainingPool
   } = useQuizEngine(activeRegion, activeCategory, activeMode, quizEngineOptions, language);
@@ -239,9 +232,6 @@ export default function App() {
 
 
 
-  const handleCategorySelect = (cat: QuestionType) => {
-    setActiveCategory(cat);
-  };
 
   // Track gameplay stopwatch (count up)
   useEffect(() => {
@@ -296,7 +286,7 @@ export default function App() {
     questionStartTimeRef.current = Date.now();
   };
 
-  const handleStartFlagQuiz = (region: Region, mode: QuizMode) => {
+  const handleStartFlagQuiz = (region: Region, _mode: QuizMode) => {
     if (region === 'belgium') return;
     const targetCategory = 'country';
     setActiveRegion(region);
@@ -640,6 +630,7 @@ export default function App() {
             {/* View Tab Mijn Leerstof */}
             {activeTab === 'mylearning' && (
               <MyLearningContent 
+                user={user}
                 preferences={preferences}
                 updatePreferences={updatePreferences}
                 onStartQuiz={startMyLearningQuiz}

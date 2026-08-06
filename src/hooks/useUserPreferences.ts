@@ -60,6 +60,7 @@ export interface UserPreferences {
   difficulty: 'all' | 'makkelijk' | 'gemiddeld' | 'moeilijk';
   customFolders?: CustomFolder[];
   activeFolderId?: string;
+  skipDeleteFolderConfirmation?: boolean;
 }
 
 const DEFAULT_PREFERENCES: UserPreferences = {
@@ -67,6 +68,7 @@ const DEFAULT_PREFERENCES: UserPreferences = {
   selectedCategories: ['province'],
   difficulty: 'all',
   customFolders: [],
+  skipDeleteFolderConfirmation: false,
 };
 
 const GUEST_STORAGE_KEY = 'geoTrainerGuestData';
@@ -95,7 +97,13 @@ export function useUserPreferences() {
           
           if (docSnap.exists()) {
             const data = docSnap.data();
-            if (data.preferences) setPreferences(data.preferences);
+            if (data.preferences) {
+              setPreferences({
+                ...DEFAULT_PREFERENCES,
+                ...data.preferences,
+                customFolders: data.preferences.customFolders || []
+              });
+            }
             
             // Sync cloud data to local storage for useQuizEngine
             if (data.geoStats) {
@@ -139,15 +147,26 @@ export function useUserPreferences() {
           handleFirestoreError(error, OperationType.GET, path);
         }
       } else {
-        // Guest mode
+        // Guest mode / Logged out state
         const localData = localStorage.getItem(GUEST_STORAGE_KEY);
         if (localData) {
           try {
             const parsed = JSON.parse(localData);
-            if (parsed.preferences) setPreferences(parsed.preferences);
+            if (parsed.preferences) {
+              setPreferences({
+                ...DEFAULT_PREFERENCES,
+                ...parsed.preferences,
+                customFolders: parsed.preferences.customFolders || []
+              });
+            } else {
+              setPreferences(DEFAULT_PREFERENCES);
+            }
           } catch (e) {
             console.error("Invalid local storage data");
+            setPreferences(DEFAULT_PREFERENCES);
           }
+        } else {
+          setPreferences(DEFAULT_PREFERENCES);
         }
       }
       setLoading(false);
@@ -202,18 +221,22 @@ export function useUserPreferences() {
   const updatePreferences = async (newPrefs: Partial<UserPreferences>) => {
     const updated = { ...preferences, ...newPrefs };
     setPreferences(updated);
-    
+
     if (user) {
       const path = `users/${user.uid}`;
       try {
         const userDocRef = doc(db, 'users', user.uid);
-        await updateDoc(userDocRef, {
+        await setDoc(userDocRef, {
+          email: user.email || '',
+          displayName: user.displayName || '',
+          updatedAt: new Date().toISOString(),
           preferences: updated
-        });
+        }, { merge: true });
       } catch (error) {
-        handleFirestoreError(error, OperationType.UPDATE, path);
+        handleFirestoreError(error, OperationType.WRITE, path);
       }
     } else {
+      // Save to local cache only if guest
       const currentData = JSON.parse(localStorage.getItem(GUEST_STORAGE_KEY) || '{}');
       localStorage.setItem(GUEST_STORAGE_KEY, JSON.stringify({
         ...currentData,

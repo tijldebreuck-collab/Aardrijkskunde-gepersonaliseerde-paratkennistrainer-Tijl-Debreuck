@@ -30,12 +30,9 @@ service cloud.firestore {
       allow get: if isOwner(userId);
       allow list: if isOwner(userId);
 
-      // Creation allows owner to set the initial schema
-      allow create: if isOwner(userId) && isValidUser(request.resource.data);
-      
-      // Updates allowed for owner
+      // Creation & updates allowed for owner
+      allow create: if isOwner(userId);
       allow update: if isOwner(userId);
-                    
       allow delete: if isOwner(userId);
     }
   }

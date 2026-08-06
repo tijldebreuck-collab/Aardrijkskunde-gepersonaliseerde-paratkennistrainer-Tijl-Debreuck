@@ -340,6 +340,7 @@ export const uiTranslations = {
     // Categories
     catCountries: "Landen",
     catCapitals: "Hoofdsteden",
+    catProvincialCapitals: "Provinciehoofdsteden",
     catRivers: "Rivieren",
     catProvinces: "Provincies",
     catHighways: "Autosnelwegen",
@@ -437,6 +438,7 @@ export const uiTranslations = {
     // Categories
     catCountries: "Countries",
     catCapitals: "Capitals",
+    catProvincialCapitals: "Provincial Capitals",
     catRivers: "Rivers",
     catProvinces: "Provinces",
     catHighways: "Highways",
